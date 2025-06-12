@@ -1771,10 +1771,18 @@
 
         copyButtons.forEach(copyBtn => {
             let isLoading = false;
+            let isCopied = false;
             const originalButtonHTML = copyBtn.innerHTML;
 
             copyBtn.addEventListener('click', async (event) => {
-                if (isLoading || copyBtn.classList.contains('copied')) {
+                if (isLoading) {
+                    return;
+                }
+                // If already copied, allow toggle off
+                if (isCopied) {
+                    copyBtn.innerHTML = originalButtonHTML;
+                    copyBtn.classList.remove('copied');
+                    isCopied = false;
                     return;
                 }
 
@@ -1782,9 +1790,7 @@
                 const scriptCard = button.closest('.script-card');
                 const preElement = scriptCard.querySelector('pre');
                 const scriptText = preElement.dataset.script;
-                
-                const copySuccessful = await copyScriptToClipboard(scriptText);
-                
+
                 isLoading = true;
                 const originalPreText = preElement.innerText;
 
@@ -1798,10 +1804,10 @@
                     </div>
                 `;
                 preElement.insertAdjacentHTML('beforeend', loaderHTML);
-                
+
                 const loaderBar = preElement.querySelector('.loader-bar');
                 const emojiSpan = preElement.querySelector('.emoji');
-                
+
                 // Random duration between 1-5 seconds
                 const duration = Math.floor(Math.random() * 4000) + 1000;
                 if(loaderBar) {
@@ -1816,19 +1822,17 @@
                     }
                 }, 1000);
 
-                setTimeout(() => {
+                setTimeout(async () => {
                     clearInterval(emojiInterval);
+
+                    // Only copy after generation is done
+                    const copySuccessful = await copyScriptToClipboard(scriptText);
 
                     if (copySuccessful) {
                         button.innerHTML = '✓ Copied!';
                         button.classList.add('copied');
+                        isCopied = true;
                         alert("If you are stuck at loading, try to use newest android or ios delta executor or relauch roblox if you are using it already");
-                        
-                        setTimeout(() => {
-                            button.innerHTML = originalButtonHTML;
-                            button.classList.remove('copied');
-                        }, 2000);
-
                     } else {
                         alert('Failed to copy script!');
                     }
@@ -1839,7 +1843,6 @@
                     }
                     preElement.innerText = originalPreText;
                     isLoading = false;
-                    
                 }, duration);
             });
         });
