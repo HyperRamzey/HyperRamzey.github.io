@@ -83,376 +83,566 @@
         color: #f0f0f0;
         font-size: 1em;
         outline: none;
-        transition: all 0.2s ease-in-out;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                   0 10px 30px -10px rgba(0, 0, 0, 0.5);
     }
     #search-bar:focus {
-        border-color: #a78bfa;
-        box-shadow: 0 0 15px rgba(167, 139, 250, 0.3);
+        border-color: rgba(167, 139, 250, 0.7);
+        box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.3),
+                   inset 0 1px 1px rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
     }
     .scripts-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
-        gap: 8px;
+        gap: 20px;
         max-width: 1600px;
         margin: 0 auto;
         position: relative;
         z-index: 1;
     }
     .script-card {
-      background: linear-gradient(135deg, rgba(40, 42, 70, 0.3), rgba(30, 32, 60, 0.2));
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      padding: 30px;
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: inset 0 0 2px 1px rgba(255, 255, 255, 0.08), 0 16px 40px rgba(0,0,0,0.5);
-      display: flex;
-      flex-direction: column;
-      transition: all 0.3s ease;
-      opacity: 0;
-    }
-    .script-card:nth-child(1) { animation-delay: 0.1s; }
-    .script-card:nth-child(2) { animation-delay: 0.2s; }
-    .script-card:nth-child(3) { animation-delay: 0.3s; }
-    .script-card:nth-child(4) { animation-delay: 0.4s; }
-
-    @keyframes fade-in-up {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    @keyframes card-entry-animation {
-        from {
-            opacity: 0;
-            transform: perspective(1000px) translateY(50px) rotateX(-30deg);
-        }
-        to {
-            opacity: 1;
-            transform: perspective(1000px) translateY(0) rotateX(0);
-        }
-    }
-    .script-card:hover {
-        /* transform is now handled by JS */
-        box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
-        border-color: rgba(102, 126, 234, 0.5);
-        color: #000;
-        cursor: pointer;
-        z-index: 1000;
-        box-shadow: 0 4px 20px rgba(138, 43, 226, 0.4);
-        animation: pulse 2s infinite;
+        /* Liquid Glass Card */
+        background: rgba(40, 42, 70, 0.2);
+        backdrop-filter: blur(40px) saturate(180%);
+        -webkit-backdrop-filter: blur(40px) saturate(180%);
+        padding: 30px;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 
+          0 8px 32px rgba(0, 0, 0, 0.2),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        display: flex;
+        flex-direction: column;
+        transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
         opacity: 0;
-        transition: all 0.2s ease-in-out;
-    }
-    .script-card h2 {
-        font-size: 1.4em;
-        font-weight: 600;
-        margin-top: 0;
-        margin-bottom: 5px;
-        color: #ffffff;
-    }
-    .script-meta {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 20px;
-    }
-    .status-tags {
-        display: flex;
-        gap: 8px;
-    }
-    .tag {
-        font-size: 0.75em;
-        font-weight: 600;
-        padding: 4px 10px;
-        border-radius: 6px;
-        color: #fff;
-        border: 1px solid transparent;
-    }
-    .tag.updated {
-        background: linear-gradient(135deg, rgba(45, 212, 191, 0.25) 0%, rgba(45, 212, 191, 0.1) 100%);
-        border-color: rgba(45, 212, 191, 0.4);
-        color: #2dd4bf;
-        cursor: help;
-    }
-    .tag.working {
-        background: linear-gradient(135deg, rgba(167, 139, 250, 0.25) 0%, rgba(167, 139, 250, 0.1) 100%);
-        border-color: rgba(167, 139, 250, 0.4);
-        color: #a78bfa;
-    }
-    .tag.verified {
-        background: linear-gradient(135deg, rgba(250, 204, 21, 0.25) 0%, rgba(250, 204, 21, 0.1) 100%);
-        border-color: rgba(250, 204, 21, 0.4);
-        color: #facc15;
-    }
+        position: relative;
+        overflow: hidden;
+      }
+      .script-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, 
+          rgba(255,255,255,0), 
+          rgba(255,255,255,0.2), 
+          rgba(255,255,255,0));
+      }
+      .script-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 20%;
+        right: 20%;
+        height: 1px;
+        background: linear-gradient(90deg, 
+          rgba(255,255,255,0), 
+          rgba(255,255,255,0.05), 
+          rgba(255,255,255,0));
+      }
+      .script-card:nth-child(1) { animation-delay: 0.1s; }
+      .script-card:nth-child(2) { animation-delay: 0.2s; }
+      .script-card:nth-child(3) { animation-delay: 0.3s; }
+      .script-card:nth-child(4) { animation-delay: 0.4s; }
 
-    .views {
-        font-size: 0.9em;
-        color: #a0aec0;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-    .rating-section {
-        margin-top: auto;
-        padding-top: 20px;
-        border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    .rating-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        margin-bottom: 10px;
-    }
-    .rating-btn {
-        background: none;
-        border: none;
-        color: #a0aec0;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        font-size: 0.9em;
-        transition: color 0.2s;
-    }
-    .rating-btn:hover {
-        color: #fff;
-    }
-    .rating-btn.active {
-        color: #2dd4bf;
-    }
-    .rating-bar {
-        height: 4px;
-        background: rgba(255, 0, 0, 0.4);
-        border-radius: 2px;
-        overflow: hidden;
-    }
-    .like-bar {
-        height: 100%;
-        width: 50%;
-        background: #2dd4bf;
-        transition: width 0.3s;
-    }
-    pre {
-      background: #111;
-      color: #ccc;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 24px;
-      font-size: 1em;
-      user-select: all;
-      text-align: center;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      flex-grow: 1;
-      border: 1px solid rgba(255,255,255,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    .loader-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-    .loader-bar {
-        height: 100%;
-        width: 0;
-        background: linear-gradient(90deg, #4f46e5, #c026d3, #ff5858);
-        animation-name: loading-animation;
-        animation-timing-function: linear;
-        animation-fill-mode: forwards;
-    }
-    .loader-text {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
+      @keyframes fade-in-up {
+          from {
+              opacity: 0;
+              transform: translateY(30px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+      @keyframes card-entry-animation {
+          from {
+              opacity: 0;
+              transform: perspective(1000px) translateY(50px) scale(0.9);
+              filter: brightness(0.8);
+          }
+          to {
+              opacity: 1;
+              transform: perspective(1000px) translateY(0) scale(1);
+              filter: brightness(1);
+          }
+      }
+      .script-card:hover {
+          transform: translateY(-5px) scale(1.02);
+          box-shadow: 
+            0 15px 40px rgba(0, 0, 0, 0.3),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+          border-color: rgba(102, 126, 234, 0.5);
+          z-index: 1000;
+      }
+      .script-card h2 {
+          font-size: 1.4em;
+          font-weight: 600;
+          margin-top: 0;
+          margin-bottom: 5px;
+          color: #ffffff;
+      }
+      .script-meta {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 15px;
+          margin-bottom: 20px;
+      }
+      .status-tags {
+          display: flex;
+          gap: 8px;
+      }
+      .tag {
+          font-size: 0.75em;
+          font-weight: 600;
+          padding: 4px 10px;
+          border-radius: 8px;
+          color: #fff;
+          border: 1px solid transparent;
+      }
+      .tag.updated {
+          background: linear-gradient(135deg, rgba(45, 212, 191, 0.1) 0%, rgba(45, 212, 191, 0.05) 100%);
+          border-color: rgba(45, 212, 191, 0.4);
+          color: #2dd4bf;
+          cursor: help;
+          backdrop-filter: blur(5px);
+          -webkit-backdrop-filter: blur(5px);
+      }
+      .tag.working {
+          background: linear-gradient(135deg, rgba(167, 139, 250, 0.1) 0%, rgba(167, 139, 250, 0.05) 100%);
+          border-color: rgba(167, 139, 250, 0.4);
+          color: #a78bfa;
+          backdrop-filter: blur(5px);
+          -webkit-backdrop-filter: blur(5px);
+      }
+      .tag.verified {
+          background: linear-gradient(135deg, rgba(250, 204, 21, 0.1) 0%, rgba(250, 204, 21, 0.05) 100%);
+          border-color: rgba(250, 204, 21, 0.4);
+          color: #facc15;
+          backdrop-filter: blur(5px);
+          -webkit-backdrop-filter: blur(5px);
+      }
+
+      .views {
+          font-size: 0.9em;
+          color: #a0aec0;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+      }
+      .rating-section {
+          margin-top: auto;
+          padding-top: 20px;
+          border-top: 1px solid rgba(255,255,255,0.1);
+      }
+      .rating-buttons {
+          display: flex;
+          justify-content: center;
+          gap: 15px;
+          margin-bottom: 10px;
+      }
+      .rating-btn {
+          background: none;
+          border: none;
+          color: #a0aec0;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          font-size: 0.9em;
+          transition: color 0.2s;
+      }
+      .rating-btn:hover {
+          color: #fff;
+      }
+      .rating-btn.active {
+          color: #2dd4bf;
+      }
+      .rating-bar {
+          height: 4px;
+          background: rgba(255, 0, 0, 0.4);
+          border-radius: 2px;
+          overflow: hidden;
+      }
+      .like-bar {
+          height: 100%;
+          width: 50%;
+          background: #2dd4bf;
+          transition: width 0.3s;
+      }
+      pre {
+        /* Liquid Glass Code Block */
+        background: rgba(17, 17, 27, 0.3);
+        color: #ccc;
+        padding: 20px;
+        border-radius: 16px;
+        margin-bottom: 24px;
         font-size: 1em;
-        font-weight: 600;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-        z-index: 1;
-    }
-    @keyframes loading-animation {
-        from { width: 0%; }
-        to { width: 100%; }
-    }
-    .buttons {
+        user-select: all;
+        text-align: center;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        flex-grow: 1;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05),
+                   0 10px 30px -10px rgba(0, 0, 0, 0.3);
+        transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      pre:hover {
+        background: rgba(17, 17, 27, 0.4);
+        border-color: rgba(255, 255, 255, 0.15);
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                   0 15px 35px -10px rgba(0, 0, 0, 0.4);
+      }
+      .loader-container {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border-radius: 10px;
+          overflow: hidden;
+      }
+      .loader-bar {
+          height: 100%;
+          width: 0;
+          background: linear-gradient(90deg, 
+              rgba(79, 70, 229, 0.5), 
+              rgba(192, 38, 211, 0.5), 
+              rgba(255, 88, 88, 0.5));
+          animation-name: loading-animation;
+          animation-timing-function: linear;
+          animation-fill-mode: forwards;
+      }
+      .loader-text {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 1em;
+          font-weight: 600;
+          text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+          z-index: 1;
+      }
+      @keyframes loading-animation {
+          from { width: 0%; }
+          to { width: 100%; }
+      }
+      .buttons {
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
-    }
-    .btn {
+      }
+      .btn {
+        /* Liquid Glass Button */
         color: #fff;
         padding: 12px 24px;
-        border-radius: 50px;
+        border-radius: 16px;
         font-size: 0.95em;
         font-weight: 600;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         outline: none;
         text-decoration: none;
         text-align: center;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.1), 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-    .btn:hover {
-        transform: translateY(-3px) scale(1.02);
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1));
-        box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.15), 0 8px 25px rgba(0, 0, 0, 0.3);
-    }
-    .btn:active {
-        transform: translateY(-1px) scale(1.01);
-        box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.15), 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-    .copy-btn {
-        background: linear-gradient(45deg, rgba(79, 70, 229, 0.6), rgba(192, 38, 211, 0.5));
-        border-color: rgba(192, 38, 211, 0.6);
-        box-shadow: inset 0 0 1.5px 1px rgba(255, 255, 255, 0.1), 0 4px 20px rgba(138, 43, 226, 0.3);
-    }
-    .copy-btn:hover {
-        background: linear-gradient(45deg, rgba(79, 70, 229, 0.7), rgba(192, 38, 211, 0.6));
-        box-shadow: inset 0 0 1.5px 1px rgba(255, 255, 255, 0.15), 0 8px 30px rgba(138, 43, 226, 0.4);
-    }
-    .copy-btn.copied {
-        background: linear-gradient(45deg, #2edc7a, #28a745);
-        border-color: #2edc7a;
-        box-shadow: 0 4px 20px rgba(46, 220, 122, 0.4);
-    }
-    .secondary-btn, .tiktok-btn {
-        border-color: #4a5568;
-    }
-    .secondary-btn:hover, .tiktok-btn:hover {
-        border-color: rgba(255, 255, 255, 0.3);
-    }
-    .tiktok-btn:hover {
-        background: rgba(45, 212, 191, 0.2);
-    }
-    #cursor-light {
-        position: fixed;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 
+          0 4px 12px rgba(0, 0, 0, 0.1),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+      .btn::before {
+        content: '';
+        position: absolute;
         top: 0;
-        left: 0;
-        width: 800px;
-        height: 800px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 40%);
-        pointer-events: none;
-        transform: translate(-50%, -50%);
-        z-index: 0;
-        filter: blur(15px);
-        will-change: transform, width, height, opacity;
-        mix-blend-mode: screen;
-    }
-    .placard {
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        transition: 0.5s;
+      }
+      .btn:hover {
+        transform: translateY(-3px) scale(1.02);
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 
+          0 8px 20px rgba(0, 0, 0, 0.2),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+      }
+      .btn:hover::before {
+        left: 100%;
+      }
+      .btn:active {
+        transform: translateY(-1px) scale(1.01);
+        box-shadow: 
+          0 4px 12px rgba(0, 0, 0, 0.1),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+      }
+      .copy-btn {
+        background: linear-gradient(
+          135deg, 
+          rgba(79, 70, 229, 0.2), 
+          rgba(192, 38, 211, 0.15)
+        );
+        border-color: rgba(192, 38, 211, 0.3);
+        box-shadow: 
+          0 8px 20px rgba(138, 43, 226, 0.2),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+      }
+      .copy-btn:hover {
+        background: linear-gradient(
+          135deg, 
+          rgba(79, 70, 229, 0.25), 
+          rgba(192, 38, 211, 0.2)
+        );
+        box-shadow: 
+          0 8px 20px rgba(138, 43, 226, 0.3),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+      }
+      .copy-btn.copied {
+        background: linear-gradient(
+          135deg, 
+          rgba(46, 220, 122, 0.2), 
+          rgba(40, 167, 69, 0.15)
+        );
+        border-color: rgba(46, 220, 122, 0.3);
+        box-shadow: 
+          0 8px 20px rgba(46, 220, 122, 0.2),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+      }
+      .secondary-btn, .tiktok-btn {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: rgba(255, 255, 255, 0.15);
+      }
+      .secondary-btn:hover, .tiktok-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+      .tiktok-btn:hover {
+        background: rgba(45, 212, 191, 0.1);
+      }
+      #cursor-light {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 800px;
+          height: 800px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle, 
+            rgba(102, 126, 234, 0.08) 0%,
+            rgba(102, 126, 234, 0.05) 30%,
+            transparent 70%
+          );
+          pointer-events: none;
+          transform: translate(-50%, -50%);
+          z-index: 0;
+          filter: blur(30px);
+          will-change: transform, width, height, opacity;
+          mix-blend-mode: screen;
+          transition: width 0.3s ease-out, height 0.3s ease-out, opacity 0.3s ease-out;
+      }
+      .placard {
         position: fixed;
         bottom: 20px;
         left: 20px;
         padding: 15px 25px;
-        border-radius: 50px;
+        border-radius: 16px;
         font-weight: 600;
         cursor: pointer;
         z-index: 1000;
-        animation: pulse 2s infinite, fade-in-up 0.6s ease-out 1.1s forwards;
         opacity: 0;
-        transition: all 0.2s ease-in-out;
-        /* Inherit from .btn and override */
-        background: linear-gradient(45deg, rgba(79, 70, 229, 0.6), rgba(192, 38, 211, 0.5));
-        border: 1px solid rgba(192, 38, 211, 0.6);
-        box-shadow: inset 0 0 1.5px 1px rgba(255, 255, 255, 0.1), 0 4px 20px rgba(138, 43, 226, 0.3);
-    }
-    .placard:hover {
-        transform: scale(1.05);
-        filter: brightness(1.15);
-        animation-play-state: paused;
-        box-shadow: inset 0 0 1.5px 1px rgba(255, 255, 255, 0.15), 0 6px 25px rgba(138, 43, 226, 0.4);
-    }
-    .placard:active {
+        transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        /* Liquid Glass Placard */
+        background: rgba(79, 70, 229, 0.15);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border: 1px solid rgba(192, 38, 211, 0.3);
+        box-shadow: 
+          0 8px 20px rgba(138, 43, 226, 0.2),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+      }
+      .placard::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        animation: shine 3s infinite;
+      }
+      @keyframes shine {
+        0% { left: -100%; }
+        20% { left: 100%; }
+        100% { left: 100%; }
+      }
+      .placard:hover {
+        transform: scale(1.05) translateY(-2px);
+        background: rgba(79, 70, 229, 0.2);
+        border-color: rgba(192, 38, 211, 0.5);
+        box-shadow: 
+          0 12px 30px rgba(138, 43, 226, 0.3),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+      }
+      .placard:active {
         transform: scale(1.02);
-        background: linear-gradient(45deg, #c026d3, #4f46e5);
-        filter: brightness(1);
-    }
-    @keyframes pulse {
-        0% { box-shadow: inset 0 0 1.5px 1px rgba(255, 255, 255, 0.1), 0 5px 20px rgba(79, 70, 229, 0.4); }
-        50% { box-shadow: inset 0 0 1.5px 1px rgba(255, 255, 255, 0.1), 0 5px 30px rgba(192, 38, 211, 0.5); }
-        100% { box-shadow: inset 0 0 1.5px 1px rgba(255, 255, 255, 0.1), 0 5px 20px rgba(79, 70, 229, 0.4); }
-    }
-    .modal-overlay {
+        box-shadow: 
+          0 8px 20px rgba(138, 43, 226, 0.2),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+      }
+      @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4); }
+        70% { box-shadow: 0 0 0 15px rgba(79, 70, 229, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+      }
+      
+      /* Liquid Glass Back to Top Button */
+      #back-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5em;
+        border-radius: 50%;
+        z-index: 1000;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        opacity: 0;
+        pointer-events: none;
+        background: rgba(45, 212, 191, 0.1);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border: 1px solid rgba(45, 212, 191, 0.3);
+        color: #2dd4bf;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 
+          0 8px 20px rgba(45, 212, 191, 0.15),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        transform: translateY(100px);
+      }
+      #back-to-top.visible {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+      #back-to-top:hover {
+        background: rgba(45, 212, 191, 0.15);
+        color: #fff;
+        transform: scale(1.1);
+        box-shadow: 
+          0 12px 30px rgba(45, 212, 191, 0.25),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+      }
+      
+      /* Liquid Glass Entry Button */
+      #enter-btn {
+        font-size: 1.5em;
+        padding: 20px 40px;
+        position: relative;
+        margin-top: 20px;
+        background: rgba(79, 70, 229, 0.15);
+        backdrop-filter: blur(40px) saturate(180%);
+        -webkit-backdrop-filter: blur(40px) saturate(180%);
+        border: 1px solid rgba(192, 38, 211, 0.3);
+        border-radius: 16px;
+        box-shadow: 
+          0 20px 60px rgba(138, 43, 226, 0.3),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        overflow: hidden;
+      }
+      #enter-btn:hover {
+        transform: translateY(-3px) scale(1.02);
+        background: rgba(79, 70, 229, 0.2);
+        box-shadow: 
+          0 30px 70px rgba(138, 43, 226, 0.4),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+      }
+      
+      .modal-overlay {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(5px);
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px) saturate(180%);
+        -webkit-backdrop-filter: blur(10px) saturate(180%);
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 1001;
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.4s ease-out;
-    }
-    .modal-overlay.visible {
+        transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .modal-overlay.visible {
         opacity: 1;
         pointer-events: auto;
-    }
-    .modal-content {
-        background: linear-gradient(135deg, rgba(40, 42, 70, 0.4), rgba(30, 32, 60, 0.3));
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 30px 40px;
+      }
+      .modal-content {
+        /* Liquid Glass Modal */
+        background: rgba(40, 42, 70, 0.2);
+        backdrop-filter: blur(40px) saturate(180%);
+        -webkit-backdrop-filter: blur(40px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 40px;
         border-radius: 24px;
         max-width: 500px;
         width: 90%;
         text-align: left;
         position: relative;
-        box-shadow: inset 0 0 2px 1px rgba(255, 255, 255, 0.08), 0 16px 40px rgba(0,0,0,0.5);
+        box-shadow: 
+          0 20px 60px rgba(0, 0, 0, 0.3),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
         transform: translateY(20px) scale(0.95);
-        transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
         overflow: hidden;
-    }
-    .modal-overlay.visible .modal-content {
+      }
+      .modal-overlay.visible .modal-content {
         transform: translateY(0) scale(1);
-        width: 100%;
-        padding: 15px 20px;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 12px;
-        color: #f0f0f0;
-        font-size: 1em;
-        outline: none;
-        transition: all 0.2s ease-in-out;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.1);
-    }
-    .modal-content::before {
+      }
+      .modal-content::before {
         content: '';
         position: absolute;
         top: -50%;
         left: -50%;
-        z-index: -1;
         width: 200%;
         height: 200%;
         background: conic-gradient(
@@ -461,438 +651,637 @@
             #2dd4bf,
             #c026d3
         );
-        animation: rotate-border 4s linear infinite;
-    }
-    @keyframes rotate-border {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-    .close-modal {
+        opacity: 0.1;
+        animation: rotate-border 8s linear infinite;
+        z-index: -1;
+      }
+      @keyframes rotate-border {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+      }
+      .close-modal {
+          position: absolute;
+          top: 15px;
+          right: 20px;
+          font-size: 2em;
+          font-weight: bold;
+          color: #aaa;
+          cursor: pointer;
+          transition: color 0.2s ease;
+      }
+      .close-modal:hover {
+          color: white;
+      }
+      .modal-content h2 {
+          margin-top: 0;
+          color: white;
+          text-align: center;
+      }
+      .modal-content p, .modal-content li {
+          line-height: 1.6;
+          color: #ccc;
+      }
+      .modal-content a {
+          color: #2dd4bf;
+          text-decoration: none;
+          font-weight: 600;
+      }
+      .modal-content a:hover {
+          text-decoration: underline;
+      }
+      body.content-entered #main-content {
+          visibility: visible;
+      }
+      body.content-entered #logo-bottle {
+          animation: fade-in-up 0.6s ease-out 0.1s forwards, liquid-float 6s ease-in-out infinite 0.7s;
+      }
+      body.content-entered .main-title {
+          animation: fade-in-up 0.6s ease-out 0.2s forwards;
+      }
+      body.content-entered .subtitle {
+          animation: fade-in-up 0.6s ease-out 0.3s forwards;
+      }
+      body.content-entered .search-container {
+          animation: fade-in-up 0.6s ease-out 0.4s forwards;
+      }
+      body.content-entered .script-card {
+          animation: card-entry-animation 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+      body.content-entered .script-card:nth-child(1) { animation-delay: 0.6s; }
+      body.content-entered .script-card:nth-child(2) { animation-delay: 0.7s; }
+      body.content-entered .script-card:nth-child(3) { animation-delay: 0.8s; }
+      body.content-entered .script-card:nth-child(4) { animation-delay: 0.9s; }
+      body.content-entered .placard {
+          animation: pulse 2s infinite, fade-in-up 0.6s ease-out 1.1s forwards;
+      }
+      .title-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 20px;
+      }
+      #logo-bottle {
+          z-index: 1;
+          opacity: 0;
+          transform: translateY(20px);
+      }
+      .bottle {
+          width: 45px;
+          height: 75px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          border-radius: 30px 30px 5px 5px;
+          position: relative;
+          backdrop-filter: blur(20px) saturate(180%);
+          -webkit-backdrop-filter: blur(20px) saturate(180%);
+          box-shadow: 
+            0 8px 20px rgba(0, 0, 0, 0.15),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+          overflow: hidden;
+      }
+      .bottle::before {
+        content: '';
         position: absolute;
-        top: 15px;
-        right: 20px;
-        font-size: 2em;
-        font-weight: bold;
-        color: #aaa;
-        cursor: pointer;
-        transition: color 0.2s ease;
-    }
-    .close-modal:hover {
-        color: white;
-    }
-    .modal-content h2 {
-        margin-top: 0;
-        color: white;
-        text-align: center;
-    }
-    .modal-content p, .modal-content li {
-        line-height: 1.6;
-        color: #ccc;
-    }
-    .modal-content a {
-        color: #2dd4bf;
-        text-decoration: none;
-        font-weight: 600;
-    }
-    .modal-content a:hover {
-        text-decoration: underline;
-    }
-    #entry-screen {
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 40%;
+        background: linear-gradient(
+          180deg,
+          rgba(79, 70, 229, 0.2),
+          rgba(192, 38, 211, 0.3)
+        );
+        border-radius: 0 0 5px 5px;
+        animation: liquid-shimmer 3s ease-in-out infinite;
+        background-size: 200% 200%;
+      }
+      .bottle::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        border-radius: 30px 30px 5px 5px;
+      }
+      .stick {
+          width: 8px;
+          height: 55px;
+          background: #a0aec0;
+          position: absolute;
+          top: 15px;
+          left: -22px;
+          transform: rotate(45deg);
+          border-radius: 5px;
+      }
+      .smoke {
+          position: absolute;
+          top: -8px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 15px;
+          height: 40px;
+      }
+      .smoke span {
+          display: block;
+          width: 6px;
+          height: 6px;
+          background: rgba(255,255,255,0.4);
+          border-radius: 50%;
+          position: absolute;
+          bottom: 0;
+          opacity: 0;
+          animation: smoke-up 3s linear infinite;
+      }
+      .smoke span:nth-child(2) { animation-delay: 1s; }
+      .smoke span:nth-child(3) { animation-delay: 2s; }
+      @keyframes smoke-up {
+          0% { opacity: 0; transform: translateY(0) scale(0.5); }
+          20% { opacity: 1; }
+          100% { opacity: 0; transform: translateY(-50px) scale(2) translateX(10px) rotate(360deg); }
+      }
+      #back-to-top {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 50px;
+          height: 50px;
+          font-size: 1.5em;
+          border-radius: 50%;
+          z-index: 1000;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          opacity: 0;
+          pointer-events: none;
+          /* Glass effect */
+          background: linear-gradient(135deg, rgba(45, 212, 191, 0.15), rgba(45, 212, 191, 0.1));
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(45, 212, 191, 0.2);
+          color: #2dd4bf;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          box-shadow: inset 0 0 1px 1px rgba(45, 212, 191, 0.1);
+      }
+      #back-to-top.visible {
+          opacity: 1;
+          pointer-events: auto;
+      }
+      #back-to-top:hover {
+          background: linear-gradient(135deg, rgba(45, 212, 191, 0.2), rgba(45, 212, 191, 0.15));
+          color: #fff;
+          transform: scale(1.1);
+          box-shadow: inset 0 0 1px 1px rgba(45, 212, 191, 0.15), 0 4px 15px rgba(0,0,0,0.2);
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+          width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+          background: #0c0d1b;
+      }
+      ::-webkit-scrollbar-thumb {
+          background: #4f46e5;
+          border-radius: 5px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+          background: #c026d3;
+      }
+      body {
+          scrollbar-width: thin;
+          scrollbar-color: #4f46e5 #0c0d1b;
+      }
+      header .dropdown-menu-container {
+          margin-left: auto; /* Pushes dropdown to the right */
+          position: relative;
+          display: inline-block;
+      }
+      #dropdown-btn {
+          padding: 10px 20px;
+          font-size: 1em;
+          font-weight: 600;
+          background: rgba(59, 130, 246, 0.2);
+          color: #bfdbfe;
+          border: 1px solid rgba(59, 130, 246, 0.5);
+      }
+      #dropdown-btn:hover {
+          background: rgba(59, 130, 246, 0.3);
+      }
+      .dropdown-content {
+          display: none;
+          position: absolute;
+          right: 0;
+          background: rgba(30, 30, 42, 0.75);
+          backdrop-filter: blur(20px) saturate(180%);
+          -webkit-backdrop-filter: blur(20px) saturate(180%);
+          border: 1px solid rgba(255, 255, 255, 0.125);
+          min-width: 180px;
+          box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+          border-radius: 12px;
+          z-index: 100;
+          padding: 8px 0;
+          animation: fadeIn 0.2s ease-out;
+      }
+      .dropdown-content a {
+          color: #e2e8f0;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+          font-size: 0.9em;
+          transition: background-color 0.2s, color 0.2s;
+      }
+      .dropdown-content a:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+          color: #fff;
+      }
+      .dropdown-content.show {
+          display: block;
+      }
+      @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+      }
+      #search-bar {
+          margin-top: 30px;
+      }
+      #pet-modal .modal-content a {
+          color: #2dd4bf;
+          text-decoration: none;
+          font-weight: bold;
+      }
+      #pet-modal .modal-content a:hover {
+          text-decoration: underline;
+      }
+
+      #back-to-top {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 50px;
+          height: 50px;
+          font-size: 1.5em;
+          border-radius: 50%;
+          z-index: 1000;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          opacity: 0;
+          pointer-events: none;
+          /* Glass effect */
+          background: linear-gradient(135deg, rgba(45, 212, 191, 0.15), rgba(45, 212, 191, 0.1));
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(45, 212, 191, 0.2);
+          color: #2dd4bf;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          box-shadow: inset 0 0 1px 1px rgba(45, 212, 191, 0.1);
+          transform: translateY(100px);
+      }
+      #back-to-top.visible {
+          opacity: 1;
+          pointer-events: auto;
+      }
+      #back-to-top:hover {
+          background: linear-gradient(135deg, rgba(45, 212, 191, 0.2), rgba(45, 212, 191, 0.15));
+          color: #fff;
+          transform: scale(1.1);
+          box-shadow: inset 0 0 1px 1px rgba(45, 212, 191, 0.15), 0 4px 15px rgba(0,0,0,0.2);
+      }
+      /* Remove placard styles */
+      .animated-placard { display: none; }
+
+      .script-card .card-buttons {
+          display: flex;
+          gap: 15px;
+          margin-top: 15px;
+          width: 100%;
+          justify-content: center; /* Center the single button */
+      }
+
+      .script-card .btn {
+          flex-grow: 1;
+          max-width: 280px; /* Give it a max-width */
+      }
+
+      @media (max-width: 768px) {
+          .header-content {
+              display: flex;
+              align-items: center;
+          }
+          .subtitle-container {
+              flex-direction: column;
+              gap: 10px;
+          }
+      }
+      
+      @media (max-width: 480px) {
+          .header-content {
+              display: flex;
+              align-items: center;
+          }
+          .subtitle-container {
+              flex-direction: column;
+              gap: 10px;
+          }
+      }
+
+      .dropdown-btn-special {
+          background-image: linear-gradient(to right, #10b981 0%, #34d399 50%, #10b981 100%) !important;
+          background-size: 200% auto !important;
+          color: #fff !important;
+          font-weight: 600 !important;
+          text-align: center !important;
+          border-radius: 8px !important;
+          margin: 8px !important;
+          padding: 12px 16px !important;
+          transition: all 0.3s ease !important;
+      }
+      .dropdown-btn-special:hover {
+          background-position: right center !important;
+          background-color: transparent !important;
+          transform: scale(1.05);
+      }
+      
+      .dropdown-content.show {
+          display: block;
+      }
+
+      #particles-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      
+      .particle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 10px 2px rgba(102, 126, 234, 0.3);
+        pointer-events: none;
+      }
+      
+      .fluid-animation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      #fluid-canvas {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: all;
+          z-index: -1;
+          background-color: #0c0d1b;
+      }
+      
+      #star-map-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        pointer-events: none;
+      }
+      
+      /* Liquid Glass Animation Effects */
+      @keyframes liquid-float {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0.8;
+        }
+        50% {
+          transform: translateY(-15px) rotate(2deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0.8;
+        }
+      }
+       
+       @keyframes liquid-shimmer {
+         0% {
+           opacity: 0.3;
+           background-position: 0% 50%;
+         }
+         50% {
+           opacity: 0.5;
+           background-position: 100% 50%;
+         }
+         100% {
+           opacity: 0.3;
+           background-position: 0% 50%;
+         }
+       }
+       
+       @keyframes liquid-pulse {
+         0% {
+           transform: scale(1);
+           opacity: 1;
+         }
+         50% {
+           transform: scale(1.05);
+           opacity: 0.8;
+         }
+         100% {
+           transform: scale(1);
+           opacity: 1;
+         }
+       }
+       
+       /* Custom Scrollbar for Liquid Glass theme */
+       ::-webkit-scrollbar {
+         width: 10px;
+       }
+       ::-webkit-scrollbar-track {
+         background: rgba(12, 13, 27, 0.3);
+         backdrop-filter: blur(10px);
+       }
+       ::-webkit-scrollbar-thumb {
+         background: rgba(79, 70, 229, 0.3);
+         border-radius: 5px;
+         border: 1px solid rgba(255, 255, 255, 0.1);
+       }
+       ::-webkit-scrollbar-thumb:hover {
+         background: rgba(192, 38, 211, 0.4);
+       }
+       body {
+         scrollbar-width: thin;
+         scrollbar-color: rgba(79, 70, 229, 0.3) rgba(12, 13, 27, 0.3);
+       }
+
+      /* Entry screen large bottle */
+      .entry-logo {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 40px;
+      }
+      .bottle-large {
+          width: 240px;
+          height: 400px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          border-radius: 160px 160px 30px 30px;
+          position: relative;
+          backdrop-filter: blur(20px) saturate(180%);
+          -webkit-backdrop-filter: blur(20px) saturate(180%);
+          box-shadow: 
+              0 20px 40px rgba(0, 0, 0, 0.2),
+              inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+          overflow: hidden;
+          animation: liquid-float 6s ease-in-out infinite;
+      }
+      .bottle-large::before {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 40%;
+          background: linear-gradient(
+              180deg,
+              rgba(79, 70, 229, 0.2),
+              rgba(192, 38, 211, 0.3)
+          );
+          border-radius: 0 0 30px 30px;
+          animation: liquid-shimmer 3s ease-in-out infinite;
+          background-size: 200% 200%;
+      }
+      .bottle-large::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+              135deg,
+              rgba(255, 255, 255, 0.1) 0%,
+              rgba(255, 255, 255, 0) 100%
+          );
+          border-radius: 160px 160px 30px 30px;
+      }
+      .stick-large {
+          width: 40px;
+          height: 260px;
+          background: #a0aec0;
+          position: absolute;
+          top: 80px;
+          left: -120px;
+          transform: rotate(45deg);
+          border-radius: 20px;
+          z-index: 1;
+      }
+      .bottle-large .smoke {
+          position: absolute;
+          top: -30px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 60px;
+          height: 160px;
+          z-index: 2;
+      }
+      .bottle-large .smoke span {
+          display: block;
+          width: 24px;
+          height: 24px;
+          background: rgba(255,255,255,0.4);
+          border-radius: 50%;
+          position: absolute;
+          bottom: 0;
+          opacity: 0;
+          animation: smoke-up-large 4s linear infinite;
+      }
+      .bottle-large .smoke span:nth-child(1) {
+          left: 0;
+      }
+      .bottle-large .smoke span:nth-child(2) {
+          left: 20px;
+          animation-delay: 1.5s;
+      }
+      .bottle-large .smoke span:nth-child(3) {
+          left: 40px;
+          animation-delay: 3s;
+      }
+      
+      /* Entry title */
+      .entry-title {
+          font-size: 3.5em;
+          font-weight: 700;
+          color: white;
+          text-align: center;
+          margin: 30px 0;
+          text-shadow: 0 0 10px rgba(102, 126, 234, 0.4), 0 0 20px rgba(102, 126, 234, 0.3);
+      }
+      
+      #entry-screen {
         position: fixed;
         top: 0;
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: #0c0d1b;
+        background: linear-gradient(135deg, #0c0d1b, #1a1c3c);
         z-index: 9999;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        transition: opacity 0.5s ease-out;
-    }
-    #enter-btn {
+        transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      
+      #enter-btn {
         font-size: 1.5em;
         padding: 20px 40px;
         position: relative;
-    }
-    #enter-btn span {
-        position: relative;
-        z-index: 2;
-    }
-    #enter-btn:before,
-    #enter-btn:after {
-        content: attr(data-text);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #0c0d1b;
-        clip: rect(0, 0, 0, 0);
-    }
-    #enter-btn:hover:before {
-        animation: glitch-2 1.5s infinite linear alternate-reverse;
-    }
-    #enter-btn:hover:after {
-        animation: glitch-1 1.5s infinite linear alternate-reverse;
-    }
-
-    @keyframes glitch-1 {
-        0%, 20%, 45%, 55%, 70%, 100% { clip: rect(0, 0, 0, 0); }
-        5% { clip: rect(40px, 9999px, 50px, 0); }
-        30% { clip: rect(20px, 9999px, 35px, 0); }
-        60% { clip: rect(65px, 9999px, 80px, 0); }
-        80% { clip: rect(5px, 9999px, 15px, 0); }
-    }
-    @keyframes glitch-2 {
-        0%, 20%, 45%, 55%, 70%, 100% { clip: rect(0, 0, 0, 0); }
-        10% { clip: rect(10px, 9999px, 25px, 0); text-shadow: -2px 0 red; }
-        40% { clip: rect(55px, 9999px, 65px, 0); text-shadow: -2px 0 blue; }
-        65% { clip: rect(30px, 9999px, 40px, 0); text-shadow: 2px 0 green; }
-        85% { clip: rect(75px, 9999px, 90px, 0); text-shadow: 2px 0 yellow; }
-    }
-    body.content-entered #main-content {
-        visibility: visible;
-    }
-    body.content-entered #logo-bottle {
-        animation: fade-in-up 0.6s ease-out 0.1s forwards;
-    }
-    body.content-entered .main-title {
-        animation: fade-in-up 0.6s ease-out 0.2s forwards;
-    }
-    body.content-entered .subtitle {
-        animation: fade-in-up 0.6s ease-out 0.3s forwards;
-    }
-    body.content-entered .search-container {
-        animation: fade-in-up 0.6s ease-out 0.4s forwards;
-    }
-    body.content-entered .script-card {
-        animation: card-entry-animation 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    }
-    body.content-entered .script-card:nth-child(1) { animation-delay: 0.6s; }
-    body.content-entered .script-card:nth-child(2) { animation-delay: 0.7s; }
-    body.content-entered .script-card:nth-child(3) { animation-delay: 0.8s; }
-    body.content-entered .script-card:nth-child(4) { animation-delay: 0.9s; }
-    body.content-entered .placard {
-        animation: pulse 2s infinite, fade-in-up 0.6s ease-out 1.1s forwards;
-    }
-    .title-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-    }
-    #logo-bottle {
-        z-index: 1;
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    .bottle {
-        width: 45px;
-        height: 75px;
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 30px 30px 5px 5px;
-        position: relative;
-        backdrop-filter: blur(5px);
-    }
-    .stick {
-        width: 8px;
-        height: 55px;
-        background: #a0aec0;
-        position: absolute;
-        top: 15px;
-        left: -22px;
-        transform: rotate(45deg);
-        border-radius: 5px;
-    }
-    .smoke {
-        position: absolute;
-        top: -8px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 15px;
-        height: 40px;
-    }
-    .smoke span {
-        display: block;
-        width: 6px;
-        height: 6px;
-        background: rgba(255,255,255,0.4);
-        border-radius: 50%;
-        position: absolute;
-        bottom: 0;
-        opacity: 0;
-        animation: smoke-up 3s linear infinite;
-    }
-    .smoke span:nth-child(2) { animation-delay: 1s; }
-    .smoke span:nth-child(3) { animation-delay: 2s; }
-    @keyframes smoke-up {
-        0% { opacity: 0; transform: translateY(0) scale(0.5); }
-        20% { opacity: 1; }
-        100% { opacity: 0; transform: translateY(-50px) scale(2) translateX(10px) rotate(360deg); }
-    }
-    #back-to-top {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        font-size: 1.5em;
-        border-radius: 50%;
-        z-index: 1000;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        opacity: 0;
-        pointer-events: none;
-        /* Glass effect */
-        background: linear-gradient(135deg, rgba(45, 212, 191, 0.15), rgba(45, 212, 191, 0.1));
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(45, 212, 191, 0.2);
-        color: #2dd4bf;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: inset 0 0 1px 1px rgba(45, 212, 191, 0.1);
-    }
-    #back-to-top.visible {
-        opacity: 1;
-        pointer-events: auto;
-    }
-    #back-to-top:hover {
-        background: linear-gradient(135deg, rgba(45, 212, 191, 0.2), rgba(45, 212, 191, 0.15));
-        color: #fff;
-        transform: scale(1.1);
-        box-shadow: inset 0 0 1px 1px rgba(45, 212, 191, 0.15), 0 4px 15px rgba(0,0,0,0.2);
-    }
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-    ::-webkit-scrollbar-track {
-        background: #0c0d1b;
-    }
-    ::-webkit-scrollbar-thumb {
-        background: #4f46e5;
-        border-radius: 5px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-        background: #c026d3;
-    }
-    body {
-        scrollbar-width: thin;
-        scrollbar-color: #4f46e5 #0c0d1b;
-    }
-    header .dropdown-menu-container {
-        margin-left: auto; /* Pushes dropdown to the right */
-        position: relative;
-        display: inline-block;
-    }
-    #dropdown-btn {
-        padding: 10px 20px;
-        font-size: 1em;
-        font-weight: 600;
-        background: rgba(59, 130, 246, 0.2);
-        color: #bfdbfe;
-        border: 1px solid rgba(59, 130, 246, 0.5);
-    }
-    #dropdown-btn:hover {
-        background: rgba(59, 130, 246, 0.3);
-    }
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        right: 0;
-        background: rgba(30, 30, 42, 0.75);
-        backdrop-filter: blur(20px) saturate(180%);
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.125);
-        min-width: 180px;
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        border-radius: 12px;
-        z-index: 100;
-        padding: 8px 0;
-        animation: fadeIn 0.2s ease-out;
-    }
-    .dropdown-content a {
-        color: #e2e8f0;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        font-size: 0.9em;
-        transition: background-color 0.2s, color 0.2s;
-    }
-    .dropdown-content a:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        color: #fff;
-    }
-    .dropdown-content.show {
-        display: block;
-    }
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    #search-bar {
-        margin-top: 30px;
-    }
-    #pet-modal .modal-content a {
-        color: #2dd4bf;
-        text-decoration: none;
-        font-weight: bold;
-    }
-    #pet-modal .modal-content a:hover {
-        text-decoration: underline;
-    }
-
-    #back-to-top {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        font-size: 1.5em;
-        border-radius: 50%;
-        z-index: 1000;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        opacity: 0;
-        pointer-events: none;
-        /* Glass effect */
-        background: linear-gradient(135deg, rgba(45, 212, 191, 0.15), rgba(45, 212, 191, 0.1));
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(45, 212, 191, 0.2);
-        color: #2dd4bf;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: inset 0 0 1px 1px rgba(45, 212, 191, 0.1);
-        transform: translateY(100px);
-    }
-    #back-to-top.visible {
-        opacity: 1;
-        pointer-events: auto;
-    }
-    #back-to-top:hover {
-        background: linear-gradient(135deg, rgba(45, 212, 191, 0.2), rgba(45, 212, 191, 0.15));
-        color: #fff;
-        transform: scale(1.1);
-        box-shadow: inset 0 0 1px 1px rgba(45, 212, 191, 0.15), 0 4px 15px rgba(0,0,0,0.2);
-    }
-    /* Remove placard styles */
-    .animated-placard { display: none; }
-
-    .script-card .card-buttons {
-        display: flex;
-        gap: 15px;
-        margin-top: 15px;
-        width: 100%;
-        justify-content: center; /* Center the single button */
-    }
-
-    .script-card .btn {
-        flex-grow: 1;
-        max-width: 280px; /* Give it a max-width */
-    }
-
-    @media (max-width: 768px) {
-        .header-content {
-            display: flex;
-            align-items: center;
-        }
-        .subtitle-container {
-            flex-direction: column;
-            gap: 10px;
-        }
-    }
-    
-    @media (max-width: 480px) {
-        .header-content {
-            display: flex;
-            align-items: center;
-        }
-        .subtitle-container {
-            flex-direction: column;
-            gap: 10px;
-        }
-    }
-
-    .dropdown-btn-special {
-        background-image: linear-gradient(to right, #10b981 0%, #34d399 50%, #10b981 100%) !important;
-        background-size: 200% auto !important;
-        color: #fff !important;
-        font-weight: 600 !important;
-        text-align: center !important;
-        border-radius: 8px !important;
-        margin: 8px !important;
-        padding: 12px 16px !important;
-        transition: all 0.3s ease !important;
-    }
-    .dropdown-btn-special:hover {
-        background-position: right center !important;
-        background-color: transparent !important;
-        transform: scale(1.05);
-    }
-    
-    .dropdown-content.show {
-        display: block;
-    }
-
-    #particles-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.5);
-      box-shadow: 0 0 10px 2px rgba(102, 126, 234, 0.3);
-      pointer-events: none;
-    }
-    
-    .fluid-animation {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    #fluid-canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: all;
-        z-index: -1;
-        background-color: #0c0d1b;
-    }
-    
-    #star-map-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      pointer-events: none;
-    }
-  </style>
+        margin-top: 20px;
+        background: rgba(79, 70, 229, 0.15);
+        backdrop-filter: blur(40px) saturate(180%);
+        -webkit-backdrop-filter: blur(40px) saturate(180%);
+        border: 1px solid rgba(192, 38, 211, 0.3);
+        border-radius: 16px;
+        box-shadow: 
+          0 20px 60px rgba(138, 43, 226, 0.3),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        overflow: hidden;
+      }
+    </style>
 </head>
 <body>
   <div id="entry-screen">
+      <div class="entry-logo">
+          <div class="bottle-large">
+              <div class="stick-large"></div>
+              <div class="smoke">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+              </div>
+          </div>
+          <h1 class="entry-title">Eclipse Hub</h1>
+      </div>
       <button id="enter-btn" class="btn copy-btn" data-text="ENTER"><span>ENTER</span></button>
   </div>
   <canvas id="star-map-canvas"></canvas>
@@ -1116,31 +1505,86 @@
             });
         }
         
-        // 3D Tilt Effect on Cards
+        // Enhanced 3D Tilt Effect for Liquid Glass Cards
         const cards = document.querySelectorAll('.script-card');
         cards.forEach(card => {
+            let rafId = null;
+            
             card.addEventListener('mousemove', (e) => {
-                const cardRect = card.getBoundingClientRect();
-                const x = e.clientX - cardRect.left;
-                const y = e.clientY - cardRect.top;
+                if (rafId) {
+                    cancelAnimationFrame(rafId);
+                }
                 
-                const centerX = cardRect.width / 2;
-                const centerY = cardRect.height / 2;
-                
-                const rotateX = ((y - centerY) / centerY) * -8; // Max tilt
-                const rotateY = ((x - centerX) / centerX) * 8;
-
-                window.requestAnimationFrame(() => {
-                    card.style.transition = 'transform 0.1s linear';
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+                rafId = requestAnimationFrame(() => {
+                    const cardRect = card.getBoundingClientRect();
+                    const x = e.clientX - cardRect.left;
+                    const y = e.clientY - cardRect.top;
+                    
+                    const centerX = cardRect.width / 2;
+                    const centerY = cardRect.height / 2;
+                    
+                    const rotateX = ((y - centerY) / centerY) * -6; // Reduced tilt for more subtle effect
+                    const rotateY = ((x - centerX) / centerX) * 6;
+                    
+                    // Calculate distance from center for highlight effect
+                    const distX = (x - centerX) / centerX;
+                    const distY = (y - centerY) / centerY;
+                    
+                    // Add dynamic highlight based on mouse position
+                    card.style.setProperty('--highlight-x', `${50 + distX * 20}%`);
+                    card.style.setProperty('--highlight-y', `${50 + distY * 20}%`);
+                    
+                    card.style.transition = 'transform 0.1s ease-out';
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                    
+                    // Add subtle liquid glass refraction effect
+                    card.style.boxShadow = `
+                        0 15px 35px rgba(0, 0, 0, 0.2),
+                        inset 0 0 0 1px rgba(255, 255, 255, ${0.1 + Math.abs(distX * distY) * 0.15})
+                    `;
+                    
+                    // Add liquid-like reflection
+                    const reflection = card.querySelector('.liquid-reflection') || document.createElement('div');
+                    if (!reflection.classList.contains('liquid-reflection')) {
+                        reflection.className = 'liquid-reflection';
+                        reflection.style.position = 'absolute';
+                        reflection.style.top = '0';
+                        reflection.style.left = '0';
+                        reflection.style.width = '100%';
+                        reflection.style.height = '100%';
+                        reflection.style.borderRadius = '24px';
+                        reflection.style.pointerEvents = 'none';
+                        reflection.style.zIndex = '2';
+                        card.appendChild(reflection);
+                    }
+                    
+                    reflection.style.background = `radial-gradient(
+                        circle at ${x}px ${y}px,
+                        rgba(255, 255, 255, 0.1) 0%,
+                        rgba(255, 255, 255, 0.05) 20%,
+                        transparent 50%
+                    )`;
+                    
+                    rafId = null;
                 });
             });
 
             card.addEventListener('mouseleave', () => {
-                window.requestAnimationFrame(() => {
-                    card.style.transition = 'transform 0.5s ease';
-                    card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
-                });
+                if (rafId) {
+                    cancelAnimationFrame(rafId);
+                }
+                
+                card.style.transition = 'all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
+                card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+                card.style.boxShadow = `
+                    0 8px 32px rgba(0, 0, 0, 0.2),
+                    inset 0 0 0 1px rgba(255, 255, 255, 0.1)
+                `;
+                
+                const reflection = card.querySelector('.liquid-reflection');
+                if (reflection) {
+                    reflection.style.background = 'transparent';
+                }
             });
         });
 
@@ -1209,7 +1653,7 @@
             setInterval(updateCounter, 10000);
         });
 
-        // Enhanced Cursor Light Logic with fluid animation
+        // Enhanced Cursor Light Logic with liquid glass effect
         const light = document.getElementById('cursor-light');
         if (light) {
             // Initialize pointers array for fluid movement
@@ -1235,62 +1679,82 @@
                 // Smooth cursor light follow with slight delay
                 requestAnimationFrame(() => {
                     // Size variation based on mouse speed
-                    const size = 600 + mouseSpeed * 10;
-                    const opacity = 0.15 + mouseSpeed * 0.005;
+                    const baseSize = 600;
+                    const speedFactor = mouseSpeed * 15;
+                    const size = baseSize + speedFactor;
+                    const opacity = 0.08 + mouseSpeed * 0.003;
                     
                     light.style.width = `${size}px`;
                     light.style.height = `${size}px`;
-                    light.style.background = `radial-gradient(circle, rgba(102, 126, 234, ${opacity}) 0%, transparent 70%)`;
+                    light.style.background = `radial-gradient(
+                        circle, 
+                        rgba(102, 126, 234, ${opacity}) 0%, 
+                        rgba(102, 126, 234, ${opacity * 0.7}) 30%, 
+                        rgba(102, 126, 234, ${opacity * 0.3}) 60%, 
+                        transparent 80%
+                    )`;
                     light.style.left = `${e.clientX}px`;
                     light.style.top = `${e.clientY}px`;
                     
                     // Add subtle trailing effect
-                    light.style.transition = mouseSpeed > 5 ? 'none' : 'transform 0.2s ease-out, width 0.3s ease, height 0.3s ease, background 0.3s ease';
+                    light.style.transition = mouseSpeed > 5 ? 'none' : 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s ease';
                 });
                 
                 lastMouseX = e.clientX;
                 lastMouseY = e.clientY;
             });
             
-            // Add random particle effects on click
+            // Add enhanced liquid glass particle effects on click
             document.addEventListener('click', (e) => {
-                // Create particle burst
-                for (let i = 0; i < 8; i++) {
+                // Create particle burst with liquid glass effect
+                for (let i = 0; i < 12; i++) {
                     const particle = document.createElement('div');
-                    const size = Math.random() * 10 + 5;
+                    const size = Math.random() * 15 + 10;
                     const angle = Math.random() * Math.PI * 2;
-                    const velocity = Math.random() * 10 + 5;
-                    const lifetime = Math.random() * 1000 + 500;
+                    const velocity = Math.random() * 8 + 3;
+                    const lifetime = Math.random() * 1500 + 800;
                     const hue = Math.random() * 60 + 220; // Blue to purple
                     
                     particle.style.position = 'fixed';
                     particle.style.width = `${size}px`;
                     particle.style.height = `${size}px`;
                     particle.style.borderRadius = '50%';
-                    particle.style.background = `radial-gradient(circle, hsla(${hue}, 80%, 70%, 0.8), hsla(${hue}, 80%, 60%, 0))`;
-                    particle.style.boxShadow = `0 0 ${size/2}px hsla(${hue}, 80%, 70%, 0.5)`;
+                    particle.style.background = `radial-gradient(circle, hsla(${hue}, 80%, 70%, 0.4), hsla(${hue}, 80%, 60%, 0))`;
+                    particle.style.backdropFilter = 'blur(4px)';
+                    particle.style.webkitBackdropFilter = 'blur(4px)';
+                    particle.style.boxShadow = `0 0 ${size/2}px hsla(${hue}, 80%, 70%, 0.3)`;
                     particle.style.top = `${e.clientY}px`;
                     particle.style.left = `${e.clientX}px`;
                     particle.style.pointerEvents = 'none';
                     particle.style.zIndex = '1000';
                     particle.style.transform = 'translate(-50%, -50%)';
+                    particle.style.border = '1px solid rgba(255, 255, 255, 0.1)';
                     
                     document.body.appendChild(particle);
                     
-                    // Animate particle
+                    // Animate particle with liquid glass physics
                     const vx = Math.cos(angle) * velocity;
                     const vy = Math.sin(angle) * velocity;
                     let posX = e.clientX;
                     let posY = e.clientY;
+                    let opacity = 1;
+                    let scale = 1;
+                    let rotate = 0;
                     
                     const animate = () => {
-                        posX += vx;
-                        posY += vy;
+                        // Add gravity and friction for more realistic movement
+                        posX += vx * 0.98; // Apply friction
+                        posY += vy * 0.98 + 0.5; // Apply gravity
+                        opacity -= 1 / (lifetime / 16); // Gradually fade out
+                        scale = Math.max(0.1, scale - 0.01); // Gradually shrink
+                        rotate += 2; // Gentle rotation
+                        
                         particle.style.left = `${posX}px`;
                         particle.style.top = `${posY}px`;
-                        particle.style.opacity = parseFloat(particle.style.opacity || 1) - 0.02;
+                        particle.style.opacity = opacity;
+                        particle.style.transform = `translate(-50%, -50%) scale(${scale}) rotate(${rotate}deg)`;
                         
-                        if (parseFloat(particle.style.opacity) > 0) {
+                        if (opacity > 0) {
                             requestAnimationFrame(animate);
                         } else {
                             document.body.removeChild(particle);
@@ -1298,13 +1762,6 @@
                     };
                     
                     animate();
-                    
-                    // Remove particle after lifetime
-                    setTimeout(() => {
-                        if (document.body.contains(particle)) {
-                            document.body.removeChild(particle);
-                        }
-                    }, lifetime);
                 }
             });
         }
@@ -1345,7 +1802,8 @@
                 const loaderBar = preElement.querySelector('.loader-bar');
                 const emojiSpan = preElement.querySelector('.emoji');
                 
-                const duration = 2000;
+                // Random duration between 1-5 seconds
+                const duration = Math.floor(Math.random() * 4000) + 1000;
                 if(loaderBar) {
                     loaderBar.style.animation = `loading-animation ${duration / 1000}s linear forwards`;
                 }
@@ -1386,7 +1844,7 @@
             });
         });
 
-        // Rating system logic
+        // Rating system logic with Liquid Glass design
         document.querySelectorAll('.script-card').forEach(card => {
             const scriptId = card.dataset.scriptId;
             const likeBtn = card.querySelector('.like-btn');
@@ -1421,6 +1879,10 @@
                 const totalVotes = likes + displayedDislikes;
                 const likePercentage = totalVotes === 0 ? 50 : (likes / totalVotes) * 100;
                 likeBar.style.width = `${likePercentage}%`;
+                
+                // Liquid Glass rating bar effect
+                likeBar.style.boxShadow = `0 0 10px rgba(45, 212, 191, ${likePercentage / 500})`;
+                
                 localStorage.setItem(ratingStorageKey, JSON.stringify({likes, dislikes}));
             }
 
@@ -1472,249 +1934,7 @@
             tag.setAttribute('title', `Updated on: ${formattedDate}`);
         });
         
-        // Initialize background particles
-        const particlesContainer = document.getElementById('particles-container');
-        const particleCount = 50;
-        
-        // Create particles
-        for (let i = 0; i < particleCount; i++) {
-            createParticle();
-        }
-        
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            
-            // Random properties
-            const size = Math.random() * 4 + 1;
-            const x = Math.random() * window.innerWidth;
-            const y = Math.random() * window.innerHeight;
-            const duration = Math.random() * 60 + 30;
-            const delay = Math.random() * 5;
-            const opacity = Math.random() * 0.5 + 0.1;
-            
-            // Set styles
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = `${x}px`;
-            particle.style.top = `${y}px`;
-            particle.style.opacity = opacity;
-            
-            // Add to container
-            particlesContainer.appendChild(particle);
-            
-            // Animate the particle
-            animateParticle(particle, x, y, duration, delay);
-        }
-        
-        function animateParticle(particle, startX, startY, duration, delay) {
-            // Calculate random end position
-            const endX = startX + (Math.random() * 100 - 50);
-            const endY = startY - (Math.random() * 200 + 100); // Always move up
-            
-            // Create animation
-            particle.animate([
-                { transform: 'translate(0, 0)', opacity: particle.style.opacity },
-                { transform: `translate(${endX - startX}px, ${endY - startY}px)`, opacity: 0 }
-            ], {
-                duration: duration * 1000,
-                delay: delay * 1000,
-                easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-                fill: 'forwards'
-            }).onfinish = () => {
-                // Remove old particle and create a new one
-                particle.remove();
-                createParticle();
-            };
-        }
-        
-        const fluidCanvas = document.getElementById('fluid-canvas');
-        const fluidAnimation = new FluidAnimation(fluidCanvas);
-        fluidAnimation.start();
-
-        // Initialize fluid animation
-        const canvas = document.querySelector('.fluid-animation');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        
-        // Get 2D rendering context
-        const ctx = canvas.getContext('2d');
-        
-        // Fluid particles configuration
-        const config = {
-            PARTICLES_COUNT: 100,
-            MAX_PARTICLE_SIZE: 100,
-            MIN_PARTICLE_SIZE: 20,
-            MAX_SPEED: 2,
-            FORCE_RADIUS: 100,
-            COLORS: [
-                'rgba(79, 70, 229, 0.3)',   // Indigo
-                'rgba(139, 92, 246, 0.3)',  // Purple
-                'rgba(168, 85, 247, 0.3)',  // Fuchsia
-                'rgba(217, 70, 239, 0.3)',  // Pink
-                'rgba(45, 212, 191, 0.3)'   // Teal
-            ]
-        };
-        
-        // Create particles
-        const particles = [];
-        
-        // Mouse position
-        const mouse = {
-            x: 0,
-            y: 0,
-            px: 0,
-            py: 0,
-            active: false
-        };
-        
-        // Initialize particles
-        function initParticles() {
-            for (let i = 0; i < config.PARTICLES_COUNT; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * config.MAX_SPEED,
-                    vy: (Math.random() - 0.5) * config.MAX_SPEED,
-                    size: Math.random() * (config.MAX_PARTICLE_SIZE - config.MIN_PARTICLE_SIZE) + config.MIN_PARTICLE_SIZE,
-                    color: config.COLORS[Math.floor(Math.random() * config.COLORS.length)],
-                    opacity: Math.random() * 0.5 + 0.2
-                });
-            }
-        }
-        
-        // Update particles based on mouse movement
-        function updateParticles() {
-            for (let i = 0; i < particles.length; i++) {
-                const p = particles[i];
-                
-                // Natural motion
-                p.x += p.vx;
-                p.y += p.vy;
-                
-                // Boundaries check with bounce
-                if (p.x < 0) {
-                    p.x = 0;
-                    p.vx *= -1;
-                } else if (p.x > canvas.width) {
-                    p.x = canvas.width;
-                    p.vx *= -1;
-                }
-                
-                if (p.y < 0) {
-                    p.y = 0;
-                    p.vy *= -1;
-                } else if (p.y > canvas.height) {
-                    p.y = canvas.height;
-                    p.vy *= -1;
-                }
-                
-                // Mouse interaction
-                if (mouse.active) {
-                    const dx = p.x - mouse.x;
-                    const dy = p.y - mouse.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (dist < config.FORCE_RADIUS) {
-                        // Calculate mouse velocity
-                        const mouseVelX = mouse.x - mouse.px;
-                        const mouseVelY = mouse.y - mouse.py;
-                        
-                        // Apply force based on mouse movement
-                        const force = (1 - dist / config.FORCE_RADIUS) * 2;
-                        p.vx += mouseVelX * force;
-                        p.vy += mouseVelY * force;
-                        
-                        // Limit velocity
-                        const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-                        if (speed > config.MAX_SPEED * 3) {
-                            p.vx = (p.vx / speed) * config.MAX_SPEED * 3;
-                            p.vy = (p.vy / speed) * config.MAX_SPEED * 3;
-                        }
-                    }
-                }
-                
-                // Apply friction
-                p.vx *= 0.98;
-                p.vy *= 0.98;
-            }
-            
-            // Update previous mouse position
-            mouse.px = mouse.x;
-            mouse.py = mouse.y;
-        }
-        
-        // Draw particles
-        function drawParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Draw connections between nearby particles
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            
-            for (let i = 0; i < particles.length; i++) {
-                const p1 = particles[i];
-                
-                for (let j = i + 1; j < particles.length; j++) {
-                    const p2 = particles[j];
-                    const dx = p1.x - p2.x;
-                    const dy = p1.y - p2.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (dist < p1.size + p2.size) {
-                        ctx.strokeStyle = `rgba(102, 126, 234, ${0.2 * (1 - dist / (p1.size + p2.size))})`;
-                        ctx.beginPath();
-                        ctx.moveTo(p1.x, p1.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            
-            // Draw particles
-            for (let i = 0; i < particles.length; i++) {
-                const p = particles[i];
-                
-                ctx.beginPath();
-                const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
-                gradient.addColorStop(0, p.color.replace('0.3', p.opacity.toString()));
-                gradient.addColorStop(1, p.color.replace('0.3', '0'));
-                
-                ctx.fillStyle = gradient;
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-        
-        // Animation loop
-        function animate() {
-            updateParticles();
-            drawParticles();
-            requestAnimationFrame(animate);
-        }
-        
-        // Initialize and start animation
-        initParticles();
-        animate();
-        
-        // Mouse event listeners
-        canvas.addEventListener('mousemove', e => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-            mouse.active = true;
-        });
-        
-        canvas.addEventListener('mouseout', () => {
-            mouse.active = false;
-        });
-        
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Initialize star map animation
+        // Initialize Liquid Glass star map animation
         const starCanvas = document.getElementById('star-map-canvas');
         const starCtx = starCanvas.getContext('2d');
         let starParticles;
@@ -1724,16 +1944,23 @@
             starCanvas.height = window.innerHeight;
             starParticles = [];
             const particleCount = Math.floor(starCanvas.width * starCanvas.height / 15000);
+            
             for (let i = 0; i < particleCount; i++) {
+                const size = Math.random() * 1.5 + 0.5;
+                // Create more varied stars for Liquid Glass effect
+                // Slow down movement by dividing vx, vy by 2
+                // Slow down blinking by dividing blinkSpeed by 4
                 starParticles.push({
                     x: Math.random() * starCanvas.width,
                     y: Math.random() * starCanvas.height,
-                    radius: Math.random() * 1.5 + 0.5,
-                    vx: (Math.random() - 0.5) * 0.2,
-                    vy: (Math.random() - 0.5) * 0.2,
+                    radius: size,
+                    vx: (Math.random() - 0.5) * 0.1, // Slower movement (was 0.2)
+                    vy: (Math.random() - 0.5) * 0.1, // Slower movement (was 0.2)
                     opacity: Math.random() * 0.5 + 0.5,
-                    opacityDirection: -1,
-                    blinkSpeed: 0.01 * Math.random()
+                    opacityDirection: Math.random() > 0.5 ? 1 : -1,
+                    blinkSpeed: (0.005 + Math.random() * 0.01) / 4, // Slower blinking
+                    hue: Math.random() > 0.7 ? Math.random() * 60 + 220 : null, // Some colored stars
+                    glow: Math.random() > 0.8 // Some stars have glow
                 });
             }
         }
@@ -1754,12 +1981,53 @@
                 else if (p.opacity >= 1.0) p.opacityDirection = -1;
                 p.opacity += p.opacityDirection * p.blinkSpeed;
 
-                starCtx.beginPath();
-                starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                starCtx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
-                starCtx.fill();
+                // Draw star with Liquid Glass effect
+                if (p.hue) {
+                    // Colored star
+                    starCtx.beginPath();
+                    starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    starCtx.fillStyle = `hsla(${p.hue}, 80%, 70%, ${p.opacity * 0.7})`;
+                    starCtx.fill();
+                    
+                    if (p.glow) {
+                        // Add glow effect
+                        const gradient = starCtx.createRadialGradient(
+                            p.x, p.y, 0,
+                            p.x, p.y, p.radius * 4
+                        );
+                        gradient.addColorStop(0, `hsla(${p.hue}, 80%, 70%, ${p.opacity * 0.5})`);
+                        gradient.addColorStop(1, `hsla(${p.hue}, 80%, 70%, 0)`);
+                        
+                        starCtx.beginPath();
+                        starCtx.arc(p.x, p.y, p.radius * 4, 0, Math.PI * 2);
+                        starCtx.fillStyle = gradient;
+                        starCtx.fill();
+                    }
+                } else {
+                    // White star
+                    starCtx.beginPath();
+                    starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    starCtx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+                    starCtx.fill();
+                    
+                    if (p.glow) {
+                        // Add glow effect
+                        const gradient = starCtx.createRadialGradient(
+                            p.x, p.y, 0,
+                            p.x, p.y, p.radius * 3
+                        );
+                        gradient.addColorStop(0, `rgba(255, 255, 255, ${p.opacity * 0.3})`);
+                        gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                        
+                        starCtx.beginPath();
+                        starCtx.arc(p.x, p.y, p.radius * 3, 0, Math.PI * 2);
+                        starCtx.fillStyle = gradient;
+                        starCtx.fill();
+                    }
+                }
             }
             
+            // Draw connections with Liquid Glass effect
             for (let i = 0; i < starParticles.length; i++) {
                 for (let j = i + 1; j < starParticles.length; j++) {
                     const p1 = starParticles[i];
@@ -1767,11 +2035,34 @@
                     const distance = Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
                     
                     if (distance < 120) {
+                        const opacity = (1 - distance / 120) * 0.3;
+                        
+                        // Create gradient line for Liquid Glass effect
+                        const gradient = starCtx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+                        
+                        if (p1.hue && p2.hue) {
+                            // Both colored stars
+                            gradient.addColorStop(0, `hsla(${p1.hue}, 80%, 70%, ${opacity})`);
+                            gradient.addColorStop(1, `hsla(${p2.hue}, 80%, 70%, ${opacity})`);
+                        } else if (p1.hue) {
+                            // Only p1 is colored
+                            gradient.addColorStop(0, `hsla(${p1.hue}, 80%, 70%, ${opacity})`);
+                            gradient.addColorStop(1, `rgba(255, 255, 255, ${opacity})`);
+                        } else if (p2.hue) {
+                            // Only p2 is colored
+                            gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
+                            gradient.addColorStop(1, `hsla(${p2.hue}, 80%, 70%, ${opacity})`);
+                        } else {
+                            // Both white stars
+                            gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
+                            gradient.addColorStop(1, `rgba(255, 255, 255, ${opacity})`);
+                        }
+                        
                         starCtx.beginPath();
                         starCtx.moveTo(p1.x, p1.y);
                         starCtx.lineTo(p2.x, p2.y);
                         starCtx.lineWidth = 0.5;
-                        starCtx.strokeStyle = `rgba(255, 255, 255, ${(1 - distance / 120) * 0.5})`;
+                        starCtx.strokeStyle = gradient;
                         starCtx.stroke();
                     }
                 }
