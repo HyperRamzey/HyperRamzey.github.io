@@ -109,6 +109,7 @@
         background: rgba(40, 42, 70, 0.2);
         backdrop-filter: blur(40px) saturate(180%);
         -webkit-backdrop-filter: blur(40px) saturate(180%);
+        -moz-backdrop-filter: blur(40px) saturate(180%);
         padding: 30px;
         border-radius: 24px;
         border: 1px solid rgba(255, 255, 255, 0.3);
@@ -297,6 +298,7 @@
         position: relative;
         backdrop-filter: blur(20px) saturate(180%);
         -webkit-backdrop-filter: blur(20px) saturate(180%);
+        -moz-backdrop-filter: blur(20px) saturate(180%);
         box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05),
                    0 10px 30px -10px rgba(0, 0, 0, 0.3);
         transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -366,6 +368,7 @@
         background: rgba(255, 255, 255, 0.05);
         backdrop-filter: blur(20px) saturate(180%);
         -webkit-backdrop-filter: blur(20px) saturate(180%);
+        -moz-backdrop-filter: blur(20px) saturate(180%);
         border: 1px solid rgba(255, 255, 255, 0.3);
         box-shadow: 
           0 4px 12px rgba(0, 0, 0, 0.1),
@@ -1342,6 +1345,90 @@
       .signup-btn:hover {
         background: #6366f1;
       }
+
+      /* Image gallery styles */
+      .image-gallery {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      
+      .gallery-img-container {
+        flex: 1;
+        max-width: calc(50% - 8px);
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      
+      .gallery-img-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      }
+      
+      .gallery-img-container img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+      }
+      
+      .gallery-img-container:hover img {
+        filter: brightness(1.1);
+      }
+      
+      /* Image overlay for enlarged view */
+      .image-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        -moz-backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      
+      .image-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      
+      .enlarged-image {
+        max-width: 90%;
+        max-height: 90vh;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+      }
+      
+      .image-overlay.active .enlarged-image {
+        transform: scale(1);
+      }
+      
+      .close-overlay {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: white;
+        font-size: 40px;
+        cursor: pointer;
+        z-index: 10000;
+      }
     </style>
 </head>
 <body>
@@ -1410,8 +1497,14 @@
         <div class="modal-content">
             <span class="close-modal">&times;</span>
             <h2 id="modal-title"></h2>
-            <img src="image1.png" alt="Script Preview 1" style="width: 100%; border-radius: 12px; margin-bottom: 15px;">
-            <img src="image2.png" alt="Script Preview 2" style="width: 100%; border-radius: 12px; margin-bottom: 20px;">
+            <div class="image-gallery">
+                <div class="gallery-img-container">
+                    <img src="https://hyperramzey.github.io/image1.jpg" alt="Script Preview 1" class="gallery-img">
+                </div>
+                <div class="gallery-img-container">
+                    <img src="https://hyperramzey.github.io/image2.jpg" alt="Script Preview 2" class="gallery-img">
+                </div>
+            </div>
             <p id="modal-description"></p>
             <button id="modal-copy-btn" class="btn copy-btn" style="width: 100%; margin-top: 20px;">💪 Copy Script</button>
         </div>
@@ -1451,6 +1544,11 @@
       </p>
     </footer>
   </main>
+
+  <div id="image-overlay" class="image-overlay">
+      <span class="close-overlay">&times;</span>
+      <img id="enlarged-image" class="enlarged-image" src="" alt="Enlarged Preview">
+  </div>
 
   <script>
     async function copyScriptToClipboard(text) {
@@ -1912,144 +2010,192 @@
         
         // Initialize Liquid Glass star map animation
         const starCanvas = document.getElementById('star-map-canvas');
-        const starCtx = starCanvas.getContext('2d');
-        let starParticles;
+        if (!starCanvas) return; // Exit if canvas not found
+        
+        let starCtx;
+        try {
+            starCtx = starCanvas.getContext('2d', { alpha: true });
+            if (!starCtx) {
+                console.error('Could not get 2D context for star map canvas');
+                return;
+            }
+        } catch (e) {
+            console.error('Error initializing canvas context:', e);
+            return;
+        }
+        
+        let starParticles = [];
+        let animationFrameId;
 
         function setupStarMap() {
-            starCanvas.width = window.innerWidth;
-            starCanvas.height = window.innerHeight;
-            starParticles = [];
-            const particleCount = Math.floor(starCanvas.width * starCanvas.height / 15000);
-            
-            for (let i = 0; i < particleCount; i++) {
-                const size = Math.random() * 1.5 + 0.5;
-                // Create more varied stars for Liquid Glass effect
-                // Slow down movement by dividing vx, vy by 2
-                // Slow down blinking by dividing blinkSpeed by 4
-                starParticles.push({
-                    x: Math.random() * starCanvas.width,
-                    y: Math.random() * starCanvas.height,
-                    radius: size,
-                    vx: (Math.random() - 0.5) * 0.1, // Slower movement (was 0.2)
-                    vy: (Math.random() - 0.5) * 0.1, // Slower movement (was 0.2)
-                    opacity: Math.random() * 0.5 + 0.5,
-                    opacityDirection: Math.random() > 0.5 ? 1 : -1,
-                    blinkSpeed: (0.005 + Math.random() * 0.01) / 4, // Slower blinking
-                    hue: Math.random() > 0.7 ? Math.random() * 60 + 220 : null, // Some colored stars
-                    glow: Math.random() > 0.8 // Some stars have glow
-                });
+            try {
+                starCanvas.width = window.innerWidth;
+                starCanvas.height = window.innerHeight;
+                starParticles = [];
+                const particleCount = Math.floor((starCanvas.width * starCanvas.height) / 15000);
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const size = Math.random() * 1.5 + 0.5;
+                    // Create more varied stars for Liquid Glass effect
+                    // Slow down movement by dividing vx, vy by 2
+                    // Slow down blinking by dividing blinkSpeed by 4
+                    starParticles.push({
+                        x: Math.random() * starCanvas.width,
+                        y: Math.random() * starCanvas.height,
+                        radius: size,
+                        vx: (Math.random() - 0.5) * 0.1, // Slower movement (was 0.2)
+                        vy: (Math.random() - 0.5) * 0.1, // Slower movement (was 0.2)
+                        opacity: Math.random() * 0.5 + 0.5,
+                        opacityDirection: Math.random() > 0.5 ? 1 : -1,
+                        blinkSpeed: (0.005 + Math.random() * 0.01) / 4, // Slower blinking
+                        hue: Math.random() > 0.7 ? Math.random() * 60 + 220 : null, // Some colored stars
+                        glow: Math.random() > 0.8 // Some stars have glow
+                    });
+                }
+            } catch (e) {
+                console.error('Error in setupStarMap:', e);
             }
         }
 
         function animateStarMap() {
-            starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
-            
-            for (const p of starParticles) {
-                p.x += p.vx;
-                p.y += p.vy;
+            try {
+                starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
                 
-                if (p.x < -p.radius) p.x = starCanvas.width + p.radius;
-                if (p.x > starCanvas.width + p.radius) p.x = -p.radius;
-                if (p.y < -p.radius) p.y = starCanvas.height + p.radius;
-                if (p.y > starCanvas.height + p.radius) p.y = -p.radius;
-
-                if (p.opacity <= 0.2) p.opacityDirection = 1;
-                else if (p.opacity >= 1.0) p.opacityDirection = -1;
-                p.opacity += p.opacityDirection * p.blinkSpeed;
-
-                // Draw star with Liquid Glass effect
-                if (p.hue) {
-                    // Colored star
-                    starCtx.beginPath();
-                    starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    starCtx.fillStyle = `hsla(${p.hue}, 80%, 70%, ${p.opacity * 0.7})`;
-                    starCtx.fill();
+                for (const p of starParticles) {
+                    p.x += p.vx;
+                    p.y += p.vy;
                     
-                    if (p.glow) {
-                        // Add glow effect
-                        const gradient = starCtx.createRadialGradient(
-                            p.x, p.y, 0,
-                            p.x, p.y, p.radius * 4
-                        );
-                        gradient.addColorStop(0, `hsla(${p.hue}, 80%, 70%, ${p.opacity * 0.5})`);
-                        gradient.addColorStop(1, `hsla(${p.hue}, 80%, 70%, 0)`);
-                        
+                    if (p.x < -p.radius) p.x = starCanvas.width + p.radius;
+                    if (p.x > starCanvas.width + p.radius) p.x = -p.radius;
+                    if (p.y < -p.radius) p.y = starCanvas.height + p.radius;
+                    if (p.y > starCanvas.height + p.radius) p.y = -p.radius;
+
+                    if (p.opacity <= 0.2) p.opacityDirection = 1;
+                    else if (p.opacity >= 1.0) p.opacityDirection = -1;
+                    p.opacity += p.opacityDirection * p.blinkSpeed;
+
+                    // Draw star with Liquid Glass effect
+                    if (p.hue) {
+                        // Colored star
                         starCtx.beginPath();
-                        starCtx.arc(p.x, p.y, p.radius * 4, 0, Math.PI * 2);
-                        starCtx.fillStyle = gradient;
+                        starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                        starCtx.fillStyle = `hsla(${p.hue}, 80%, 70%, ${p.opacity * 0.7})`;
                         starCtx.fill();
+                        
+                        if (p.glow) {
+                            // Add glow effect
+                            const gradient = starCtx.createRadialGradient(
+                                p.x, p.y, 0,
+                                p.x, p.y, p.radius * 4
+                            );
+                            gradient.addColorStop(0, `hsla(${p.hue}, 80%, 70%, ${p.opacity * 0.5})`);
+                            gradient.addColorStop(1, `hsla(${p.hue}, 80%, 70%, 0)`);
+                            
+                            starCtx.beginPath();
+                            starCtx.arc(p.x, p.y, p.radius * 4, 0, Math.PI * 2);
+                            starCtx.fillStyle = gradient;
+                            starCtx.fill();
+                        }
+                    } else {
+                        // White star
+                        starCtx.beginPath();
+                        starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                        starCtx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+                        starCtx.fill();
+                        
+                        if (p.glow) {
+                            // Add glow effect
+                            const gradient = starCtx.createRadialGradient(
+                                p.x, p.y, 0,
+                                p.x, p.y, p.radius * 3
+                            );
+                            gradient.addColorStop(0, `rgba(255, 255, 255, ${p.opacity * 0.3})`);
+                            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                            
+                            starCtx.beginPath();
+                            starCtx.arc(p.x, p.y, p.radius * 3, 0, Math.PI * 2);
+                            starCtx.fillStyle = gradient;
+                            starCtx.fill();
+                        }
                     }
-                } else {
-                    // White star
+                }
+                
+                // Draw connections with Liquid Glass effect
+                for (let i = 0; i < starParticles.length; i++) {
+                    for (let j = i + 1; j < starParticles.length; j++) {
+                        const p1 = starParticles[i];
+                        const p2 = starParticles[j];
+                        const distance = Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+                        
+                        if (distance < 120) {
+                            const opacity = (1 - distance / 120) * 0.3;
+                            
+                            // Create gradient line for Liquid Glass effect
+                            const gradient = starCtx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+                            
+                            if (p1.hue && p2.hue) {
+                                // Both colored stars
+                                gradient.addColorStop(0, `hsla(${p1.hue}, 80%, 70%, ${opacity})`);
+                                gradient.addColorStop(1, `hsla(${p2.hue}, 80%, 70%, ${opacity})`);
+                            } else if (p1.hue) {
+                                // Only p1 is colored
+                                gradient.addColorStop(0, `hsla(${p1.hue}, 80%, 70%, ${opacity})`);
+                                gradient.addColorStop(1, `rgba(255, 255, 255, ${opacity})`);
+                            } else if (p2.hue) {
+                                // Only p2 is colored
+                                gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
+                                gradient.addColorStop(1, `hsla(${p2.hue}, 80%, 70%, ${opacity})`);
+                            } else {
+                                // Both white stars
+                                gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
+                                gradient.addColorStop(1, `rgba(255, 255, 255, ${opacity})`);
+                            }
+                            
+                            starCtx.beginPath();
+                            starCtx.moveTo(p1.x, p1.y);
+                            starCtx.lineTo(p2.x, p2.y);
+                            starCtx.lineWidth = 0.5;
+                            starCtx.strokeStyle = gradient;
+                            starCtx.stroke();
+                        }
+                    }
+                }
+                
+                animationFrameId = requestAnimationFrame(animateStarMap);
+            } catch (e) {
+                console.error('Error in animateStarMap:', e);
+                cancelAnimationFrame(animationFrameId);
+                
+                // Fallback to simpler rendering if complex animation fails
+                trySimpleStarRendering();
+            }
+        }
+
+        function trySimpleStarRendering() {
+            try {
+                starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+                
+                // Simplified star rendering without complex effects
+                for (const p of starParticles) {
                     starCtx.beginPath();
                     starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                     starCtx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
                     starCtx.fill();
-                    
-                    if (p.glow) {
-                        // Add glow effect
-                        const gradient = starCtx.createRadialGradient(
-                            p.x, p.y, 0,
-                            p.x, p.y, p.radius * 3
-                        );
-                        gradient.addColorStop(0, `rgba(255, 255, 255, ${p.opacity * 0.3})`);
-                        gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                        
-                        starCtx.beginPath();
-                        starCtx.arc(p.x, p.y, p.radius * 3, 0, Math.PI * 2);
-                        starCtx.fillStyle = gradient;
-                        starCtx.fill();
-                    }
                 }
+                
+                requestAnimationFrame(trySimpleStarRendering);
+            } catch (e) {
+                console.error('Even simple rendering failed:', e);
             }
-            
-            // Draw connections with Liquid Glass effect
-            for (let i = 0; i < starParticles.length; i++) {
-                for (let j = i + 1; j < starParticles.length; j++) {
-                    const p1 = starParticles[i];
-                    const p2 = starParticles[j];
-                    const distance = Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
-                    
-                    if (distance < 120) {
-                        const opacity = (1 - distance / 120) * 0.3;
-                        
-                        // Create gradient line for Liquid Glass effect
-                        const gradient = starCtx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
-                        
-                        if (p1.hue && p2.hue) {
-                            // Both colored stars
-                            gradient.addColorStop(0, `hsla(${p1.hue}, 80%, 70%, ${opacity})`);
-                            gradient.addColorStop(1, `hsla(${p2.hue}, 80%, 70%, ${opacity})`);
-                        } else if (p1.hue) {
-                            // Only p1 is colored
-                            gradient.addColorStop(0, `hsla(${p1.hue}, 80%, 70%, ${opacity})`);
-                            gradient.addColorStop(1, `rgba(255, 255, 255, ${opacity})`);
-                        } else if (p2.hue) {
-                            // Only p2 is colored
-                            gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
-                            gradient.addColorStop(1, `hsla(${p2.hue}, 80%, 70%, ${opacity})`);
-                        } else {
-                            // Both white stars
-                            gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
-                            gradient.addColorStop(1, `rgba(255, 255, 255, ${opacity})`);
-                        }
-                        
-                        starCtx.beginPath();
-                        starCtx.moveTo(p1.x, p1.y);
-                        starCtx.lineTo(p2.x, p2.y);
-                        starCtx.lineWidth = 0.5;
-                        starCtx.strokeStyle = gradient;
-                        starCtx.stroke();
-                    }
-                }
-            }
-            
-            requestAnimationFrame(animateStarMap);
         }
 
-        setupStarMap();
-        animateStarMap();
-        window.addEventListener('resize', setupStarMap);
+        try {
+            setupStarMap();
+            animateStarMap();
+            window.addEventListener('resize', setupStarMap);
+        } catch (e) {
+            console.error('Failed to initialize star map:', e);
+        }
 
         document.querySelectorAll('.rating-btn').forEach(btn => {
             btn.addEventListener('click', (e) => handleRating(e, btn));
@@ -2102,6 +2248,44 @@
         document.addEventListener('scroll', () => {
             backToTopButton.classList.toggle('visible', window.scrollY > 300);
         });
+
+        // Image gallery functionality
+        const imageOverlay = document.getElementById('image-overlay');
+        const enlargedImage = document.getElementById('enlarged-image');
+        const closeOverlay = document.querySelector('.close-overlay');
+        const galleryImages = document.querySelectorAll('.gallery-img');
+        
+        if (galleryImages.length > 0 && enlargedImage && imageOverlay) {
+            galleryImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    enlargedImage.src = this.src;
+                    imageOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                });
+            });
+            
+            // Close overlay on click
+            closeOverlay.addEventListener('click', () => {
+                imageOverlay.classList.remove('active');
+                document.body.style.overflow = ''; // Re-enable scrolling
+            });
+            
+            // Close overlay when clicking outside the image
+            imageOverlay.addEventListener('click', (e) => {
+                if (e.target === imageOverlay) {
+                    imageOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // Close overlay with escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && imageOverlay.classList.contains('active')) {
+                    imageOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
     });
   </script>
 </body>
