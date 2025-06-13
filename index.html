@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eclipse Hub</title>
+  <title>xlam HUB</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -624,7 +624,7 @@
         border: 1px solid rgba(255, 255, 255, 0.3);
         padding: 40px;
         border-radius: 24px;
-        max-width: 500px;
+        max-width: 800px;
         width: 90%;
         text-align: left;
         position: relative;
@@ -1267,6 +1267,81 @@
         transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         overflow: hidden;
       }
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px 40px;
+        z-index: 1000;
+        background: rgba(12, 13, 27, 0.5);
+        backdrop-filter: blur(20px);
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1600px;
+        margin: 0 auto;
+      }
+
+      .logo {
+        font-size: 1.5em;
+        font-weight: 700;
+        color: #fff;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 40px;
+        margin: 0;
+        padding: 0;
+      }
+
+      nav ul li a {
+        color: #f0f0f0;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s;
+      }
+
+      nav ul li a:hover {
+        color: #a78bfa;
+      }
+
+      .auth-buttons button {
+        margin-left: 15px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .login-btn {
+        background: transparent;
+        color: #f0f0f0;
+        border: 1px solid #f0f0f0;
+      }
+
+      .login-btn:hover {
+        background: #f0f0f0;
+        color: #1a1c3c;
+      }
+
+      .signup-btn {
+        background: #4f46e5;
+        color: #fff;
+        border: 1px solid #4f46e5;
+      }
+
+      .signup-btn:hover {
+        background: #6366f1;
+      }
     </style>
 </head>
 <body>
@@ -1280,7 +1355,7 @@
                   <span></span>
               </div>
           </div>
-          <h1 class="entry-title">Eclipse Hub</h1>
+          <h1 class="entry-title">xlam HUB</h1>
       </div>
       <button id="enter-btn" class="btn copy-btn" data-text="ENTER"><span>ENTER</span></button>
   </div>
@@ -1300,7 +1375,7 @@
                 </div>
             </div>
         </div>
-        <h1 class="main-title">Eclipse Hub</h1>
+        <h1 class="main-title">xlam HUB</h1>
     </div>
     <p class="subtitle">made by scriptblox coders</p>
 
@@ -1309,15 +1384,17 @@
     </div>
     
     <div class="scripts-container">
-        <div class="script-card" data-script-id="pet-spawner">
-            <h2>ADOPT ME – PET SPAWNER SCRIPT</h2>
+        <div class="script-card" 
+             data-script-id="pet-spawner"
+             data-title="Eclipse Hub - Adopt Me Autofarm"
+             data-description="This script for Adopt Me will automatically farm for you, collecting cash and helping you get your dream pets faster than ever before. It's safe, efficient, and easy to use.">
+            <h2>eclipse hub - adopt me autofarm</h2>
             <div class="script-meta">
                 <div class="status-tags">
                     <span class="tag updated">✅ UPDATED</span>
                     <span class="tag working">⚡ WORKING</span>
                     <span class="tag verified">👑 VERIFIED</span>
                 </div>
-                <div class="views">👀 <span class="view-count">666</span></div>
             </div>
             <pre data-script="loadstring(game:HttpGet('https://raw.githubusercontent.com/rdevx23/testing/refs/heads/main/adm.lua'))()">Click "Copy Script" to get the code</pre>
             <div class="buttons">
@@ -1325,97 +1402,18 @@
                 <a href="https://www.tiktok.com/@yohd57?_t=ZS-8x8D1JhGgeg&_r=1" target="_blank" rel="noopener noreferrer" class="btn secondary-btn">🎥 Video Tutorial</a>
                 <a href="https://deltaexploits.gg/" target="_blank" rel="noopener noreferrer" class="btn secondary-btn">💻 Executor Download</a>
                 <a href="https://www.tiktok.com/@yohd57?_t=ZS-8x8D1JhGgeg&_r=1" target="_blank" rel="noopener noreferrer" class="btn tiktok-btn">🎵 TikTok</a>
-            </div>
-            <div class="rating-section">
-                <div class="rating-buttons">
-                    <button class="rating-btn like-btn">👍 <span class="likes-count">85</span></button>
-                    <button class="rating-btn dislike-btn">👎 <span class="dislikes-count">4</span></button>
-                </div>
-                <div class="rating-bar">
-                    <div class="like-bar"></div>
-                </div>
             </div>
         </div>
-        <div class="script-card" data-script-id="autofarm">
-            <h2>ADOPT ME – AUTOFARM SCRIPT</h2>
-            <div class="script-meta">
-                <div class="status-tags">
-                    <span class="tag updated">✅ UPDATED</span>
-                    <span class="tag working">⚡ WORKING</span>
-                    <span class="tag verified">👑 VERIFIED</span>
-                </div>
-                <div class="views">👀 <span class="view-count">1241</span></div>
-            </div>
-            <pre data-script="loadstring(game:HttpGet('https://raw.githubusercontent.com/rdevx23/testing/refs/heads/main/adm.lua'))()">Click "Copy Script" to get the code</pre>
-            <div class="buttons">
-                <button class="btn copy-btn">💪 Copy Script</button>
-                <a href="https://www.tiktok.com/@yohd57?_t=ZS-8x8D1JhGgeg&_r=1" target="_blank" rel="noopener noreferrer" class="btn secondary-btn">🎥 Video Tutorial</a>
-                <a href="https://deltaexploits.gg/" target="_blank" rel="noopener noreferrer" class="btn secondary-btn">💻 Executor Download</a>
-                <a href="https://www.tiktok.com/@yohd57?_t=ZS-8x8D1JhGgeg&_r=1" target="_blank" rel="noopener noreferrer" class="btn tiktok-btn">🎵 TikTok</a>
-            </div>
-            <div class="rating-section">
-                <div class="rating-buttons">
-                    <button class="rating-btn like-btn">👍 <span class="likes-count">110</span></button>
-                    <button class="rating-btn dislike-btn">👎 <span class="dislikes-count">5</span></button>
-                </div>
-                <div class="rating-bar">
-                    <div class="like-bar"></div>
-                </div>
-            </div>
-        </div>
-        <div class="script-card" data-script-id="trade-scam">
-            <h2>ADOPT ME – TRADE SCAM</h2>
-            <div class="script-meta">
-                <div class="status-tags">
-                    <span class="tag updated">✅ UPDATED</span>
-                    <span class="tag working">⚡ WORKING</span>
-                    <span class="tag verified">👑 VERIFIED</span>
-                </div>
-                <div class="views">👀 <span class="view-count">874</span></div>
-            </div>
-            <pre data-script="loadstring(game:HttpGet('https://raw.githubusercontent.com/rdevx23/testing/refs/heads/main/adm.lua'))()">Click "Copy Script" to get the code</pre>
-            <div class="buttons">
-                <button class="btn copy-btn">💪 Copy Script</button>
-                <a href="https://www.tiktok.com/@yohd57?_t=ZS-8x8D1JhGgeg&_r=1" target="_blank" rel="noopener noreferrer" class="btn secondary-btn">🎥 Video Tutorial</a>
-                <a href="https://deltaexploits.gg/" target="_blank" rel="noopener noreferrer" class="btn secondary-btn">💻 Executor Download</a>
-                <a href="https://www.tiktok.com/@yohd57?_t=ZS-8x8D1JhGgeg&_r=1" target="_blank" rel="noopener noreferrer" class="btn tiktok-btn">🎵 TikTok</a>
-            </div>
-            <div class="rating-section">
-                <div class="rating-buttons">
-                    <button class="rating-btn like-btn">👍 <span class="likes-count">73</span></button>
-                    <button class="rating-btn dislike-btn">👎 <span class="dislikes-count">3</span></button>
-                </div>
-                <div class="rating-bar">
-                    <div class="like-bar"></div>
-                </div>
-            </div>
-        </div>
-        <div class="script-card" data-script-id="value-checker">
-            <h2>ADOPT ME – VALUE CHECKER</h2>
-            <div class="script-meta">
-                <div class="status-tags">
-                    <span class="tag updated">✅ UPDATED</span>
-                    <span class="tag working">⚡ WORKING</span>
-                    <span class="tag verified">👑 VERIFIED</span>
-                </div>
-                <div class="views">👀 <span class="view-count">1503</span></div>
-            </div>
-            <pre data-script="loadstring(game:HttpGet('https://raw.githubusercontent.com/rdevx23/testing/refs/heads/main/adm.lua'))()">Click "Copy Script" to get the code</pre>
-            <div class="buttons">
-                <button class="btn copy-btn">💪 Copy Script</button>
-                <a href="https://www.tiktok.com/@yohd57?_t=ZS-8x8D1JhGgeg&_r=1" target="_blank" rel="noopener noreferrer" class="btn secondary-btn">🎥 Video Tutorial</a>
-                <a href="https://deltaexploits.gg/" target="_blank" rel="noopener noreferrer" class="btn secondary-btn">💻 Executor Download</a>
-                <a href="https://www.tiktok.com/@yohd57?_t=ZS-8x8D1JhGgeg&_r=1" target="_blank" rel="noopener noreferrer" class="btn tiktok-btn">🎵 TikTok</a>
-            </div>
-            <div class="rating-section">
-                <div class="rating-buttons">
-                    <button class="rating-btn like-btn">👍 <span class="likes-count">140</span></button>
-                    <button class="rating-btn dislike-btn">👎 <span class="dislikes-count">7</span></button>
-                </div>
-                <div class="rating-bar">
-                    <div class="like-bar"></div>
-                </div>
-            </div>
+    </div>
+
+    <div id="script-detail-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title"></h2>
+            <img src="image1.png" alt="Script Preview 1" style="width: 100%; border-radius: 12px; margin-bottom: 15px;">
+            <img src="image2.png" alt="Script Preview 2" style="width: 100%; border-radius: 12px; margin-bottom: 20px;">
+            <p id="modal-description"></p>
+            <button id="modal-copy-btn" class="btn copy-btn" style="width: 100%; margin-top: 20px;">💪 Copy Script</button>
         </div>
     </div>
 
@@ -1905,89 +1903,6 @@
             });
         });
 
-        // Rating system logic with Liquid Glass design
-        document.querySelectorAll('.script-card').forEach(card => {
-            const scriptId = card.dataset.scriptId;
-            const likeBtn = card.querySelector('.like-btn');
-            const dislikeBtn = card.querySelector('.dislike-btn');
-            const likesCountEl = card.querySelector('.likes-count');
-            const dislikesCountEl = card.querySelector('.dislikes-count');
-            const likeBar = card.querySelector('.like-bar');
-
-            const ratingStorageKey = `rating_${scriptId}`;
-            const voteStorageKey = `vote_${scriptId}`;
-
-            let likes = parseInt(likesCountEl.textContent);
-            let dislikes = parseInt(dislikesCountEl.textContent);
-
-            // Load from storage
-            const savedRating = JSON.parse(localStorage.getItem(ratingStorageKey));
-            if (savedRating) {
-                likes = savedRating.likes;
-                dislikes = savedRating.dislikes;
-            }
-            
-            const savedVote = localStorage.getItem(voteStorageKey);
-            if (savedVote === 'like') likeBtn.classList.add('active');
-            if (savedVote === 'dislike') dislikeBtn.classList.add('active');
-
-            function updateUI() {
-                const maxDislikes = Math.floor(likes * 0.05);
-                const displayedDislikes = Math.min(dislikes, maxDislikes);
-
-                likesCountEl.textContent = likes;
-                dislikesCountEl.textContent = displayedDislikes;
-                const totalVotes = likes + displayedDislikes;
-                const likePercentage = totalVotes === 0 ? 50 : (likes / totalVotes) * 100;
-                likeBar.style.width = `${likePercentage}%`;
-                
-                // Liquid Glass rating bar effect
-                likeBar.style.boxShadow = `0 0 10px rgba(45, 212, 191, ${likePercentage / 500})`;
-                
-                localStorage.setItem(ratingStorageKey, JSON.stringify({likes, dislikes}));
-            }
-
-            likeBtn.addEventListener('click', () => {
-                const currentVote = localStorage.getItem(voteStorageKey);
-                if (currentVote === 'like') {
-                    // un-like
-                    likes--;
-                    localStorage.removeItem(voteStorageKey);
-                    likeBtn.classList.remove('active');
-                } else {
-                    if (currentVote === 'dislike') {
-                        dislikes--;
-                    }
-                    likes++;
-                    localStorage.setItem(voteStorageKey, 'like');
-                    likeBtn.classList.add('active');
-                    dislikeBtn.classList.remove('active');
-                }
-                updateUI();
-            });
-
-            dislikeBtn.addEventListener('click', () => {
-                const currentVote = localStorage.getItem(voteStorageKey);
-                if (currentVote === 'dislike') {
-                    // un-dislike
-                    dislikes--;
-                    localStorage.removeItem(voteStorageKey);
-                    dislikeBtn.classList.remove('active');
-                } else {
-                    if (currentVote === 'like') {
-                        likes--;
-                    }
-                    dislikes++;
-                    localStorage.setItem(voteStorageKey, 'dislike');
-                    dislikeBtn.classList.add('active');
-                    likeBtn.classList.remove('active');
-                }
-                updateUI();
-            });
-
-            updateUI();
-        });
-
         // Set title for updated tags
         document.querySelectorAll('.tag.updated').forEach(tag => {
             const today = new Date();
@@ -2135,6 +2050,58 @@
         setupStarMap();
         animateStarMap();
         window.addEventListener('resize', setupStarMap);
+
+        document.querySelectorAll('.rating-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => handleRating(e, btn));
+        });
+
+        // Script Detail Modal Logic
+        const scriptDetailModal = document.getElementById('script-detail-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+        const modalCopyBtn = document.getElementById('modal-copy-btn');
+
+        document.querySelectorAll('.script-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Don't open modal if a button or link inside the card was clicked
+                if (e.target.closest('button, a')) {
+                    return;
+                }
+
+                modalTitle.textContent = card.dataset.title;
+                modalDescription.textContent = card.dataset.description;
+                
+                const scriptToCopy = card.querySelector('pre').dataset.script;
+                modalCopyBtn.dataset.script = scriptToCopy;
+                modalCopyBtn.innerHTML = '💪 Copy Script'; // Reset button text
+
+                scriptDetailModal.classList.add('visible');
+            });
+        });
+
+        modalCopyBtn.addEventListener('click', () => {
+            copyScriptToClipboard(modalCopyBtn.dataset.script).then(success => {
+                if (success) {
+                    modalCopyBtn.innerHTML = '✅ Copied!';
+                }
+            });
+        });
+
+        // Close detail modal when 'x' is clicked
+        scriptDetailModal.querySelector('.close-modal').addEventListener('click', () => {
+            scriptDetailModal.classList.remove('visible');
+        });
+
+        // Close detail modal when clicking outside the content
+        scriptDetailModal.addEventListener('click', (e) => {
+            if (e.target === scriptDetailModal) {
+                scriptDetailModal.classList.remove('visible');
+            }
+        });
+
+        document.addEventListener('scroll', () => {
+            backToTopButton.classList.toggle('visible', window.scrollY > 300);
+        });
     });
   </script>
 </body>
