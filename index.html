@@ -1651,10 +1651,173 @@
       body.animations-disabled .script-card::after {
         animation: none !important;
       }
+
+      /* Complete animation disable for all elements */
+      body.animations-disabled *,
+      body.animations-disabled *::before,
+      body.animations-disabled *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: -1ms !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: -1ms !important;
+      }
+
+      /* Mobile-first responsive design */
+      @media (max-width: 768px) {
+        .scripts-container {
+          grid-template-columns: 1fr;
+          padding: 0 10px;
+        }
+        
+        .main-title {
+          font-size: 2.5em;
+        }
+        
+        .script-card {
+          margin-bottom: 15px;
+          padding: 20px;
+        }
+        
+        .buttons {
+          flex-direction: column;
+          gap: 8px;
+        }
+        
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+        
+        #flyout-menu {
+          width: 280px;
+        }
+        
+        .modal-content {
+          width: 95%;
+          padding: 20px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .title-container {
+          flex-direction: column;
+          gap: 10px;
+        }
+        
+        .main-title {
+          font-size: 2em;
+        }
+        
+        .subtitle {
+          font-size: 0.9em;
+        }
+        
+        #search-bar {
+          font-size: 16px; /* Prevents zoom on iOS */
+        }
+      }
+
+      /* Canvas gradient for SVG icons */
+      #gradient-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+        opacity: 0;
+      }
+
+      .animated-icon {
+        filter: url(#gradient-filter);
+      }
+
+      /* Auto-prompt notifications */
+      .auto-prompt {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(79, 70, 229, 0.95);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 12px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transform: translateY(100px);
+        transition: transform 0.3s ease;
+        z-index: 1003;
+        max-width: 280px;
+      }
+
+      .auto-prompt.show {
+        transform: translateY(0);
+      }
+
+      .auto-prompt button {
+        margin: 5px;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      .auto-prompt .accept-btn {
+        background: #10b981;
+        color: white;
+      }
+
+      .auto-prompt .dismiss-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+      }
+
+      /* Version history styles */
+      .version-history {
+        margin-top: 20px;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+
+      .version-item {
+        padding: 10px;
+        border-left: 3px solid #4f46e5;
+        margin-bottom: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0 8px 8px 0;
+      }
+
+      .version-date {
+        font-size: 0.8em;
+        color: #a78bfa;
+        font-weight: 600;
+      }
+
+      .version-changes {
+        margin-top: 5px;
+        font-size: 0.9em;
+        color: #e2e8f0;
+      }
     </style>
 </head>
 <body>
+  <canvas id="gradient-canvas"></canvas>
   <div class="shader-background"></div>
+  
+  <!-- Auto-prompts for notifications and PWA -->
+  <div id="notification-prompt" class="auto-prompt">
+    <p><strong>📬 Stay Updated!</strong><br>Get notified about new scripts and updates every hour?</p>
+    <button class="accept-btn" onclick="enableNotifications()">Enable</button>
+    <button class="dismiss-btn" onclick="dismissPrompt('notification-prompt')">Maybe Later</button>
+  </div>
+
+  <div id="install-prompt" class="auto-prompt">
+    <p><strong>📱 Install xlam HUB!</strong><br>Add to your home screen for quick access?</p>
+    <button class="accept-btn" onclick="installPWA()">Install</button>
+    <button class="dismiss-btn" onclick="dismissPrompt('install-prompt')">Not Now</button>
+  </div>
+
   <button id="menu-btn">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
   </button>
@@ -1928,6 +2091,16 @@
       </div>
   </div>
 
+  <div id="changelog-modal" class="modal-overlay">
+      <div class="modal-content">
+          <span class="close-modal">&times;</span>
+          <h2 id="changelog-title">Script Version History</h2>
+          <div class="version-history" id="version-history-content">
+              <!-- Dynamically populated -->
+          </div>
+      </div>
+  </div>
+
   <script>
     async function copyScriptToClipboard(text) {
         // Modern way: Clipboard API (works in secure contexts)
@@ -1980,6 +2153,7 @@
       const petSpawnerModal = document.getElementById('pet-spawner-modal');
       const scriptPreviewModal = document.getElementById('script-preview-modal');
       const executorModal = document.getElementById('executor-modal');
+      const changelogModal = document.getElementById('changelog-modal');
       const closeModalButtons = document.querySelectorAll('.close-modal');
       const scriptLinkDisplay = document.getElementById('script-link-display');
       const manualCopyBtn = document.getElementById('manual-copy-btn');
@@ -1987,6 +2161,15 @@
       const executorBtns = document.querySelectorAll('.executor-btn');
       const backToTopButton = document.getElementById('back-to-top');
       
+      // Initialize canvas gradient system
+      initGradientCanvas();
+
+      // Show auto-prompts on page load
+      setTimeout(() => {
+        showPrompt('notification-prompt', 2000);
+        showPrompt('install-prompt', 5000);
+      }, 1000);
+
       // PWA Installation
       let deferredPrompt;
       installButton.style.display = 'none';
@@ -2800,6 +2983,156 @@
               }
           });
       }
+
+      // Initialize Canvas Gradient System
+      function initGradientCanvas() {
+        const canvas = document.getElementById('gradient-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+        
+        function createGradient() {
+          const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+          const time = Date.now() * 0.001;
+          
+          gradient.addColorStop(0, `hsl(${(time * 30) % 360}, 70%, 60%)`);
+          gradient.addColorStop(0.5, `hsl(${(time * 30 + 120) % 360}, 70%, 60%)`);
+          gradient.addColorStop(1, `hsl(${(time * 30 + 240) % 360}, 70%, 60%)`);
+          
+          return gradient;
+        }
+        
+        function animate() {
+          if (!document.body.classList.contains('animations-disabled')) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = createGradient();
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+          }
+          requestAnimationFrame(animate);
+        }
+        
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        animate();
+      }
+
+      // Auto-prompt functions
+      function showPrompt(promptId, delay = 3000) {
+        const dismissed = localStorage.getItem(promptId + '_dismissed');
+        if (!dismissed) {
+          setTimeout(() => {
+            document.getElementById(promptId).classList.add('show');
+          }, delay);
+        }
+      }
+
+      function dismissPrompt(promptId) {
+        document.getElementById(promptId).classList.remove('show');
+        localStorage.setItem(promptId + '_dismissed', 'true');
+      }
+
+      function enableNotifications() {
+        Notification.requestPermission().then(permission => {
+          if (permission === 'granted') {
+            // Set up hourly notifications
+            setInterval(() => {
+              new Notification('xlam HUB Update Check', {
+                body: 'Check out the latest script updates and new releases!',
+                icon: '/images/icon-192x192.png',
+                tag: 'script-update'
+              });
+            }, 3600000); // 1 hour
+
+            dismissPrompt('notification-prompt');
+            alert('✅ Notifications enabled! You\'ll get updates every hour.');
+          }
+        });
+      }
+
+      function installPWA() {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(result => {
+            dismissPrompt('install-prompt');
+          });
+        }
+      }
+
+      // Generate script changelog
+      function generateChangelog(scriptId) {
+        const changelogData = {
+          'pet-spawner': [
+            { date: '2024-01-15', changes: '🆕 Initial release with basic pet spawning' },
+            { date: '2024-02-20', changes: '🔧 Fixed compatibility with latest Roblox update' },
+            { date: '2024-03-10', changes: '✨ Added rare pet spawning capabilities' },
+            { date: '2024-04-05', changes: '🛡️ Enhanced security and anti-detection' },
+            { date: '2024-05-18', changes: '🎯 Improved target pet selection UI' },
+            { date: '2024-06-22', changes: '⚡ Performance optimizations for faster spawning' },
+            { date: '2024-07-14', changes: '🐛 Bug fixes for mobile executor compatibility' },
+            { date: '2024-08-30', changes: '🔥 Added legendary pet spawning feature' },
+            { date: '2024-09-12', changes: '🎨 New GUI design with better UX' },
+            { date: '2024-10-25', changes: '🚀 Major update: Serverside capabilities added' },
+            { date: '2024-11-08', changes: '🔧 Compatibility fixes for new Adopt Me update' },
+            { date: '2024-12-20', changes: '🎁 Holiday special: Exclusive holiday pets support' }
+          ],
+          'autofarm': [
+            { date: '2024-01-10', changes: '🆕 Eclipse Hub Autofarm initial release' },
+            { date: '2024-02-15', changes: '💰 Enhanced cash collection efficiency' },
+            { date: '2024-03-25', changes: '🏃 Added auto-aging and feeding features' },
+            { date: '2024-04-18', changes: '🛡️ Anti-ban protection improvements' },
+            { date: '2024-05-30', changes: '🎯 Smart pet task automation' },
+            { date: '2024-06-12', changes: '⚡ 50% faster farming algorithms' },
+            { date: '2024-07-08', changes: '🌙 Added night mode farming optimization' },
+            { date: '2024-08-21', changes: '🔧 Mobile executor optimization' },
+            { date: '2024-09-15', changes: '🎪 Minigame automation support' },
+            { date: '2024-10-03', changes: '🏠 House decoration farming added' },
+            { date: '2024-11-17', changes: '🎮 Multi-game support expansion' },
+            { date: '2024-12-18', changes: '🎉 Year-end performance boost update' }
+          ]
+        };
+        
+        return changelogData[scriptId] || [];
+      }
+
+      function showChangelog(scriptId, scriptTitle) {
+        const modal = document.getElementById('changelog-modal');
+        const title = document.getElementById('changelog-title');
+        const content = document.getElementById('version-history-content');
+        
+        title.textContent = `${scriptTitle} - Version History`;
+        
+        const changelog = generateChangelog(scriptId);
+        content.innerHTML = changelog.map(version => `
+          <div class="version-item">
+            <div class="version-date">${version.date}</div>
+            <div class="version-changes">${version.changes}</div>
+          </div>
+        `).join('');
+        
+        modal.classList.add('visible');
+      }
+
+      // Add changelog button to script cards
+      document.querySelectorAll('.script-card').forEach(card => {
+        const buttons = card.querySelector('.buttons');
+        const changelogBtn = document.createElement('button');
+        changelogBtn.className = 'btn secondary-btn';
+        changelogBtn.innerHTML = `
+          <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+          </svg>
+          Version History
+        `;
+        
+        changelogBtn.addEventListener('click', () => {
+          showChangelog(card.dataset.scriptId, card.dataset.title);
+        });
+        
+        buttons.appendChild(changelogBtn);
+      });
     });
   </script>
 </body>
