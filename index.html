@@ -2348,10 +2348,11 @@
             // Stop heavy operations when animations are disabled
             if (animationFrameId) {
               cancelAnimationFrame(animationFrameId);
+              animationFrameId = null;
             }
             
-            // Clear canvas to save GPU
-            if (starCtx) {
+            // Clear star map canvas to save GPU
+            if (starCtx && starCanvas) {
               starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
             }
             
@@ -2413,6 +2414,10 @@
               body.animations-disabled .btn::before {
                 display: none !important;
               }
+              
+              body.animations-disabled #star-map-canvas {
+                display: none !important;
+              }
             `;
             document.head.appendChild(minimalStyle);
           } else {
@@ -2421,8 +2426,8 @@
               light.style.display = 'block';
             }
             
-            // Restart animations if not on mobile
-            if (!isMobile) {
+            // Restart star map animation if not on mobile
+            if (!isMobile && starCanvas && starCtx) {
               setupStarMap();
               animateStarMap();
             }
@@ -2439,14 +2444,10 @@
       const isFirefox = /Firefox/i.test(navigator.userAgent);
       const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
       
-      // Default to animations OFF on mobile, low-end devices, or if explicitly disabled
+      // Default to animations OFF for all users by default
       if (localStorage.getItem('animations') === null) {
-        // Set default based on device capability
-        if (isMobile || isFirefox || isLowEndDevice) {
-          setAnimationState(false);
-        } else {
-          setAnimationState(true);
-        }
+        // Set animations OFF by default for better performance
+        setAnimationState(false);
       } else {
         setAnimationState(animationsEnabled);
       }
