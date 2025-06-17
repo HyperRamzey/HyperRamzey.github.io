@@ -13,21 +13,14 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1a1c3c, #0c0d1b, #4f46e5);
-      background-size: 200% 200%;
+      background: linear-gradient(135deg, #1a1c3c, #0c0d1b);
       color: #f0f0f0;
       margin: 0;
       padding: 40px 20px;
       min-height: 100vh;
       box-sizing: border-box;
-      animation: gradient-animation 15s ease infinite;
       overflow-x: hidden;
       position: relative;
-    }
-    @keyframes gradient-animation {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
     }
     .main-title {
         font-size: 3em;
@@ -39,26 +32,6 @@
         position: relative;
         z-index: 1;
         overflow: hidden;
-        opacity: 0;
-    }
-    .main-title::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        animation: shimmer 5s infinite 2s;
-    }
-    @keyframes shimmer {
-        0% { transform: skewX(-25deg) translateX(-150%); }
-        40% { transform: skewX(-25deg) translateX(150%); }
-        100% { transform: skewX(-25deg) translateX(150%); }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
     }
     .subtitle {
         text-align: center;
@@ -75,7 +48,6 @@
         margin-bottom: 30px;
         position: relative;
         z-index: 1;
-        opacity: 0;
     }
     #search-bar {
         width: 100%;
@@ -752,8 +724,7 @@
       }
       #logo-bottle {
           z-index: 1;
-          opacity: 0;
-          transform: translateY(20px);
+          opacity: 1;
       }
       .bottle {
           width: 45px;
@@ -1544,14 +1515,8 @@
         width: 20px;
         height: 20px;
         margin-right: 8px;
-        animation: iconPulse 2s ease-in-out infinite;
       }
       
-      @keyframes iconPulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-      }
-
       /* Shader-inspired effects */
       .shader-background {
         position: fixed;
@@ -1602,20 +1567,8 @@
         border-radius: inherit;
         z-index: -1;
         filter: blur(4px);
-        animation: refractionShift 3s ease-in-out infinite;
       }
       
-      @keyframes refractionShift {
-        0%, 100% { 
-          background-position: 0% 50%; 
-          opacity: 0.8;
-        }
-        50% { 
-          background-position: 100% 50%; 
-          opacity: 1;
-        }
-      }
-
       /* Chrome-like refraction for script cards */
       .script-card::after {
         content: '';
@@ -1634,20 +1587,8 @@
         border-radius: inherit;
         pointer-events: none;
         mix-blend-mode: overlay;
-        animation: chromeShift 4s ease-in-out infinite;
       }
       
-      @keyframes chromeShift {
-        0%, 100% { 
-          transform: translateX(-10px) skewX(-2deg); 
-          opacity: 0.3;
-        }
-        50% { 
-          transform: translateX(10px) skewX(2deg); 
-          opacity: 0.6;
-        }
-      }
-
       /* Minimal animations for no-animation mode */
       body.animations-disabled .animated-icon {
         animation: none !important;
@@ -1890,8 +1831,6 @@
     </style>
 </head>
 <body class="animations-disabled">
-  <canvas id="gradient-canvas"></canvas>
-  <div class="shader-background"></div>
   
   <!-- Auto-prompts for notifications and PWA -->
   <div id="notification-prompt" class="auto-prompt">
@@ -1958,30 +1897,18 @@
       <div class="entry-logo">
           <div class="bottle-large">
               <div class="stick-large"></div>
-              <div class="smoke">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-              </div>
           </div>
           <h1 class="entry-title">xlam HUB</h1>
       </div>
       <button id="enter-btn" class="btn copy-btn" data-text="ENTER"><span>ENTER</span></button>
   </div>
-  <canvas id="star-map-canvas"></canvas>
   <main id="main-content" style="visibility: hidden;">
-    <div id="cursor-light"></div>
     <div id="free-pet-placard" class="placard">🎁 GET A FREE PET</div>
     <a id="back-to-top">▲</a>
     <div class="title-container">
         <div id="logo-bottle">
             <div class="bottle">
                 <div class="stick"></div>
-                <div class="smoke">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
             </div>
         </div>
         <h1 class="main-title">xlam HUB</h1>
