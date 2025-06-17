@@ -1491,6 +1491,27 @@
                 <a href="https://www.tiktok.com/@yohd57?_t=ZS-8x8D1JhGgeg&_r=1" target="_blank" rel="noopener noreferrer" class="btn tiktok-btn">🎵 TikTok</a>
             </div>
         </div>
+
+        <div class="script-card" 
+             data-script-id="pet-spawner"
+             data-title="Adopt Me Pet Spawner Script"
+             data-description="New pet spawner script with visual and serverside capabilities. This powerful tool allows you to spawn and customize pets directly in Adopt Me with a simple key system.">
+            <h2>adopt me pet spawner script</h2>
+            <div class="script-meta">
+                <div class="status-tags">
+                    <span class="tag updated">✅ UPDATED</span>
+                    <span class="tag working">⚡ WORKING</span>
+                    <span class="tag verified">👑 VERIFIED</span>
+                </div>
+            </div>
+            <pre data-script="2669563929576676.lua">Click "Copy Script" to get the code</pre>
+            <div class="buttons">
+                <button class="btn copy-btn">💪 Copy Script</button>
+                <a href="https://www.tiktok.com/@yohd57?_t=ZS-8x8D1JhGgeg&_r=1" target="_blank" rel="noopener noreferrer" class="btn secondary-btn">🎥 Video Tutorial</a>
+                <a href="https://deltaexploits.gg/" target="_blank" rel="noopener noreferrer" class="btn secondary-btn">💻 Executor Download</a>
+                <a href="https://www.tiktok.com/@yohd57?_t=ZS-8x8D1JhGgeg&_r=1" target="_blank" rel="noopener noreferrer" class="btn tiktok-btn">🎵 TikTok</a>
+            </div>
+        </div>
     </div>
 
     <div id="script-detail-modal" class="modal-overlay">
@@ -1538,6 +1559,24 @@
             <p style="text-align: center; margin-top: 15px; font-size: 0.9em; color: #a0aec0;">If you are stuck at loading, try to use newest android or ios delta executor or relaunch roblox if you are using it already</p>
         </div>
     </div>
+
+    <div id="pet-spawner-modal" class="modal-overlay">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>New Pet Spawner Script Visual and Serverside (with key)</h2>
+        <div class="image-gallery">
+          <div class="gallery-img-container">
+            <img src="https://hyperramzey.github.io/image2.jpg" alt="Script Preview 1" class="gallery-img">
+          </div>
+          <div class="gallery-img-container">
+            <img src="https://hyperramzey.github.io/image1.jpg" alt="Script Preview 2" class="gallery-img">
+          </div>
+        </div>
+        <p>This powerful script allows you to spawn and customize pets directly in Adopt Me with both visual and serverside capabilities.</p>
+        <button id="spawner-copy-btn" class="btn copy-btn" style="width: 100%; margin-top: 20px;">💪 Copy Script</button>
+      </div>
+    </div>
+
     <footer style="text-align: center; color: #a0aec0; font-size: 0.8em; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px;">
       <p style="margin: 0; line-height: 1.6;">
         <a href="https://hyperramzey.github.io/" style="color: #a78bfa; text-decoration: none;">EclipseHub Github pages site</a> © 2025 by <a href="https://github.com/HyperRamzey" style="color: #a78bfa; text-decoration: none;">HyperRamzey</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color: #a78bfa; text-decoration: none;">CC BY-NC-ND 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" style="height: 1.2em; margin-left: .3em; vertical-align: middle;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" style="height: 1.2em; margin-left: .3em; vertical-align: middle;"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" style="height: 1.2em; margin-left: .3em; vertical-align: middle;"><img src="https://mirrors.creativecommons.org/presskit/icons/nd.svg" style="height: 1.2em; margin-left: .3em; vertical-align: middle;">
@@ -1583,709 +1622,759 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        // Entry Screen Logic
-        const entryScreen = document.getElementById('entry-screen');
-        const enterBtn = document.getElementById('enter-btn');
-        const mainContent = document.getElementById('main-content');
-        
-        enterBtn.addEventListener('click', () => {
-            entryScreen.style.opacity = '0';
-            document.body.classList.add('content-entered');
-            mainContent.style.visibility = 'visible';
-            entryScreen.addEventListener('transitionend', () => {
-                entryScreen.style.display = 'none';
-            });
-        });
+      // Check if user is on mobile device and disable animations if needed
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        // Disable background animations for mobile devices
+        const style = document.createElement('style');
+        style.textContent = `
+          #particles-container, #cursor-light, #star-map-canvas, .fluid-animation {
+            display: none !important;
+          }
+          
+          @keyframes gradient-animation {
+            0%, 50%, 100% { background-position: 0% 50%; }
+          }
+          
+          @keyframes shimmer, card-entry-animation, liquid-float, liquid-shimmer, liquid-pulse, shine, pulse, smoke-up, smoke-up-large, rotate-border {
+            to { opacity: initial; }
+          }
+          
+          body {
+            background: linear-gradient(135deg, #1a1c3c, #0c0d1b) !important;
+            animation: none !important;
+          }
+        `;
+        document.head.appendChild(style);
+      }
 
-        // Modal Logic
-        const placard = document.getElementById('free-pet-placard');
-        const petModal = document.getElementById('pet-modal');
-        const scriptPreviewModal = document.getElementById('script-preview-modal');
-        const closeModalButtons = document.querySelectorAll('.close-modal');
-        const scriptLinkDisplay = document.getElementById('script-link-display');
-        const manualCopyBtn = document.getElementById('manual-copy-btn');
+      // Entry Screen Logic
+      const entryScreen = document.getElementById('entry-screen');
+      const enterBtn = document.getElementById('enter-btn');
+      const mainContent = document.getElementById('main-content');
+      
+      enterBtn.addEventListener('click', () => {
+          entryScreen.style.opacity = '0';
+          document.body.classList.add('content-entered');
+          mainContent.style.visibility = 'visible';
+          entryScreen.addEventListener('transitionend', () => {
+              entryScreen.style.display = 'none';
+          });
+      });
 
-        if(placard && petModal) {
-            placard.addEventListener('click', () => {
-                petModal.classList.add('visible');
-            });
-        }
-        
-        closeModalButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                button.closest('.modal-overlay').classList.remove('visible');
-            });
-        });
-        
-        window.addEventListener('click', (event) => {
-            if (event.target.classList.contains('modal-overlay')) {
-                event.target.classList.remove('visible');
-            }
-        });
+      // Modal Logic
+      const placard = document.getElementById('free-pet-placard');
+      const petSpawnerPlacard = document.getElementById('pet-spawner-placard');
+      const petModal = document.getElementById('pet-modal');
+      const petSpawnerModal = document.getElementById('pet-spawner-modal');
+      const scriptPreviewModal = document.getElementById('script-preview-modal');
+      const closeModalButtons = document.querySelectorAll('.close-modal');
+      const scriptLinkDisplay = document.getElementById('script-link-display');
+      const manualCopyBtn = document.getElementById('manual-copy-btn');
+      const spawnerCopyBtn = document.getElementById('spawner-copy-btn');
 
-        if (manualCopyBtn) {
-            manualCopyBtn.addEventListener('click', async () => {
-                const scriptText = scriptLinkDisplay.textContent;
-                if (scriptText) {
-                    const copySuccess = await copyScriptToClipboard(scriptText);
-                    if (copySuccess) {
-                        manualCopyBtn.textContent = '✓ Copied!';
-                        setTimeout(() => {
-                            manualCopyBtn.textContent = '📋 Copy Again';
-                        }, 2000);
-                    }
-                }
-            });
-        }
+      if(placard && petModal) {
+          placard.addEventListener('click', () => {
+              petModal.classList.add('visible');
+          });
+      }
+      
+      if(petSpawnerPlacard && petSpawnerModal) {
+          petSpawnerPlacard.addEventListener('click', () => {
+              petSpawnerModal.classList.add('visible');
+          });
+      }
+      
+      closeModalButtons.forEach(button => {
+          button.addEventListener('click', () => {
+              button.closest('.modal-overlay').classList.remove('visible');
+          });
+      });
+      
+      // Add click handler for the spawner copy button
+      if (spawnerCopyBtn) {
+          spawnerCopyBtn.addEventListener('click', async () => {
+              const scriptText = "2669563929576676.lua";
+              const copySuccess = await copyScriptToClipboard(scriptText);
+              if (copySuccess) {
+                  spawnerCopyBtn.textContent = '✓ Copied!';
+                  setTimeout(() => {
+                      spawnerCopyBtn.textContent = '💪 Copy Script';
+                  }, 2000);
+              }
+          });
+      }
+      
+      window.addEventListener('click', (event) => {
+          if (event.target.classList.contains('modal-overlay')) {
+              event.target.classList.remove('visible');
+          }
+      });
 
-        // Enhanced 3D Tilt Effect for Liquid Glass Cards
-        const cards = document.querySelectorAll('.script-card');
-        cards.forEach(card => {
-            let rafId = null;
-            
-            card.addEventListener('mousemove', (e) => {
-                if (rafId) {
-                    cancelAnimationFrame(rafId);
-                }
-                
-                rafId = requestAnimationFrame(() => {
-                    const cardRect = card.getBoundingClientRect();
-                    const x = e.clientX - cardRect.left;
-                    const y = e.clientY - cardRect.top;
-                    
-                    const centerX = cardRect.width / 2;
-                    const centerY = cardRect.height / 2;
-                    
-                    const rotateX = ((y - centerY) / centerY) * -6; // Reduced tilt for more subtle effect
-                    const rotateY = ((x - centerX) / centerX) * 6;
-                    
-                    // Calculate distance from center for highlight effect
-                    const distX = (x - centerX) / centerX;
-                    const distY = (y - centerY) / centerY;
-                    
-                    // Add dynamic highlight based on mouse position
-                    card.style.setProperty('--highlight-x', `${50 + distX * 20}%`);
-                    card.style.setProperty('--highlight-y', `${50 + distY * 20}%`);
-                    
-                    card.style.transition = 'transform 0.1s ease-out';
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                    
-                    // Add subtle liquid glass refraction effect
-                    card.style.boxShadow = `
-                        0 15px 35px rgba(0, 0, 0, 0.2),
-                        inset 0 0 0 1px rgba(255, 255, 255, ${0.1 + Math.abs(distX * distY) * 0.15})
-                    `;
-                    
-                    // Add liquid-like reflection
-                    const reflection = card.querySelector('.liquid-reflection') || document.createElement('div');
-                    if (!reflection.classList.contains('liquid-reflection')) {
-                        reflection.className = 'liquid-reflection';
-                        reflection.style.position = 'absolute';
-                        reflection.style.top = '0';
-                        reflection.style.left = '0';
-                        reflection.style.width = '100%';
-                        reflection.style.height = '100%';
-                        reflection.style.borderRadius = '24px';
-                        reflection.style.pointerEvents = 'none';
-                        reflection.style.zIndex = '2';
-                        card.appendChild(reflection);
-                    }
-                    
-                    reflection.style.background = `radial-gradient(
-                        circle at ${x}px ${y}px,
-                        rgba(255, 255, 255, 0.1) 0%,
-                        rgba(255, 255, 255, 0.05) 20%,
-                        transparent 50%
-                    )`;
-                    
-                    rafId = null;
-                });
-            });
+      if (manualCopyBtn) {
+          manualCopyBtn.addEventListener('click', async () => {
+              const scriptText = scriptLinkDisplay.textContent;
+              if (scriptText) {
+                  const copySuccess = await copyScriptToClipboard(scriptText);
+                  if (copySuccess) {
+                      manualCopyBtn.textContent = '✓ Copied!';
+                      setTimeout(() => {
+                          manualCopyBtn.textContent = '📋 Copy Again';
+                      }, 2000);
+                  }
+              }
+          });
+      }
 
-            card.addEventListener('mouseleave', () => {
-                if (rafId) {
-                    cancelAnimationFrame(rafId);
-                }
-                
-                card.style.transition = 'all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
-                card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
-                card.style.boxShadow = `
-                    0 8px 32px rgba(0, 0, 0, 0.2),
-                    inset 0 0 0 1px rgba(255, 255, 255, 0.1)
-                `;
-                
-                const reflection = card.querySelector('.liquid-reflection');
-                if (reflection) {
-                    reflection.style.background = 'transparent';
-                }
-            });
-        });
+      // Enhanced 3D Tilt Effect for Liquid Glass Cards
+      const cards = document.querySelectorAll('.script-card');
+      cards.forEach(card => {
+          let rafId = null;
+          
+          card.addEventListener('mousemove', (e) => {
+              if (rafId) {
+                  cancelAnimationFrame(rafId);
+              }
+              
+              rafId = requestAnimationFrame(() => {
+                  const cardRect = card.getBoundingClientRect();
+                  const x = e.clientX - cardRect.left;
+                  const y = e.clientY - cardRect.top;
+                  
+                  const centerX = cardRect.width / 2;
+                  const centerY = cardRect.height / 2;
+                  
+                  const rotateX = ((y - centerY) / centerY) * -6; // Reduced tilt for more subtle effect
+                  const rotateY = ((x - centerX) / centerX) * 6;
+                  
+                  // Calculate distance from center for highlight effect
+                  const distX = (x - centerX) / centerX;
+                  const distY = (y - centerY) / centerY;
+                  
+                  // Add dynamic highlight based on mouse position
+                  card.style.setProperty('--highlight-x', `${50 + distX * 20}%`);
+                  card.style.setProperty('--highlight-y', `${50 + distY * 20}%`);
+                  
+                  card.style.transition = 'transform 0.1s ease-out';
+                  card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                  
+                  // Add subtle liquid glass refraction effect
+                  card.style.boxShadow = `
+                      0 15px 35px rgba(0, 0, 0, 0.2),
+                      inset 0 0 0 1px rgba(255, 255, 255, ${0.1 + Math.abs(distX * distY) * 0.15})
+                  `;
+                  
+                  // Add liquid-like reflection
+                  const reflection = card.querySelector('.liquid-reflection') || document.createElement('div');
+                  if (!reflection.classList.contains('liquid-reflection')) {
+                      reflection.className = 'liquid-reflection';
+                      reflection.style.position = 'absolute';
+                      reflection.style.top = '0';
+                      reflection.style.left = '0';
+                      reflection.style.width = '100%';
+                      reflection.style.height = '100%';
+                      reflection.style.borderRadius = '24px';
+                      reflection.style.pointerEvents = 'none';
+                      reflection.style.zIndex = '2';
+                      card.appendChild(reflection);
+                  }
+                  
+                  reflection.style.background = `radial-gradient(
+                      circle at ${x}px ${y}px,
+                      rgba(255, 255, 255, 0.1) 0%,
+                      rgba(255, 255, 255, 0.05) 20%,
+                      transparent 50%
+                  )`;
+                  
+                  rafId = null;
+              });
+          });
 
-        // Back to top button logic
-        const backToTopButton = document.getElementById('back-to-top');
-        if (backToTopButton) {
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    backToTopButton.classList.add('visible');
-                } else {
-                    backToTopButton.classList.remove('visible');
-                }
-            });
-            backToTopButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        }
+          card.addEventListener('mouseleave', () => {
+              if (rafId) {
+                  cancelAnimationFrame(rafId);
+              }
+              
+              card.style.transition = 'all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
+              card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+              card.style.boxShadow = `
+                  0 8px 32px rgba(0, 0, 0, 0.2),
+                  inset 0 0 0 1px rgba(255, 255, 255, 0.1)
+              `;
+              
+              const reflection = card.querySelector('.liquid-reflection');
+              if (reflection) {
+                  reflection.style.background = 'transparent';
+              }
+          });
+      });
 
-        // Real-time search filter
-        const searchBar = document.getElementById('search-bar');
-        if (searchBar) {
-            searchBar.addEventListener('keyup', () => {
-                const searchTerm = searchBar.value.toLowerCase();
-                const scriptCards = document.querySelectorAll('.script-card');
-                
-                scriptCards.forEach(card => {
-                    const title = card.querySelector('h2').textContent.toLowerCase();
-                    if (title.includes(searchTerm)) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        }
-        
-        // Real-time counter simulation with localStorage persistence
-        const viewCounters = document.querySelectorAll('.view-count');
-        viewCounters.forEach(counter => {
-            const scriptCard = counter.closest('.script-card');
-            if (!scriptCard) return;
+      // Back to top button logic
+      const backToTopButton = document.getElementById('back-to-top');
+      if (backToTopButton) {
+          window.addEventListener('scroll', () => {
+              if (window.scrollY > 300) {
+                  backToTopButton.classList.add('visible');
+              } else {
+                  backToTopButton.classList.remove('visible');
+              }
+          });
+          backToTopButton.addEventListener('click', (e) => {
+              e.preventDefault();
+              window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth'
+              });
+          });
+      }
 
-            const scriptId = scriptCard.dataset.scriptId;
-            const storageKey = `view_count_${scriptId}`;
-            
-            let initialCount = parseInt(counter.textContent, 10);
-            if (isNaN(initialCount)) {
-                initialCount = 0;
-            }
-            let savedCount = localStorage.getItem(storageKey);
-            
-            let currentCount = savedCount ? parseInt(savedCount, 10) : initialCount;
-            counter.textContent = currentCount;
-            
-            const updateCounter = () => {
-                const increment = Math.floor(Math.random() * 5) + 1;
-                currentCount += increment;
-                counter.textContent = currentCount;
-                localStorage.setItem(storageKey, currentCount.toString());
-            };
-            
-            setInterval(updateCounter, 10000);
-        });
+      // Real-time search filter
+      const searchBar = document.getElementById('search-bar');
+      if (searchBar) {
+          searchBar.addEventListener('keyup', () => {
+              const searchTerm = searchBar.value.toLowerCase();
+              const scriptCards = document.querySelectorAll('.script-card');
+              
+              scriptCards.forEach(card => {
+                  const title = card.querySelector('h2').textContent.toLowerCase();
+                  if (title.includes(searchTerm)) {
+                      card.style.display = 'flex';
+                  } else {
+                      card.style.display = 'none';
+                  }
+              });
+          });
+      }
+      
+      // Real-time counter simulation with localStorage persistence
+      const viewCounters = document.querySelectorAll('.view-count');
+      viewCounters.forEach(counter => {
+          const scriptCard = counter.closest('.script-card');
+          if (!scriptCard) return;
 
-        // Enhanced Cursor Light Logic with liquid glass effect
-        const light = document.getElementById('cursor-light');
-        if (light) {
-            // Initialize pointers array for fluid movement
-            const pointers = [{ x: 0, y: 0, dx: 0, dy: 0, down: false, moved: false }];
-            let lastMouseX = 0;
-            let lastMouseY = 0;
-            let mouseSpeed = 0;
-            
-            document.addEventListener('mousemove', (e) => {
-                // Calculate mouse speed for dynamic effects
-                const dx = e.clientX - lastMouseX;
-                const dy = e.clientY - lastMouseY;
-                mouseSpeed = Math.sqrt(dx*dx + dy*dy) * 0.1;
-                mouseSpeed = Math.min(mouseSpeed, 20); // Limit max speed
-                
-                // Update pointer values
-                pointers[0].x = e.clientX;
-                pointers[0].y = e.clientY;
-                pointers[0].dx = dx * 0.2;
-                pointers[0].dy = dy * 0.2;
-                pointers[0].moved = true;
-                
-                // Smooth cursor light follow with slight delay
-                requestAnimationFrame(() => {
-                    // Size variation based on mouse speed
-                    const baseSize = 600;
-                    const speedFactor = mouseSpeed * 15;
-                    const size = baseSize + speedFactor;
-                    const opacity = 0.08 + mouseSpeed * 0.003;
-                    
-                    light.style.width = `${size}px`;
-                    light.style.height = `${size}px`;
-                    light.style.background = `radial-gradient(
-                        circle, 
-                        rgba(102, 126, 234, ${opacity}) 0%, 
-                        rgba(102, 126, 234, ${opacity * 0.7}) 30%, 
-                        rgba(102, 126, 234, ${opacity * 0.3}) 60%, 
-                        transparent 80%
-                    )`;
-                    light.style.left = `${e.clientX}px`;
-                    light.style.top = `${e.clientY}px`;
-                    
-                    // Add subtle trailing effect
-                    light.style.transition = mouseSpeed > 5 ? 'none' : 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s ease';
-                });
-                
-                lastMouseX = e.clientX;
-                lastMouseY = e.clientY;
-            });
-            
-            // Add enhanced liquid glass particle effects on click
-            document.addEventListener('click', (e) => {
-                // Create particle burst with liquid glass effect
-                for (let i = 0; i < 12; i++) {
-                    const particle = document.createElement('div');
-                    const size = Math.random() * 15 + 10;
-                    const angle = Math.random() * Math.PI * 2;
-                    const velocity = Math.random() * 8 + 3;
-                    const lifetime = Math.random() * 1500 + 800;
-                    const hue = Math.random() * 60 + 220; // Blue to purple
-                    
-                    particle.style.position = 'fixed';
-                    particle.style.width = `${size}px`;
-                    particle.style.height = `${size}px`;
-                    particle.style.borderRadius = '50%';
-                    particle.style.background = `radial-gradient(circle, hsla(${hue}, 80%, 70%, 0.4), hsla(${hue}, 80%, 60%, 0))`;
-                    particle.style.backdropFilter = 'blur(4px)';
-                    particle.style.webkitBackdropFilter = 'blur(4px)';
-                    particle.style.boxShadow = `0 0 ${size/2}px hsla(${hue}, 80%, 70%, 0.3)`;
-                    particle.style.top = `${e.clientY}px`;
-                    particle.style.left = `${e.clientX}px`;
-                    particle.style.pointerEvents = 'none';
-                    particle.style.zIndex = '1000';
-                    particle.style.transform = 'translate(-50%, -50%)';
-                    particle.style.border = '1px solid rgba(255, 255, 255, 0.1)';
-                    
-                    document.body.appendChild(particle);
-                    
-                    // Animate particle with liquid glass physics
-                    const vx = Math.cos(angle) * velocity;
-                    const vy = Math.sin(angle) * velocity;
-                    let posX = e.clientX;
-                    let posY = e.clientY;
-                    let opacity = 1;
-                    let scale = 1;
-                    let rotate = 0;
-                    
-                    const animate = () => {
-                        // Add gravity and friction for more realistic movement
-                        posX += vx * 0.98; // Apply friction
-                        posY += vy * 0.98 + 0.5; // Apply gravity
-                        opacity -= 1 / (lifetime / 16); // Gradually fade out
-                        scale = Math.max(0.1, scale - 0.01); // Gradually shrink
-                        rotate += 2; // Gentle rotation
-                        
-                        particle.style.left = `${posX}px`;
-                        particle.style.top = `${posY}px`;
-                        particle.style.opacity = opacity;
-                        particle.style.transform = `translate(-50%, -50%) scale(${scale}) rotate(${rotate}deg)`;
-                        
-                        if (opacity > 0) {
-                            requestAnimationFrame(animate);
-                        } else {
-                            document.body.removeChild(particle);
-                        }
-                    };
-                    
-                    animate();
-                }
-            });
-        }
+          const scriptId = scriptCard.dataset.scriptId;
+          const storageKey = `view_count_${scriptId}`;
+          
+          let initialCount = parseInt(counter.textContent, 10);
+          if (isNaN(initialCount)) {
+              initialCount = 0;
+          }
+          let savedCount = localStorage.getItem(storageKey);
+          
+          let currentCount = savedCount ? parseInt(savedCount, 10) : initialCount;
+          counter.textContent = currentCount;
+          
+          const updateCounter = () => {
+              const increment = Math.floor(Math.random() * 5) + 1;
+              currentCount += increment;
+              counter.textContent = currentCount;
+              localStorage.setItem(storageKey, currentCount.toString());
+          };
+          
+          setInterval(updateCounter, 10000);
+      });
 
-        const copyButtons = document.querySelectorAll('.copy-btn');
-        const emojis = ['❤️', '💖', '💗', '💓', '💕', '💞'];
+      // Enhanced Cursor Light Logic with liquid glass effect
+      const light = document.getElementById('cursor-light');
+      if (light) {
+          // Initialize pointers array for fluid movement
+          const pointers = [{ x: 0, y: 0, dx: 0, dy: 0, down: false, moved: false }];
+          let lastMouseX = 0;
+          let lastMouseY = 0;
+          let mouseSpeed = 0;
+          
+          document.addEventListener('mousemove', (e) => {
+              // Calculate mouse speed for dynamic effects
+              const dx = e.clientX - lastMouseX;
+              const dy = e.clientY - lastMouseY;
+              mouseSpeed = Math.sqrt(dx*dx + dy*dy) * 0.1;
+              mouseSpeed = Math.min(mouseSpeed, 20); // Limit max speed
+              
+              // Update pointer values
+              pointers[0].x = e.clientX;
+              pointers[0].y = e.clientY;
+              pointers[0].dx = dx * 0.2;
+              pointers[0].dy = dy * 0.2;
+              pointers[0].moved = true;
+              
+              // Smooth cursor light follow with slight delay
+              requestAnimationFrame(() => {
+                  // Size variation based on mouse speed
+                  const baseSize = 600;
+                  const speedFactor = mouseSpeed * 15;
+                  const size = baseSize + speedFactor;
+                  const opacity = 0.08 + mouseSpeed * 0.003;
+                  
+                  light.style.width = `${size}px`;
+                  light.style.height = `${size}px`;
+                  light.style.background = `radial-gradient(
+                      circle, 
+                      rgba(102, 126, 234, ${opacity}) 0%, 
+                      rgba(102, 126, 234, ${opacity * 0.7}) 30%, 
+                      rgba(102, 126, 234, ${opacity * 0.3}) 60%, 
+                      transparent 80%
+                  )`;
+                  light.style.left = `${e.clientX}px`;
+                  light.style.top = `${e.clientY}px`;
+                  
+                  // Add subtle trailing effect
+                  light.style.transition = mouseSpeed > 5 ? 'none' : 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s ease';
+              });
+              
+              lastMouseX = e.clientX;
+              lastMouseY = e.clientY;
+          });
+          
+          // Add enhanced liquid glass particle effects on click
+          document.addEventListener('click', (e) => {
+              // Create particle burst with liquid glass effect
+              for (let i = 0; i < 12; i++) {
+                  const particle = document.createElement('div');
+                  const size = Math.random() * 15 + 10;
+                  const angle = Math.random() * Math.PI * 2;
+                  const velocity = Math.random() * 8 + 3;
+                  const lifetime = Math.random() * 1500 + 800;
+                  const hue = Math.random() * 60 + 220; // Blue to purple
+                  
+                  particle.style.position = 'fixed';
+                  particle.style.width = `${size}px`;
+                  particle.style.height = `${size}px`;
+                  particle.style.borderRadius = '50%';
+                  particle.style.background = `radial-gradient(circle, hsla(${hue}, 80%, 70%, 0.4), hsla(${hue}, 80%, 60%, 0))`;
+                  particle.style.backdropFilter = 'blur(4px)';
+                  particle.style.webkitBackdropFilter = 'blur(4px)';
+                  particle.style.boxShadow = `0 0 ${size/2}px hsla(${hue}, 80%, 70%, 0.3)`;
+                  particle.style.top = `${e.clientY}px`;
+                  particle.style.left = `${e.clientX}px`;
+                  particle.style.pointerEvents = 'none';
+                  particle.style.zIndex = '1000';
+                  particle.style.transform = 'translate(-50%, -50%)';
+                  particle.style.border = '1px solid rgba(255, 255, 255, 0.1)';
+                  
+                  document.body.appendChild(particle);
+                  
+                  // Animate particle with liquid glass physics
+                  const vx = Math.cos(angle) * velocity;
+                  const vy = Math.sin(angle) * velocity;
+                  let posX = e.clientX;
+                  let posY = e.clientY;
+                  let opacity = 1;
+                  let scale = 1;
+                  let rotate = 0;
+                  
+                  const animate = () => {
+                      // Add gravity and friction for more realistic movement
+                      posX += vx * 0.98; // Apply friction
+                      posY += vy * 0.98 + 0.5; // Apply gravity
+                      opacity -= 1 / (lifetime / 16); // Gradually fade out
+                      scale = Math.max(0.1, scale - 0.01); // Gradually shrink
+                      rotate += 2; // Gentle rotation
+                      
+                      particle.style.left = `${posX}px`;
+                      particle.style.top = `${posY}px`;
+                      particle.style.opacity = opacity;
+                      particle.style.transform = `translate(-50%, -50%) scale(${scale}) rotate(${rotate}deg)`;
+                      
+                      if (opacity > 0) {
+                          requestAnimationFrame(animate);
+                      } else {
+                          document.body.removeChild(particle);
+                      }
+                  };
+                  
+                  animate();
+              }
+          });
+      }
 
-        copyButtons.forEach(copyBtn => {
-            // Skip the manual copy button in the modal
-            if (copyBtn.id === 'manual-copy-btn') return;
-            
-            let isLoading = false;
-            let isCopied = false;
-            const originalButtonHTML = copyBtn.innerHTML;
+      const copyButtons = document.querySelectorAll('.copy-btn');
+      const emojis = ['❤️', '💖', '💗', '💓', '💕', '💞'];
 
-            copyBtn.addEventListener('click', async (event) => {
-                if (isLoading) {
-                    return;
-                }
-                // If already copied, allow toggle off
-                if (isCopied) {
-                    copyBtn.innerHTML = originalButtonHTML;
-                    copyBtn.classList.remove('copied');
-                    isCopied = false;
-                    return;
-                }
+      copyButtons.forEach(copyBtn => {
+          // Skip the manual copy button in the modal
+          if (copyBtn.id === 'manual-copy-btn') return;
+          
+          let isLoading = false;
+          let isCopied = false;
+          const originalButtonHTML = copyBtn.innerHTML;
 
-                const button = event.currentTarget;
-                const scriptCard = button.closest('.script-card');
-                const preElement = scriptCard.querySelector('pre');
-                const scriptText = preElement.dataset.script;
+          copyBtn.addEventListener('click', async (event) => {
+              if (isLoading) {
+                  return;
+              }
+              // If already copied, allow toggle off
+              if (isCopied) {
+                  copyBtn.innerHTML = originalButtonHTML;
+                  copyBtn.classList.remove('copied');
+                  isCopied = false;
+                  return;
+              }
 
-                isLoading = true;
-                const originalPreText = preElement.innerText;
+              const button = event.currentTarget;
+              const scriptCard = button.closest('.script-card');
+              const preElement = scriptCard.querySelector('pre');
+              const scriptText = preElement.dataset.script;
 
-                preElement.innerText = '';
-                const loaderHTML = `
-                    <div class="loader-container">
-                        <div class="loader-bar"></div>
-                        <div class="loader-text">
-                            <span>Generating Script for you</span><span class="emoji">❤️</span>
-                        </div>
-                    </div>
-                `;
-                preElement.insertAdjacentHTML('beforeend', loaderHTML);
+              isLoading = true;
+              const originalPreText = preElement.innerText;
 
-                const loaderBar = preElement.querySelector('.loader-bar');
-                const emojiSpan = preElement.querySelector('.emoji');
+              preElement.innerText = '';
+              const loaderHTML = `
+                  <div class="loader-container">
+                      <div class="loader-bar"></div>
+                      <div class="loader-text">
+                          <span>Generating Script for you</span><span class="emoji">❤️</span>
+                      </div>
+                  </div>
+              `;
+              preElement.insertAdjacentHTML('beforeend', loaderHTML);
 
-                // Random duration between 1-5 seconds
-                const duration = Math.floor(Math.random() * 4000) + 1000;
-                if(loaderBar) {
-                    loaderBar.style.animation = `loading-animation ${duration / 1000}s linear forwards`;
-                }
+              const loaderBar = preElement.querySelector('.loader-bar');
+              const emojiSpan = preElement.querySelector('.emoji');
 
-                let emojiIndex = 0;
-                const emojiInterval = setInterval(() => {
-                    if(emojiSpan) {
-                        emojiIndex = (emojiIndex + 1) % emojis.length;
-                        emojiSpan.textContent = emojis[emojiIndex];
-                    }
-                }, 1000);
+              // Random duration between 1-5 seconds
+              const duration = Math.floor(Math.random() * 4000) + 1000;
+              if(loaderBar) {
+                  loaderBar.style.animation = `loading-animation ${duration / 1000}s linear forwards`;
+              }
 
-                setTimeout(async () => {
-                    clearInterval(emojiInterval);
+              let emojiIndex = 0;
+              const emojiInterval = setInterval(() => {
+                  if(emojiSpan) {
+                      emojiIndex = (emojiIndex + 1) % emojis.length;
+                      emojiSpan.textContent = emojis[emojiIndex];
+                  }
+              }, 1000);
 
-                    // Show the script preview modal instead of directly copying
-                    if (scriptPreviewModal && scriptLinkDisplay) {
-                        scriptLinkDisplay.textContent = scriptText;
-                        scriptPreviewModal.classList.add('visible');
-                        
-                        // Auto-copy the script
-                        const copySuccessful = await copyScriptToClipboard(scriptText);
-                        if (copySuccessful) {
-                            manualCopyBtn.textContent = '✓ Copied!';
-                            setTimeout(() => {
-                                manualCopyBtn.textContent = '📋 Copy Again';
-                            }, 2000);
-                        }
-                        
-                        button.innerHTML = '✓ Copied!';
-                        button.classList.add('copied');
-                        isCopied = true;
-                    } else {
-                        // Fallback if modal elements don't exist
-                        const copySuccessful = await copyScriptToClipboard(scriptText);
-                        if (copySuccessful) {
-                            button.innerHTML = '✓ Copied!';
-                            button.classList.add('copied');
-                            isCopied = true;
-                            alert("If you are stuck at loading, try to use newest android or ios delta executor or relauch roblox if you are using it already");
-                        } else {
-                            alert('Failed to copy script!');
-                        }
-                    }
+              setTimeout(async () => {
+                  clearInterval(emojiInterval);
 
-                    const loaderContainer = preElement.querySelector('.loader-container');
-                    if (loaderContainer) {
-                        loaderContainer.remove();
-                    }
-                    preElement.innerText = originalPreText;
-                    isLoading = false;
-                }, duration);
-            });
-        });
+                  // Show the script preview modal instead of directly copying
+                  if (scriptPreviewModal && scriptLinkDisplay) {
+                      scriptLinkDisplay.textContent = scriptText;
+                      scriptPreviewModal.classList.add('visible');
+                      
+                      // Auto-copy the script
+                      const copySuccessful = await copyScriptToClipboard(scriptText);
+                      if (copySuccessful) {
+                          manualCopyBtn.textContent = '✓ Copied!';
+                          setTimeout(() => {
+                              manualCopyBtn.textContent = '📋 Copy Again';
+                          }, 2000);
+                      }
+                      
+                      button.innerHTML = '✓ Copied!';
+                      button.classList.add('copied');
+                      isCopied = true;
+                  } else {
+                      // Fallback if modal elements don't exist
+                      const copySuccessful = await copyScriptToClipboard(scriptText);
+                      if (copySuccessful) {
+                          button.innerHTML = '✓ Copied!';
+                          button.classList.add('copied');
+                          isCopied = true;
+                          alert("If you are stuck at loading, try to use newest android or ios delta executor or relauch roblox if you are using it already");
+                      } else {
+                          alert('Failed to copy script!');
+                      }
+                  }
 
-        // Set title for updated tags
-        document.querySelectorAll('.tag.updated').forEach(tag => {
-            const today = new Date();
-            const formattedDate = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-            tag.setAttribute('title', `Updated on: ${formattedDate}`);
-        });
-        
-        // Initialize Liquid Glass star map animation
-        const starCanvas = document.getElementById('star-map-canvas');
-        if (!starCanvas) return; // Exit if canvas not found
-        
-        let starCtx;
-        try {
-            starCtx = starCanvas.getContext('2d', { alpha: true });
-            if (!starCtx) {
-                console.error('Could not get 2D context for star map canvas');
-                return;
-            }
-        } catch (e) {
-            console.error('Error initializing canvas context:', e);
-            return;
-        }
-        
-        let starParticles = [];
-        let animationFrameId;
+                  const loaderContainer = preElement.querySelector('.loader-container');
+                  if (loaderContainer) {
+                      loaderContainer.remove();
+                  }
+                  preElement.innerText = originalPreText;
+                  isLoading = false;
+              }, duration);
+          });
+      });
 
-        function setupStarMap() {
-            try {
-                starCanvas.width = window.innerWidth;
-                starCanvas.height = window.innerHeight;
-                starParticles = [];
-                const particleCount = Math.floor((starCanvas.width * starCanvas.height) / 15000);
-                
-                for (let i = 0; i < particleCount; i++) {
-                    const size = Math.random() * 1.5 + 0.5;
-                    // Create more varied stars for Liquid Glass effect
-                    // Slow down movement by dividing vx, vy by 2
-                    // Slow down blinking by dividing blinkSpeed by 4
-                    starParticles.push({
-                        x: Math.random() * starCanvas.width,
-                        y: Math.random() * starCanvas.height,
-                        radius: size,
-                        vx: (Math.random() - 0.5) * 0.1, // Slower movement (was 0.2)
-                        vy: (Math.random() - 0.5) * 0.1, // Slower movement (was 0.2)
-                        opacity: Math.random() * 0.5 + 0.5,
-                        opacityDirection: Math.random() > 0.5 ? 1 : -1,
-                        blinkSpeed: (0.005 + Math.random() * 0.01) / 4, // Slower blinking
-                        hue: Math.random() > 0.7 ? Math.random() * 60 + 220 : null, // Some colored stars
-                        glow: Math.random() > 0.8 // Some stars have glow
-                    });
-                }
-            } catch (e) {
-                console.error('Error in setupStarMap:', e);
-            }
-        }
+      // Set title for updated tags
+      document.querySelectorAll('.tag.updated').forEach(tag => {
+          const today = new Date();
+          const formattedDate = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+          tag.setAttribute('title', `Updated on: ${formattedDate}`);
+      });
+      
+      // Initialize Liquid Glass star map animation
+      const starCanvas = document.getElementById('star-map-canvas');
+      if (!starCanvas) return; // Exit if canvas not found
+      
+      let starCtx;
+      try {
+          starCtx = starCanvas.getContext('2d', { alpha: true });
+          if (!starCtx) {
+              console.error('Could not get 2D context for star map canvas');
+              return;
+          }
+      } catch (e) {
+          console.error('Error initializing canvas context:', e);
+          return;
+      }
+      
+      let starParticles = [];
+      let animationFrameId;
 
-        function animateStarMap() {
-            try {
-                starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
-                
-                for (const p of starParticles) {
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    
-                    if (p.x < -p.radius) p.x = starCanvas.width + p.radius;
-                    if (p.x > starCanvas.width + p.radius) p.x = -p.radius;
-                    if (p.y < -p.radius) p.y = starCanvas.height + p.radius;
-                    if (p.y > starCanvas.height + p.radius) p.y = -p.radius;
+      function setupStarMap() {
+          try {
+              starCanvas.width = window.innerWidth;
+              starCanvas.height = window.innerHeight;
+              starParticles = [];
+              const particleCount = Math.floor((starCanvas.width * starCanvas.height) / 15000);
+              
+              for (let i = 0; i < particleCount; i++) {
+                  const size = Math.random() * 1.5 + 0.5;
+                  // Create more varied stars for Liquid Glass effect
+                  // Slow down movement by dividing vx, vy by 2
+                  // Slow down blinking by dividing blinkSpeed by 4
+                  starParticles.push({
+                      x: Math.random() * starCanvas.width,
+                      y: Math.random() * starCanvas.height,
+                      radius: size,
+                      vx: (Math.random() - 0.5) * 0.1, // Slower movement (was 0.2)
+                      vy: (Math.random() - 0.5) * 0.1, // Slower movement (was 0.2)
+                      opacity: Math.random() * 0.5 + 0.5,
+                      opacityDirection: Math.random() > 0.5 ? 1 : -1,
+                      blinkSpeed: (0.005 + Math.random() * 0.01) / 4, // Slower blinking
+                      hue: Math.random() > 0.7 ? Math.random() * 60 + 220 : null, // Some colored stars
+                      glow: Math.random() > 0.8 // Some stars have glow
+                  });
+              }
+          } catch (e) {
+              console.error('Error in setupStarMap:', e);
+          }
+      }
 
-                    if (p.opacity <= 0.2) p.opacityDirection = 1;
-                    else if (p.opacity >= 1.0) p.opacityDirection = -1;
-                    p.opacity += p.opacityDirection * p.blinkSpeed;
+      function animateStarMap() {
+          try {
+              starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+              
+              for (const p of starParticles) {
+                  p.x += p.vx;
+                  p.y += p.vy;
+                  
+                  if (p.x < -p.radius) p.x = starCanvas.width + p.radius;
+                  if (p.x > starCanvas.width + p.radius) p.x = -p.radius;
+                  if (p.y < -p.radius) p.y = starCanvas.height + p.radius;
+                  if (p.y > starCanvas.height + p.radius) p.y = -p.radius;
 
-                    // Draw star with Liquid Glass effect
-                    if (p.hue) {
-                        // Colored star
-                        starCtx.beginPath();
-                        starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                        starCtx.fillStyle = `hsla(${p.hue}, 80%, 70%, ${p.opacity * 0.7})`;
-                        starCtx.fill();
-                        
-                        if (p.glow) {
-                            // Add glow effect
-                            const gradient = starCtx.createRadialGradient(
-                                p.x, p.y, 0,
-                                p.x, p.y, p.radius * 4
-                            );
-                            gradient.addColorStop(0, `hsla(${p.hue}, 80%, 70%, ${p.opacity * 0.5})`);
-                            gradient.addColorStop(1, `hsla(${p.hue}, 80%, 70%, 0)`);
-                            
-                            starCtx.beginPath();
-                            starCtx.arc(p.x, p.y, p.radius * 4, 0, Math.PI * 2);
-                            starCtx.fillStyle = gradient;
-                            starCtx.fill();
-                        }
-                    } else {
-                        // White star
-                        starCtx.beginPath();
-                        starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                        starCtx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
-                        starCtx.fill();
-                        
-                        if (p.glow) {
-                            // Add glow effect
-                            const gradient = starCtx.createRadialGradient(
-                                p.x, p.y, 0,
-                                p.x, p.y, p.radius * 3
-                            );
-                            gradient.addColorStop(0, `rgba(255, 255, 255, ${p.opacity * 0.3})`);
-                            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                            
-                            starCtx.beginPath();
-                            starCtx.arc(p.x, p.y, p.radius * 3, 0, Math.PI * 2);
-                            starCtx.fillStyle = gradient;
-                            starCtx.fill();
-                        }
-                    }
-                }
-                
-                // Draw connections with Liquid Glass effect
-                for (let i = 0; i < starParticles.length; i++) {
-                    for (let j = i + 1; j < starParticles.length; j++) {
-                        const p1 = starParticles[i];
-                        const p2 = starParticles[j];
-                        const distance = Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
-                        
-                        if (distance < 120) {
-                            const opacity = (1 - distance / 120) * 0.3;
-                            
-                            // Create gradient line for Liquid Glass effect
-                            const gradient = starCtx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
-                            
-                            if (p1.hue && p2.hue) {
-                                // Both colored stars
-                                gradient.addColorStop(0, `hsla(${p1.hue}, 80%, 70%, ${opacity})`);
-                                gradient.addColorStop(1, `hsla(${p2.hue}, 80%, 70%, ${opacity})`);
-                            } else if (p1.hue) {
-                                // Only p1 is colored
-                                gradient.addColorStop(0, `hsla(${p1.hue}, 80%, 70%, ${opacity})`);
-                                gradient.addColorStop(1, `rgba(255, 255, 255, ${opacity})`);
-                            } else if (p2.hue) {
-                                // Only p2 is colored
-                                gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
-                                gradient.addColorStop(1, `hsla(${p2.hue}, 80%, 70%, ${opacity})`);
-                            } else {
-                                // Both white stars
-                                gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
-                                gradient.addColorStop(1, `rgba(255, 255, 255, ${opacity})`);
-                            }
-                            
-                            starCtx.beginPath();
-                            starCtx.moveTo(p1.x, p1.y);
-                            starCtx.lineTo(p2.x, p2.y);
-                            starCtx.lineWidth = 0.5;
-                            starCtx.strokeStyle = gradient;
-                            starCtx.stroke();
-                        }
-                    }
-                }
-                
-                animationFrameId = requestAnimationFrame(animateStarMap);
-            } catch (e) {
-                console.error('Error in animateStarMap:', e);
-                cancelAnimationFrame(animationFrameId);
-                
-                // Fallback to simpler rendering if complex animation fails
-                trySimpleStarRendering();
-            }
-        }
+                  if (p.opacity <= 0.2) p.opacityDirection = 1;
+                  else if (p.opacity >= 1.0) p.opacityDirection = -1;
+                  p.opacity += p.opacityDirection * p.blinkSpeed;
 
-        function trySimpleStarRendering() {
-            try {
-                starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
-                
-                // Simplified star rendering without complex effects
-                for (const p of starParticles) {
-                    starCtx.beginPath();
-                    starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    starCtx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
-                    starCtx.fill();
-                }
-                
-                requestAnimationFrame(trySimpleStarRendering);
-            } catch (e) {
-                console.error('Even simple rendering failed:', e);
-            }
-        }
+                  // Draw star with Liquid Glass effect
+                  if (p.hue) {
+                      // Colored star
+                      starCtx.beginPath();
+                      starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                      starCtx.fillStyle = `hsla(${p.hue}, 80%, 70%, ${p.opacity * 0.7})`;
+                      starCtx.fill();
+                      
+                      if (p.glow) {
+                          // Add glow effect
+                          const gradient = starCtx.createRadialGradient(
+                              p.x, p.y, 0,
+                              p.x, p.y, p.radius * 4
+                          );
+                          gradient.addColorStop(0, `hsla(${p.hue}, 80%, 70%, ${p.opacity * 0.5})`);
+                          gradient.addColorStop(1, `hsla(${p.hue}, 80%, 70%, 0)`);
+                          
+                          starCtx.beginPath();
+                          starCtx.arc(p.x, p.y, p.radius * 4, 0, Math.PI * 2);
+                          starCtx.fillStyle = gradient;
+                          starCtx.fill();
+                      }
+                  } else {
+                      // White star
+                      starCtx.beginPath();
+                      starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                      starCtx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+                      starCtx.fill();
+                      
+                      if (p.glow) {
+                          // Add glow effect
+                          const gradient = starCtx.createRadialGradient(
+                              p.x, p.y, 0,
+                              p.x, p.y, p.radius * 3
+                          );
+                          gradient.addColorStop(0, `rgba(255, 255, 255, ${p.opacity * 0.3})`);
+                          gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                          
+                          starCtx.beginPath();
+                          starCtx.arc(p.x, p.y, p.radius * 3, 0, Math.PI * 2);
+                          starCtx.fillStyle = gradient;
+                          starCtx.fill();
+                      }
+                  }
+              }
+              
+              // Draw connections with Liquid Glass effect
+              for (let i = 0; i < starParticles.length; i++) {
+                  for (let j = i + 1; j < starParticles.length; j++) {
+                      const p1 = starParticles[i];
+                      const p2 = starParticles[j];
+                      const distance = Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+                      
+                      if (distance < 120) {
+                          const opacity = (1 - distance / 120) * 0.3;
+                          
+                          // Create gradient line for Liquid Glass effect
+                          const gradient = starCtx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+                          
+                          if (p1.hue && p2.hue) {
+                              // Both colored stars
+                              gradient.addColorStop(0, `hsla(${p1.hue}, 80%, 70%, ${opacity})`);
+                              gradient.addColorStop(1, `hsla(${p2.hue}, 80%, 70%, ${opacity})`);
+                          } else if (p1.hue) {
+                              // Only p1 is colored
+                              gradient.addColorStop(0, `hsla(${p1.hue}, 80%, 70%, ${opacity})`);
+                              gradient.addColorStop(1, `rgba(255, 255, 255, ${opacity})`);
+                          } else if (p2.hue) {
+                              // Only p2 is colored
+                              gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
+                              gradient.addColorStop(1, `hsla(${p2.hue}, 80%, 70%, ${opacity})`);
+                          } else {
+                              // Both white stars
+                              gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
+                              gradient.addColorStop(1, `rgba(255, 255, 255, ${opacity})`);
+                          }
+                          
+                          starCtx.beginPath();
+                          starCtx.moveTo(p1.x, p1.y);
+                          starCtx.lineTo(p2.x, p2.y);
+                          starCtx.lineWidth = 0.5;
+                          starCtx.strokeStyle = gradient;
+                          starCtx.stroke();
+                      }
+                  }
+              }
+              
+              animationFrameId = requestAnimationFrame(animateStarMap);
+          } catch (e) {
+              console.error('Error in animateStarMap:', e);
+              cancelAnimationFrame(animationFrameId);
+              
+              // Fallback to simpler rendering if complex animation fails
+              trySimpleStarRendering();
+          }
+      }
 
-        try {
-            setupStarMap();
-            animateStarMap();
-            window.addEventListener('resize', setupStarMap);
-        } catch (e) {
-            console.error('Failed to initialize star map:', e);
-        }
+      function trySimpleStarRendering() {
+          try {
+              starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+              
+              // Simplified star rendering without complex effects
+              for (const p of starParticles) {
+                  starCtx.beginPath();
+                  starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                  starCtx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+                  starCtx.fill();
+              }
+              
+              requestAnimationFrame(trySimpleStarRendering);
+          } catch (e) {
+              console.error('Even simple rendering failed:', e);
+          }
+      }
 
-        document.querySelectorAll('.rating-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => handleRating(e, btn));
-        });
+      try {
+          setupStarMap();
+          animateStarMap();
+          window.addEventListener('resize', setupStarMap);
+      } catch (e) {
+          console.error('Failed to initialize star map:', e);
+      }
 
-        // Script Detail Modal Logic
-        const scriptDetailModal = document.getElementById('script-detail-modal');
-        const modalTitle = document.getElementById('modal-title');
-        const modalDescription = document.getElementById('modal-description');
-        const modalCopyBtn = document.getElementById('modal-copy-btn');
+      document.querySelectorAll('.rating-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => handleRating(e, btn));
+      });
 
-        document.querySelectorAll('.script-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                // Don't open modal if a button or link inside the card was clicked
-                if (e.target.closest('button, a')) {
-                    return;
-                }
+      // Script Detail Modal Logic
+      const scriptDetailModal = document.getElementById('script-detail-modal');
+      const modalTitle = document.getElementById('modal-title');
+      const modalDescription = document.getElementById('modal-description');
+      const modalCopyBtn = document.getElementById('modal-copy-btn');
 
-                modalTitle.textContent = card.dataset.title;
-                modalDescription.textContent = card.dataset.description;
-                
-                const scriptToCopy = card.querySelector('pre').dataset.script;
-                modalCopyBtn.dataset.script = scriptToCopy;
-                modalCopyBtn.innerHTML = '💪 Copy Script'; // Reset button text
+      document.querySelectorAll('.script-card').forEach(card => {
+          card.addEventListener('click', (e) => {
+              // Don't open modal if a button or link inside the card was clicked
+              if (e.target.closest('button, a')) {
+                  return;
+              }
 
-                scriptDetailModal.classList.add('visible');
-            });
-        });
+              modalTitle.textContent = card.dataset.title;
+              modalDescription.textContent = card.dataset.description;
+              
+              const scriptToCopy = card.querySelector('pre').dataset.script;
+              modalCopyBtn.dataset.script = scriptToCopy;
+              modalCopyBtn.innerHTML = '💪 Copy Script'; // Reset button text
 
-        modalCopyBtn.addEventListener('click', () => {
-            copyScriptToClipboard(modalCopyBtn.dataset.script).then(success => {
-                if (success) {
-                    modalCopyBtn.innerHTML = '✅ Copied!';
-                }
-            });
-        });
+              scriptDetailModal.classList.add('visible');
+          });
+      });
 
-        // Close detail modal when 'x' is clicked
-        scriptDetailModal.querySelector('.close-modal').addEventListener('click', () => {
-            scriptDetailModal.classList.remove('visible');
-        });
+      modalCopyBtn.addEventListener('click', () => {
+          copyScriptToClipboard(modalCopyBtn.dataset.script).then(success => {
+              if (success) {
+                  modalCopyBtn.innerHTML = '✅ Copied!';
+              }
+          });
+      });
 
-        // Close detail modal when clicking outside the content
-        scriptDetailModal.addEventListener('click', (e) => {
-            if (e.target === scriptDetailModal) {
-                scriptDetailModal.classList.remove('visible');
-            }
-        });
+      // Close detail modal when 'x' is clicked
+      scriptDetailModal.querySelector('.close-modal').addEventListener('click', () => {
+          scriptDetailModal.classList.remove('visible');
+      });
 
-        document.addEventListener('scroll', () => {
-            backToTopButton.classList.toggle('visible', window.scrollY > 300);
-        });
+      // Close detail modal when clicking outside the content
+      scriptDetailModal.addEventListener('click', (e) => {
+          if (e.target === scriptDetailModal) {
+              scriptDetailModal.classList.remove('visible');
+          }
+      });
 
-        // Image gallery functionality
-        const imageOverlay = document.getElementById('image-overlay');
-        const enlargedImage = document.getElementById('enlarged-image');
-        const closeOverlay = document.querySelector('.close-overlay');
-        const galleryImages = document.querySelectorAll('.gallery-img');
-        
-        if (galleryImages.length > 0 && enlargedImage && imageOverlay) {
-            galleryImages.forEach(img => {
-                img.addEventListener('click', function() {
-                    enlargedImage.src = this.src;
-                    imageOverlay.classList.add('active');
-                    document.body.style.overflow = 'hidden'; // Prevent scrolling
-                });
-            });
-            
-            // Close overlay on click
-            closeOverlay.addEventListener('click', () => {
-                imageOverlay.classList.remove('active');
-                document.body.style.overflow = ''; // Re-enable scrolling
-            });
-            
-            // Close overlay when clicking outside the image
-            imageOverlay.addEventListener('click', (e) => {
-                if (e.target === imageOverlay) {
-                    imageOverlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-            
-            // Close overlay with escape key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && imageOverlay.classList.contains('active')) {
-                    imageOverlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-        }
+      document.addEventListener('scroll', () => {
+          backToTopButton.classList.toggle('visible', window.scrollY > 300);
+      });
+
+      // Image gallery functionality
+      const imageOverlay = document.getElementById('image-overlay');
+      const enlargedImage = document.getElementById('enlarged-image');
+      const closeOverlay = document.querySelector('.close-overlay');
+      const galleryImages = document.querySelectorAll('.gallery-img');
+      
+      if (galleryImages.length > 0 && enlargedImage && imageOverlay) {
+          galleryImages.forEach(img => {
+              img.addEventListener('click', function() {
+                  enlargedImage.src = this.src;
+                  imageOverlay.classList.add('active');
+                  document.body.style.overflow = 'hidden'; // Prevent scrolling
+              });
+          });
+          
+          // Close overlay on click
+          closeOverlay.addEventListener('click', () => {
+              imageOverlay.classList.remove('active');
+              document.body.style.overflow = ''; // Re-enable scrolling
+          });
+          
+          // Close overlay when clicking outside the image
+          imageOverlay.addEventListener('click', (e) => {
+              if (e.target === imageOverlay) {
+                  imageOverlay.classList.remove('active');
+                  document.body.style.overflow = '';
+              }
+          });
+          
+          // Close overlay with escape key
+          document.addEventListener('keydown', (e) => {
+              if (e.key === 'Escape' && imageOverlay.classList.contains('active')) {
+                  imageOverlay.classList.remove('active');
+                  document.body.style.overflow = '';
+              }
+          });
+      }
     });
   </script>
 </body>
