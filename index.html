@@ -1474,21 +1474,34 @@
         justify-content: center;
         cursor: pointer;
         backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        touch-action: manipulation; /* Better touch handling */
+        -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
       }
+      
+      #menu-btn:active {
+        transform: scale(0.95);
+        background: rgba(255, 255, 255, 0.2);
+      }
+      
       #flyout-menu {
         position: fixed;
         top: 0;
         left: -320px;
         width: 300px;
         height: 100%;
-        background: rgba(20, 22, 50, 0.9);
+        background: rgba(20, 22, 50, 0.95);
         backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         z-index: 1001;
         transition: left 0.3s ease;
         padding: 80px 20px 20px;
         box-shadow: 5px 0 15px rgba(0,0,0,0.2);
         border-right: 1px solid rgba(255,255,255,0.1);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
       }
+      
       #flyout-menu.open {
         left: 0;
       }
@@ -1664,6 +1677,32 @@
 
       /* Mobile-first responsive design */
       @media (max-width: 768px) {
+        /* Disable heavy effects on mobile by default */
+        .script-card,
+        .btn,
+        .placard,
+        #back-to-top,
+        .modal-content {
+          backdrop-filter: none !important;
+          -webkit-backdrop-filter: none !important;
+          -moz-backdrop-filter: none !important;
+        }
+        
+        .script-card {
+          background: rgba(40, 42, 70, 0.95) !important;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .btn {
+          background: rgba(79, 70, 229, 0.8) !important;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        /* Disable 3D transforms on mobile */
+        .script-card:hover {
+          transform: translateY(-2px) !important;
+        }
+        
         .scripts-container {
           grid-template-columns: 1fr;
           padding: 0 10px;
@@ -1696,6 +1735,22 @@
           width: 95%;
           padding: 20px;
         }
+        
+        /* Disable complex animations on mobile */
+        * {
+          animation-duration: 0.3s !important;
+          transition-duration: 0.3s !important;
+        }
+        
+        /* Hide cursor light on mobile */
+        #cursor-light {
+          display: none !important;
+        }
+        
+        /* Hide shader background on mobile */
+        .shader-background {
+          display: none !important;
+        }
       }
 
       @media (max-width: 480px) {
@@ -1714,6 +1769,39 @@
         
         #search-bar {
           font-size: 16px; /* Prevents zoom on iOS */
+        }
+        
+        /* Better button spacing for touch */
+        .btn {
+          min-height: 44px; /* iOS recommended touch target */
+          padding: 12px 16px;
+        }
+        
+        /* Improve menu button size for touch */
+        #menu-btn {
+          width: 54px;
+          height: 54px;
+          top: 16px;
+          left: 16px;
+        }
+        
+        /* Ensure modal close buttons are touch-friendly */
+        .close-modal {
+          font-size: 2.5em;
+          padding: 10px;
+          min-width: 44px;
+          min-height: 44px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        /* Improve auto-prompt positioning on small screens */
+        .auto-prompt {
+          bottom: 10px;
+          right: 10px;
+          left: 10px;
+          max-width: none;
         }
       }
 
@@ -2164,10 +2252,17 @@
       // Initialize canvas gradient system
       initGradientCanvas();
 
-      // Show auto-prompts on page load
+      // Show auto-prompts on page load - Fixed for mobile
       setTimeout(() => {
-        showPrompt('notification-prompt', 2000);
-        showPrompt('install-prompt', 5000);
+        // Only show notification prompt if not previously dismissed and notifications are supported
+        if ('Notification' in window && Notification.permission === 'default') {
+          showPrompt('notification-prompt', 2000);
+        }
+        
+        // Show install prompt if PWA is supported
+        if ('serviceWorker' in navigator) {
+          showPrompt('install-prompt', 5000);
+        }
       }, 1000);
 
       // PWA Installation
@@ -2201,9 +2296,34 @@
         });
       }
 
-      // Flyout Menu
-      menuBtn.addEventListener('click', () => {
+      // Flyout Menu - Fixed for mobile
+      menuBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         flyoutMenu.classList.toggle('open');
+      });
+
+      // Close flyout menu when clicking outside on mobile
+      document.addEventListener('touchstart', (e) => {
+        if (!flyoutMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+          flyoutMenu.classList.remove('open');
+        }
+      });
+
+      // Also handle click events for desktop
+      document.addEventListener('click', (e) => {
+        if (!flyoutMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+          flyoutMenu.classList.remove('open');
+        }
+      });
+
+      // Prevent flyout menu from closing when clicking inside it
+      flyoutMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+
+      flyoutMenu.addEventListener('touchstart', (e) => {
+        e.stopPropagation();
       });
 
       // Dark/Light Mode
@@ -2225,16 +2345,88 @@
           localStorage.setItem('animations', enabled ? 'enabled' : 'disabled');
           
           if (!enabled) {
+            // Stop heavy operations when animations are disabled
+            if (animationFrameId) {
+              cancelAnimationFrame(animationFrameId);
+            }
+            
+            // Clear canvas to save GPU
+            if (starCtx) {
+              starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+            }
+            
+            // Disable cursor light
+            if (light) {
+              light.style.display = 'none';
+            }
+            
             // Add minimal animations for no-animation mode
             const minimalStyle = document.createElement('style');
             minimalStyle.id = 'minimal-animations';
             minimalStyle.textContent = `
-              .script-card:hover { transform: translateY(-2px); transition: transform 0.2s ease; }
-              .btn:hover { transform: scale(1.02); transition: transform 0.15s ease; }
-              #back-to-top.visible { opacity: 1; transition: opacity 0.3s ease; }
+              /* Disable heavy effects on mobile/animations-off mode */
+              body.animations-disabled .script-card,
+              body.animations-disabled .btn,
+              body.animations-disabled .placard,
+              body.animations-disabled #back-to-top,
+              body.animations-disabled .modal-content {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                -moz-backdrop-filter: none !important;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+              }
+              
+              body.animations-disabled .script-card {
+                background: rgba(40, 42, 70, 0.95) !important;
+              }
+              
+              body.animations-disabled .btn {
+                background: rgba(79, 70, 229, 0.8) !important;
+              }
+              
+              body.animations-disabled .script-card:hover { 
+                transform: translateY(-2px); 
+                transition: transform 0.2s ease; 
+              }
+              
+              body.animations-disabled .btn:hover { 
+                transform: scale(1.02); 
+                transition: transform 0.15s ease; 
+              }
+              
+              body.animations-disabled #back-to-top.visible { 
+                opacity: 1; 
+                transition: opacity 0.3s ease; 
+              }
+              
+              body.animations-disabled #cursor-light {
+                display: none !important;
+              }
+              
+              body.animations-disabled .shader-background {
+                display: none !important;
+              }
+              
+              body.animations-disabled .bottle::before,
+              body.animations-disabled .script-card::after,
+              body.animations-disabled .btn::before {
+                display: none !important;
+              }
             `;
             document.head.appendChild(minimalStyle);
           } else {
+            // Re-enable heavy operations
+            if (light) {
+              light.style.display = 'block';
+            }
+            
+            // Restart animations if not on mobile
+            if (!isMobile) {
+              setupStarMap();
+              animateStarMap();
+            }
+            
             const existing = document.getElementById('minimal-animations');
             if (existing) existing.remove();
           }
@@ -2242,12 +2434,19 @@
 
       animationToggle.addEventListener('click', () => setAnimationState(!animationsEnabled));
 
-      // Check if user is on mobile device and disable animations if needed
+      // Check if user is on mobile device and disable animations by default
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       const isFirefox = /Firefox/i.test(navigator.userAgent);
+      const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
       
-      if ((isMobile || isFirefox) && localStorage.getItem('animations') === null) {
-        setAnimationState(false);
+      // Default to animations OFF on mobile, low-end devices, or if explicitly disabled
+      if (localStorage.getItem('animations') === null) {
+        // Set default based on device capability
+        if (isMobile || isFirefox || isLowEndDevice) {
+          setAnimationState(false);
+        } else {
+          setAnimationState(true);
+        }
       } else {
         setAnimationState(animationsEnabled);
       }
@@ -2705,7 +2904,7 @@
           tag.setAttribute('title', `Updated on: ${formattedDate}`);
       });
       
-      // Initialize Liquid Glass star map animation
+      // Initialize Liquid Glass star map animation - Optimized for mobile
       const starCanvas = document.getElementById('star-map-canvas');
       if (!starCanvas) return; // Exit if canvas not found
       
@@ -2729,24 +2928,24 @@
               starCanvas.width = window.innerWidth;
               starCanvas.height = window.innerHeight;
               starParticles = [];
-              const particleCount = Math.floor((starCanvas.width * starCanvas.height) / 15000);
+              
+              // Reduce particle count significantly on mobile
+              const baseParticleCount = Math.floor((starCanvas.width * starCanvas.height) / 15000);
+              const particleCount = isMobile ? Math.min(baseParticleCount / 4, 30) : baseParticleCount;
               
               for (let i = 0; i < particleCount; i++) {
                   const size = Math.random() * 1.5 + 0.5;
-                  // Create more varied stars for Liquid Glass effect
-                  // Slow down movement by dividing vx, vy by 2
-                  // Slow down blinking by dividing blinkSpeed by 4
                   starParticles.push({
                       x: Math.random() * starCanvas.width,
                       y: Math.random() * starCanvas.height,
                       radius: size,
-                      vx: (Math.random() - 0.5) * 0.1, // Slower movement (was 0.2)
-                      vy: (Math.random() - 0.5) * 0.1, // Slower movement (was 0.2)
+                      vx: (Math.random() - 0.5) * 0.05, // Even slower on mobile
+                      vy: (Math.random() - 0.5) * 0.05,
                       opacity: Math.random() * 0.5 + 0.5,
                       opacityDirection: Math.random() > 0.5 ? 1 : -1,
-                      blinkSpeed: (0.005 + Math.random() * 0.01) / 4, // Slower blinking
-                      hue: Math.random() > 0.7 ? Math.random() * 60 + 220 : null, // Some colored stars
-                      glow: Math.random() > 0.8 // Some stars have glow
+                      blinkSpeed: (0.005 + Math.random() * 0.01) / 8, // Much slower blinking
+                      hue: Math.random() > 0.8 ? Math.random() * 60 + 220 : null, // Fewer colored stars
+                      glow: !isMobile && Math.random() > 0.9 // No glow on mobile
                   });
               }
           } catch (e) {
@@ -2771,125 +2970,111 @@
                   else if (p.opacity >= 1.0) p.opacityDirection = -1;
                   p.opacity += p.opacityDirection * p.blinkSpeed;
 
-                  // Draw star with Liquid Glass effect
-                  if (p.hue) {
-                      // Colored star
+                  // Simplified rendering for mobile
+                  if (isMobile) {
+                      // Simple star rendering on mobile
                       starCtx.beginPath();
                       starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                      starCtx.fillStyle = `hsla(${p.hue}, 80%, 70%, ${p.opacity * 0.7})`;
+                      starCtx.fillStyle = `rgba(255, 255, 255, ${p.opacity * 0.8})`;
                       starCtx.fill();
-                      
-                      if (p.glow) {
-                          // Add glow effect
-                          const gradient = starCtx.createRadialGradient(
-                              p.x, p.y, 0,
-                              p.x, p.y, p.radius * 4
-                          );
-                          gradient.addColorStop(0, `hsla(${p.hue}, 80%, 70%, ${p.opacity * 0.5})`);
-                          gradient.addColorStop(1, `hsla(${p.hue}, 80%, 70%, 0)`);
-                          
-                          starCtx.beginPath();
-                          starCtx.arc(p.x, p.y, p.radius * 4, 0, Math.PI * 2);
-                          starCtx.fillStyle = gradient;
-                          starCtx.fill();
-                      }
                   } else {
-                      // White star
-                      starCtx.beginPath();
-                      starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                      starCtx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
-                      starCtx.fill();
-                      
-                      if (p.glow) {
-                          // Add glow effect
-                          const gradient = starCtx.createRadialGradient(
-                              p.x, p.y, 0,
-                              p.x, p.y, p.radius * 3
-                          );
-                          gradient.addColorStop(0, `rgba(255, 255, 255, ${p.opacity * 0.3})`);
-                          gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                          
+                      // Full effects on desktop
+                      if (p.hue) {
                           starCtx.beginPath();
-                          starCtx.arc(p.x, p.y, p.radius * 3, 0, Math.PI * 2);
-                          starCtx.fillStyle = gradient;
+                          starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                          starCtx.fillStyle = `hsla(${p.hue}, 80%, 70%, ${p.opacity * 0.7})`;
                           starCtx.fill();
-                      }
-                  }
-              }
-              
-              // Draw connections with Liquid Glass effect
-              for (let i = 0; i < starParticles.length; i++) {
-                  for (let j = i + 1; j < starParticles.length; j++) {
-                      const p1 = starParticles[i];
-                      const p2 = starParticles[j];
-                      const distance = Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
-                      
-                      if (distance < 120) {
-                          const opacity = (1 - distance / 120) * 0.3;
                           
-                          // Create gradient line for Liquid Glass effect
-                          const gradient = starCtx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
-                          
-                          if (p1.hue && p2.hue) {
-                              // Both colored stars
-                              gradient.addColorStop(0, `hsla(${p1.hue}, 80%, 70%, ${opacity})`);
-                              gradient.addColorStop(1, `hsla(${p2.hue}, 80%, 70%, ${opacity})`);
-                          } else if (p1.hue) {
-                              // Only p1 is colored
-                              gradient.addColorStop(0, `hsla(${p1.hue}, 80%, 70%, ${opacity})`);
-                              gradient.addColorStop(1, `rgba(255, 255, 255, ${opacity})`);
-                          } else if (p2.hue) {
-                              // Only p2 is colored
-                              gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
-                              gradient.addColorStop(1, `hsla(${p2.hue}, 80%, 70%, ${opacity})`);
-                          } else {
-                              // Both white stars
-                              gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
-                              gradient.addColorStop(1, `rgba(255, 255, 255, ${opacity})`);
+                          if (p.glow) {
+                              const gradient = starCtx.createRadialGradient(
+                                  p.x, p.y, 0,
+                                  p.x, p.y, p.radius * 4
+                              );
+                              gradient.addColorStop(0, `hsla(${p.hue}, 80%, 70%, ${p.opacity * 0.5})`);
+                              gradient.addColorStop(1, `hsla(${p.hue}, 80%, 70%, 0)`);
+                              
+                              starCtx.beginPath();
+                              starCtx.arc(p.x, p.y, p.radius * 4, 0, Math.PI * 2);
+                              starCtx.fillStyle = gradient;
+                              starCtx.fill();
                           }
-                          
+                      } else {
                           starCtx.beginPath();
-                          starCtx.moveTo(p1.x, p1.y);
-                          starCtx.lineTo(p2.x, p2.y);
-                          starCtx.lineWidth = 0.5;
-                          starCtx.strokeStyle = gradient;
-                          starCtx.stroke();
+                          starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                          starCtx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+                          starCtx.fill();
+                          
+                          if (p.glow) {
+                              const gradient = starCtx.createRadialGradient(
+                                  p.x, p.y, 0,
+                                  p.x, p.y, p.radius * 3
+                              );
+                              gradient.addColorStop(0, `rgba(255, 255, 255, ${p.opacity * 0.3})`);
+                              gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                              
+                              starCtx.beginPath();
+                              starCtx.arc(p.x, p.y, p.radius * 3, 0, Math.PI * 2);
+                              starCtx.fillStyle = gradient;
+                              starCtx.fill();
+                          }
                       }
                   }
               }
               
-              animationFrameId = requestAnimationFrame(animateStarMap);
+              // Skip connections on mobile for better performance
+              if (!isMobile) {
+                  // Draw connections with Liquid Glass effect
+                  for (let i = 0; i < starParticles.length; i++) {
+                      for (let j = i + 1; j < starParticles.length; j++) {
+                          const p1 = starParticles[i];
+                          const p2 = starParticles[j];
+                          const distance = Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+                          
+                          if (distance < 120) {
+                              const opacity = (1 - distance / 120) * 0.3;
+                              
+                              const gradient = starCtx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+                              
+                              if (p1.hue && p2.hue) {
+                                  gradient.addColorStop(0, `hsla(${p1.hue}, 80%, 70%, ${opacity})`);
+                                  gradient.addColorStop(1, `hsla(${p2.hue}, 80%, 70%, ${opacity})`);
+                              } else if (p1.hue) {
+                                  gradient.addColorStop(0, `hsla(${p1.hue}, 80%, 70%, ${opacity})`);
+                                  gradient.addColorStop(1, `rgba(255, 255, 255, ${opacity})`);
+                              } else if (p2.hue) {
+                                  gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
+                                  gradient.addColorStop(1, `hsla(${p2.hue}, 80%, 70%, ${opacity})`);
+                              } else {
+                                  gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
+                                  gradient.addColorStop(1, `rgba(255, 255, 255, ${opacity})`);
+                              }
+                              
+                              starCtx.beginPath();
+                              starCtx.moveTo(p1.x, p1.y);
+                              starCtx.lineTo(p2.x, p2.y);
+                              starCtx.lineWidth = 0.5;
+                              starCtx.strokeStyle = gradient;
+                              starCtx.stroke();
+                          }
+                      }
+                  }
+              }
+              
+              if (animationsEnabled) {
+                  animationFrameId = requestAnimationFrame(animateStarMap);
+              }
           } catch (e) {
               console.error('Error in animateStarMap:', e);
               cancelAnimationFrame(animationFrameId);
-              
-              // Fallback to simpler rendering if complex animation fails
-              trySimpleStarRendering();
-          }
-      }
-
-      function trySimpleStarRendering() {
-          try {
-              starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
-              
-              // Simplified star rendering without complex effects
-              for (const p of starParticles) {
-                  starCtx.beginPath();
-                  starCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                  starCtx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
-                  starCtx.fill();
-              }
-              
-              requestAnimationFrame(trySimpleStarRendering);
-          } catch (e) {
-              console.error('Even simple rendering failed:', e);
           }
       }
 
       try {
-          setupStarMap();
-          animateStarMap();
-          window.addEventListener('resize', setupStarMap);
+          if (animationsEnabled && !isMobile) {
+              setupStarMap();
+              animateStarMap();
+              window.addEventListener('resize', setupStarMap);
+          }
       } catch (e) {
           console.error('Failed to initialize star map:', e);
       }
@@ -3019,37 +3204,51 @@
         animate();
       }
 
-      // Auto-prompt functions
+      // Auto-prompt functions - Fixed
       function showPrompt(promptId, delay = 3000) {
         const dismissed = localStorage.getItem(promptId + '_dismissed');
-        if (!dismissed) {
+        const promptElement = document.getElementById(promptId);
+        
+        if (!dismissed && promptElement) {
           setTimeout(() => {
-            document.getElementById(promptId).classList.add('show');
+            promptElement.classList.add('show');
           }, delay);
         }
       }
 
       function dismissPrompt(promptId) {
-        document.getElementById(promptId).classList.remove('show');
-        localStorage.setItem(promptId + '_dismissed', 'true');
+        const promptElement = document.getElementById(promptId);
+        if (promptElement) {
+          promptElement.classList.remove('show');
+          localStorage.setItem(promptId + '_dismissed', 'true');
+        }
       }
 
       function enableNotifications() {
-        Notification.requestPermission().then(permission => {
-          if (permission === 'granted') {
-            // Set up hourly notifications
-            setInterval(() => {
-              new Notification('xlam HUB Update Check', {
-                body: 'Check out the latest script updates and new releases!',
-                icon: '/images/icon-192x192.png',
-                tag: 'script-update'
-              });
-            }, 3600000); // 1 hour
+        if ('Notification' in window) {
+          Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+              // Set up hourly notifications
+              setInterval(() => {
+                new Notification('xlam HUB Update Check', {
+                  body: 'Check out the latest script updates and new releases!',
+                  icon: '/images/icon-192x192.png',
+                  tag: 'script-update'
+                });
+              }, 3600000); // 1 hour
 
-            dismissPrompt('notification-prompt');
-            alert('✅ Notifications enabled! You\'ll get updates every hour.');
-          }
-        });
+              dismissPrompt('notification-prompt');
+              alert('✅ Notifications enabled! You\'ll get updates every hour.');
+            } else {
+              alert('❌ Notifications permission denied.');
+            }
+          }).catch(err => {
+            console.error('Notification permission error:', err);
+            alert('❌ Error requesting notification permission.');
+          });
+        } else {
+          alert('❌ Notifications not supported on this device.');
+        }
       }
 
       function installPWA() {
@@ -3058,6 +3257,8 @@
           deferredPrompt.userChoice.then(result => {
             dismissPrompt('install-prompt');
           });
+        } else {
+          alert('Install option not available. You can manually add this site to your home screen.');
         }
       }
 
