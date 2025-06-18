@@ -4,14 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1a1c3c"/>
+  
+  <!-- Comprehensive Cache Busting Implementation -->
+  <!-- Standard cache control for most browsers -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- iOS Safari specific cache busting (requires no-store) -->
+  <meta http-equiv="Cache-Control" content="no-store">
+  
+  <!-- Additional cache busting headers -->
+  <meta http-equiv="Last-Modified" content="0">
+  <meta http-equiv="If-Modified-Since" content="0">
+  <meta http-equiv="If-None-Match" content="0">
+  
+  <!-- Prevent caching of the page itself -->
+  <meta name="cache-control" content="no-cache">
+  <meta name="expires" content="-1">
+  <meta name="pragma" content="no-cache">
+  
   <title>xlam HUB</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="images/icon-192x192.png">
+  <link rel="manifest" href="manifest.json?v=<%= Date.now() %>">
+  <link rel="apple-touch-icon" href="images/icon-192x192.png?v=<%= Date.now() %>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Dynamic wave animation background */
+    /* Universal GPU Acceleration Base */
+    * {
+      /* Force hardware acceleration for all elements */
+      backface-visibility: hidden;
+      perspective: 1000px;
+    }
+    
+    /* Enhanced GPU acceleration for animations and transforms */
+    *:not(script):not(style):not(meta):not(link):not(title) {
+      /* Cross-platform GPU acceleration */
+      transform: translateZ(0);
+      will-change: auto;
+    }
+
+    /* Dynamic wave animation background with enhanced GPU acceleration */
     #wave-background {
       position: fixed;
       top: 0;
@@ -20,29 +54,47 @@
       height: 100%;
       z-index: -1;
       opacity: 0.8;
-      /* Enable GPU acceleration */
-      transform: translateZ(0);
-      will-change: transform;
+      
+      /* Enhanced GPU acceleration for all platforms */
+      transform: translateZ(0) translate3d(0, 0, 0);
+      will-change: transform, opacity;
       backface-visibility: hidden;
+      perspective: 1000px;
+      
+      /* iOS Safari specific optimizations */
+      -webkit-transform: translateZ(0) translate3d(0, 0, 0);
+      -webkit-backface-visibility: hidden;
+      -webkit-perspective: 1000px;
+      
+      /* Force layer creation */
+      isolation: isolate;
+      contain: layout style paint;
     }
 
-    /* Chrome mobile specific optimizations */
+    /* Mobile Chrome Android specific optimizations */
     @supports (-webkit-appearance: none) {
       @media (max-width: 768px) and (hover: none) and (pointer: coarse) {
         #wave-background {
           /* Chrome mobile optimizations */
           opacity: 0.3;
-          /* Force layer creation to prevent repaints */
-          transform: translateZ(0) scale(1);
-          /* Use simpler animations on Chrome mobile */
+          /* Enhanced GPU acceleration for mobile Chrome */
+          transform: translateZ(0) translate3d(0, 0, 0) scale3d(1, 1, 1);
+          will-change: transform;
+          /* Use GPU-friendly filters */
+          filter: blur(0px);
+          /* Force composite layer */
+          -webkit-transform: translateZ(0) translate3d(0, 0, 0);
         }
         
         #wave-background path {
-          /* Disable complex path animations on Chrome mobile */
+          /* Disable complex animations on mobile Chrome for performance */
           animation: none !important;
+          /* GPU acceleration for SVG paths */
+          transform: translateZ(0);
+          will-change: transform;
         }
         
-        /* Replace with simpler gradient background on Chrome mobile */
+        /* Replace with GPU-accelerated gradient on mobile Chrome */
         #wave-background::before {
           content: '';
           position: absolute;
@@ -55,33 +107,67 @@
             rgba(192, 38, 211, 0.2) 50%, 
             rgba(255, 88, 88, 0.2) 100%);
           z-index: 1;
-          /* Simple fade animation that won't cause repaints */
+          /* GPU-accelerated simple animation */
           animation: simple-fade 3s ease-in-out infinite alternate;
+          transform: translateZ(0);
+          will-change: opacity;
+          backface-visibility: hidden;
         }
         
         @keyframes simple-fade {
-          from { opacity: 0.2; }
-          to { opacity: 0.4; }
+          from { 
+            opacity: 0.2; 
+            transform: translateZ(0) scale3d(1, 1, 1);
+          }
+          to { 
+            opacity: 0.4; 
+            transform: translateZ(0) scale3d(1.01, 1.01, 1);
+          }
         }
       }
     }
 
-    /* Firefox and other browsers - keep full animations */
-    @supports not (-webkit-appearance: none) {
+    /* iOS Safari specific optimizations */
+    @supports (-webkit-overflow-scrolling: touch) {
+      #wave-background {
+        /* iOS Safari hardware acceleration */
+        -webkit-transform: translateZ(0) translate3d(0, 0, 0);
+        -webkit-backface-visibility: hidden;
+        -webkit-perspective: 1000px;
+        /* iOS6+ specific fixes */
+        transform-style: preserve-3d;
+      }
+      
+      /* Prevent iOS Safari rendering issues */
       #wave-background path {
-        /* Keep animations for non-WebKit browsers */
-        animation: inherit;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
       }
     }
 
-    /* Reduce motion for accessibility */
+    /* Firefox and Desktop Chrome optimizations */
+    @supports not (-webkit-appearance: none) {
+      #wave-background path {
+        /* Keep full animations for desktop browsers */
+        animation: inherit;
+        /* Enhanced GPU acceleration */
+        transform: translateZ(0);
+        will-change: d, transform;
+      }
+    }
+
+    /* Reduce motion for accessibility while maintaining GPU acceleration */
     @media (prefers-reduced-motion: reduce) {
       #wave-background path {
         animation: none !important;
+        /* Maintain GPU acceleration even with reduced motion */
+        transform: translateZ(0);
+        will-change: auto;
       }
       
       #wave-background::before {
         animation: none !important;
+        transform: translateZ(0);
       }
     }
 
@@ -96,6 +182,13 @@
       overflow-x: hidden;
       position: relative;
       overflow: visible !important;
+      
+      /* Enhanced GPU acceleration for body */
+      transform: translateZ(0);
+      will-change: scroll-position;
+      backface-visibility: hidden;
+      /* Force composite layer for better scrolling performance */
+      contain: layout style paint;
     }
     
     .main-title {
@@ -108,14 +201,24 @@
         position: relative;
         z-index: 1;
         animation: glow-pulse 2s ease-in-out infinite;
+        
+        /* Enhanced GPU acceleration for title */
+        transform: translateZ(0) translate3d(0, 0, 0);
+        will-change: text-shadow, transform;
+        backface-visibility: hidden;
+        /* Text rendering optimization */
+        text-rendering: optimizeSpeed;
+        -webkit-font-smoothing: antialiased;
     }
     
     @keyframes glow-pulse {
         0%, 100% { 
             text-shadow: 0 0 20px rgba(102, 126, 234, 0.6), 0 0 40px rgba(102, 126, 234, 0.4);
+            transform: translateZ(0) scale3d(1, 1, 1);
         }
         50% { 
             text-shadow: 0 0 30px rgba(102, 126, 234, 0.8), 0 0 60px rgba(102, 126, 234, 0.6);
+            transform: translateZ(0) scale3d(1.02, 1.02, 1);
         }
     }
     
@@ -130,16 +233,21 @@
         position: relative;
         z-index: 1;
         animation: fade-in-up 0.8s ease forwards 0.5s;
+        
+        /* GPU acceleration for subtitle */
+        transform: translateZ(0);
+        will-change: opacity, transform;
+        backface-visibility: hidden;
     }
     
     @keyframes fade-in-up {
         from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateZ(0) translateY(20px) translate3d(0, 20px, 0);
         }
         to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateZ(0) translateY(0) translate3d(0, 0, 0);
         }
     }
     
@@ -149,6 +257,11 @@
         z-index: 1;
         animation: fade-in-up 0.8s ease forwards 0.6s;
         opacity: 0;
+        
+        /* GPU acceleration for search container */
+        transform: translateZ(0);
+        will-change: opacity, transform;
+        backface-visibility: hidden;
     }
     
     #search-bar {
@@ -163,12 +276,19 @@
         backdrop-filter: blur(10px);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition: all 0.3s ease;
+        
+        /* Enhanced GPU acceleration for input */
+        transform: translateZ(0);
+        will-change: transform, box-shadow, border-color;
+        backface-visibility: hidden;
+        /* Force composite layer */
+        isolation: isolate;
     }
     
     #search-bar:focus {
         border-color: rgba(167, 139, 250, 0.7);
         box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
-        transform: translateY(-2px);
+        transform: translateZ(0) translateY(-2px) translate3d(0, -2px, 0);
     }
     
     .scripts-container {
@@ -179,6 +299,12 @@
         margin: 0 auto;
         position: relative;
         z-index: 1;
+        
+        /* GPU acceleration for grid container */
+        transform: translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
+        contain: layout style;
     }
     
     .script-card {
@@ -194,8 +320,16 @@
         position: relative;
         overflow: hidden;
         animation: card-3d-entry 0.8s ease forwards;
+        
+        /* Enhanced GPU acceleration for cards */
+        transform: translateZ(0) translate3d(0, 0, 0);
         transform-style: preserve-3d;
         perspective: 1000px;
+        will-change: transform, opacity, box-shadow;
+        backface-visibility: hidden;
+        /* Force composite layer */
+        isolation: isolate;
+        contain: layout style paint;
     }
     
     .script-card:nth-child(1) { animation-delay: 0.7s; }
@@ -206,11 +340,11 @@
     @keyframes card-3d-entry {
         from {
             opacity: 0;
-            transform: perspective(1000px) rotateY(-30deg) translateZ(-100px) translateX(-50px);
+            transform: translateZ(0) perspective(1000px) rotateY(-30deg) translate3d(-50px, 0, -100px);
         }
         to {
             opacity: 1;
-            transform: perspective(1000px) rotateY(0) translateZ(0) translateX(0);
+            transform: translateZ(0) perspective(1000px) rotateY(0) translate3d(0, 0, 0);
         }
     }
     
@@ -228,10 +362,15 @@
         opacity: 0;
         transition: opacity 0.3s ease;
         pointer-events: none;
+        
+        /* GPU acceleration for pseudo-element */
+        transform: translateZ(0);
+        will-change: opacity;
+        backface-visibility: hidden;
     }
     
     .script-card:hover {
-        transform: translateY(-5px) rotateX(5deg);
+        transform: translateZ(0) translateY(-5px) rotateX(5deg) translate3d(0, -5px, 0);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         border-color: rgba(102, 126, 234, 0.5);
     }
@@ -246,6 +385,13 @@
         margin-top: 0;
         margin-bottom: 5px;
         color: #ffffff;
+        
+        /* GPU acceleration for headings */
+        transform: translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
+        text-rendering: optimizeSpeed;
+        -webkit-font-smoothing: antialiased;
     }
     
     .script-meta {
@@ -254,11 +400,21 @@
         align-items: center;
         gap: 15px;
         margin-bottom: 20px;
+        
+        /* GPU acceleration for meta container */
+        transform: translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
     }
     
     .status-tags {
         display: flex;
         gap: 8px;
+        
+        /* GPU acceleration for tag container */
+        transform: translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
     }
     
     .tag {
@@ -270,10 +426,16 @@
         border: 1px solid transparent;
         backdrop-filter: blur(5px);
         transition: all 0.3s ease;
+        
+        /* Enhanced GPU acceleration for tags */
+        transform: translateZ(0);
+        will-change: transform, box-shadow;
+        backface-visibility: hidden;
+        isolation: isolate;
     }
     
     .tag:hover {
-        transform: scale(1.05) translateY(-2px);
+        transform: translateZ(0) scale(1.05) translateY(-2px) translate3d(0, -2px, 0);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     
@@ -316,12 +478,18 @@
         backdrop-filter: blur(10px);
         box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
         transition: all 0.3s ease;
+        
+        /* Enhanced GPU acceleration for pre elements */
+        transform: translateZ(0);
+        will-change: transform, background-color, border-color;
+        backface-visibility: hidden;
+        isolation: isolate;
     }
     
     pre:hover {
         background: rgba(17, 17, 27, 0.7);
         border-color: rgba(255, 255, 255, 0.2);
-        transform: translateY(-1px);
+        transform: translateZ(0) translateY(-1px) translate3d(0, -1px, 0);
     }
     
     /* Loading bar animation */
@@ -334,6 +502,12 @@
         border-radius: 16px;
         overflow: hidden;
         backdrop-filter: blur(10px);
+        
+        /* GPU acceleration for loader */
+        transform: translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
+        isolation: isolate;
     }
     
     .loader-bar {
@@ -346,6 +520,11 @@
         animation: loading-progress linear forwards;
         position: relative;
         overflow: hidden;
+        
+        /* Enhanced GPU acceleration for loading bar */
+        transform: translateZ(0);
+        will-change: width, transform;
+        backface-visibility: hidden;
     }
     
     .loader-bar::after {
@@ -360,16 +539,27 @@
             rgba(255, 255, 255, 0.3), 
             transparent);
         animation: shimmer 1s ease-in-out infinite;
+        
+        /* GPU acceleration for shimmer effect */
+        transform: translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
     }
     
     @keyframes loading-progress {
-        from { width: 0%; }
-        to { width: 100%; }
+        from { 
+            width: 0%; 
+            transform: translateZ(0) scaleX(0);
+        }
+        to { 
+            width: 100%; 
+            transform: translateZ(0) scaleX(1);
+        }
     }
     
     @keyframes shimmer {
-        from { transform: translateX(-100%); }
-        to { transform: translateX(100%); }
+        from { transform: translateZ(0) translateX(-100%) translate3d(-100%, 0, 0); }
+        to { transform: translateZ(0) translateX(100%) translate3d(100%, 0, 0); }
     }
     
     .loader-text {
@@ -386,15 +576,27 @@
         font-weight: 600;
         text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         z-index: 1;
+        
+        /* GPU acceleration for loader text */
+        transform: translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
+        text-rendering: optimizeSpeed;
+        -webkit-font-smoothing: antialiased;
     }
     
     .buttons {
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
+        
+        /* GPU acceleration for button container */
+        transform: translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
     }
     
-    /* 3D Button animations */
+    /* Enhanced 3D Button animations with cross-platform GPU acceleration */
     .btn {
         color: #fff;
         padding: 12px 24px;
@@ -415,8 +617,23 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        transform-style: preserve-3d;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        
+        /* Enhanced cross-platform GPU acceleration */
+        transform: translateZ(0) translate3d(0, 0, 0);
+        transform-style: preserve-3d;
+        will-change: transform, box-shadow, background;
+        backface-visibility: hidden;
+        perspective: 1000px;
+        
+        /* iOS Safari specific optimizations */
+        -webkit-transform: translateZ(0) translate3d(0, 0, 0);
+        -webkit-backface-visibility: hidden;
+        -webkit-perspective: 1000px;
+        
+        /* Force composite layer */
+        isolation: isolate;
+        contain: layout style paint;
     }
     
     .btn::before {
@@ -431,11 +648,16 @@
             rgba(255, 255, 255, 0.2), 
             transparent);
         transition: left 0.5s ease;
+        
+        /* GPU acceleration for button shine effect */
+        transform: translateZ(0);
+        will-change: transform, left;
+        backface-visibility: hidden;
     }
     
     .btn:hover {
         background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(192, 38, 211, 0.7));
-        transform: perspective(1000px) rotateX(-10deg) translateY(-4px) scale(1.05);
+        transform: translateZ(0) perspective(1000px) rotateX(-10deg) translateY(-4px) scale(1.05) translate3d(0, -4px, 0);
         box-shadow: 
             0 15px 30px rgba(0, 0, 0, 0.4),
             inset 0 1px 0 rgba(255, 255, 255, 0.3);
@@ -446,7 +668,7 @@
     }
     
     .btn:active {
-        transform: perspective(1000px) rotateX(-5deg) translateY(-2px) scale(1.02);
+        transform: translateZ(0) perspective(1000px) rotateX(-5deg) translateY(-2px) scale(1.02) translate3d(0, -2px, 0);
         box-shadow: 
             0 8px 20px rgba(0, 0, 0, 0.3),
             inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -462,9 +684,9 @@
     }
     
     @keyframes success-pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
+        0% { transform: translateZ(0) scale(1) translate3d(0, 0, 0); }
+        50% { transform: translateZ(0) scale(1.1) translate3d(0, 0, 0); }
+        100% { transform: translateZ(0) scale(1) translate3d(0, 0, 0); }
     }
     
     .secondary-btn, .tiktok-btn {
@@ -490,18 +712,25 @@
         box-shadow: 0 8px 20px rgba(138, 43, 226, 0.3);
         color: white;
         animation: placard-bounce 2s ease-in-out infinite, fade-in-up 0.8s ease forwards 1.5s;
-        transform-style: preserve-3d;
         transition: all 0.3s ease;
+        
+        /* Enhanced GPU acceleration for placard */
+        transform: translateZ(0) translate3d(0, 0, 0);
+        transform-style: preserve-3d;
+        will-change: transform, box-shadow;
+        backface-visibility: hidden;
+        perspective: 1000px;
+        isolation: isolate;
     }
     
     @keyframes placard-bounce {
-        0%, 100% { transform: translateY(0) rotateX(0); }
-        50% { transform: translateY(-10px) rotateX(5deg); }
+        0%, 100% { transform: translateZ(0) translateY(0) rotateX(0) translate3d(0, 0, 0); }
+        50% { transform: translateZ(0) translateY(-10px) rotateX(5deg) translate3d(0, -10px, 0); }
     }
     
     .placard:hover {
         background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(192, 38, 211, 0.7));
-        transform: perspective(1000px) rotateY(-15deg) scale(1.05);
+        transform: translateZ(0) perspective(1000px) rotateY(-15deg) scale(1.05) translate3d(0, 0, 0);
         box-shadow: 0 15px 30px rgba(138, 43, 226, 0.4);
     }
     
@@ -525,18 +754,23 @@
         align-items: center;
         box-shadow: 0 8px 20px rgba(45, 212, 191, 0.3);
         transition: all 0.3s ease;
-        transform: translateY(100px);
+        
+        /* Enhanced GPU acceleration for back-to-top */
+        transform: translateZ(0) translateY(100px) translate3d(0, 100px, 0);
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        isolation: isolate;
     }
     
     #back-to-top.visible {
         opacity: 1;
         pointer-events: auto;
-        transform: translateY(0);
+        transform: translateZ(0) translateY(0) translate3d(0, 0, 0);
     }
     
     #back-to-top:hover {
         background: linear-gradient(135deg, rgba(45, 212, 191, 0.9), rgba(45, 212, 191, 0.7));
-        transform: scale(1.1) rotateZ(180deg);
+        transform: translateZ(0) scale(1.1) rotateZ(180deg) translate3d(0, 0, 0);
     }
     
     .modal-overlay {
@@ -554,6 +788,12 @@
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s ease;
+        
+        /* Enhanced GPU acceleration for modal overlay */
+        transform: translateZ(0);
+        will-change: opacity, transform;
+        backface-visibility: hidden;
+        isolation: isolate;
     }
     
     .modal-overlay.visible {
@@ -573,12 +813,19 @@
         position: relative;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         overflow: hidden;
-        transform: scale(0.9) rotateX(20deg);
         transition: transform 0.3s ease;
+        
+        /* Enhanced GPU acceleration for modal content */
+        transform: translateZ(0) scale(0.9) rotateX(20deg) translate3d(0, 0, 0);
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        perspective: 1000px;
+        isolation: isolate;
+        contain: layout style paint;
     }
     
     .modal-overlay.visible .modal-content {
-        transform: scale(1) rotateX(0);
+        transform: translateZ(0) scale(1) rotateX(0) translate3d(0, 0, 0);
     }
     
     .modal-content::before {
@@ -593,11 +840,16 @@
         opacity: 0.5;
         z-index: -1;
         animation: gradient-rotate 3s linear infinite;
+        
+        /* GPU acceleration for gradient border */
+        transform: translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
     }
     
     @keyframes gradient-rotate {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
+        from { transform: translateZ(0) rotate(0deg); }
+        to { transform: translateZ(0) rotate(360deg); }
     }
     
     .close-modal {
@@ -609,11 +861,16 @@
         color: #aaa;
         cursor: pointer;
         transition: all 0.2s ease;
+        
+        /* GPU acceleration for close button */
+        transform: translateZ(0);
+        will-change: transform, color;
+        backface-visibility: hidden;
     }
     
     .close-modal:hover {
         color: white;
-        transform: rotate(90deg);
+        transform: translateZ(0) rotate(90deg) translate3d(0, 0, 0);
     }
     
     .modal-content h2 {
@@ -1106,7 +1363,7 @@
         color: #e2e8f0;
     }
 
-    /* Mobile responsiveness */
+    /* Mobile responsiveness with enhanced GPU acceleration */
     @media (max-width: 768px) {
         .scripts-container {
             grid-template-columns: 1fr;
@@ -1120,8 +1377,10 @@
         .script-card {
             margin-bottom: 15px;
             padding: 20px;
-            /* Reduce GPU-intensive effects on mobile */
+            /* Optimized GPU acceleration for mobile performance */
             backdrop-filter: blur(5px) !important;
+            /* Reduce transform complexity on mobile */
+            transform: translateZ(0) translate3d(0, 0, 0) !important;
         }
         
         .buttons {
@@ -1132,6 +1391,8 @@
         .btn {
             width: 100%;
             justify-content: center;
+            /* Simplified GPU acceleration on mobile */
+            transform: translateZ(0) translate3d(0, 0, 0) !important;
         }
         
         #flyout-menu {
@@ -1141,12 +1402,18 @@
         .modal-content {
             width: 95%;
             padding: 20px;
+            /* Simplified transforms for mobile */
+            transform: translateZ(0) scale(0.95) translate3d(0, 0, 0) !important;
+        }
+        
+        .modal-overlay.visible .modal-content {
+            transform: translateZ(0) scale(1) translate3d(0, 0, 0) !important;
         }
         
         /* Reduce 3D effects on mobile to prevent flickering */
         .btn:hover,
         .script-card:hover {
-            transform: translateY(-2px) !important;
+            transform: translateZ(0) translateY(-2px) translate3d(0, -2px, 0) !important;
         }
         
         /* Disable complex animations on mobile */
@@ -1159,17 +1426,23 @@
         #search-bar {
             backdrop-filter: blur(5px) !important;
         }
+        
+        /* Force GPU acceleration for mobile scroll performance */
+        body {
+            -webkit-overflow-scrolling: touch;
+            transform: translateZ(0);
+        }
     }
     
     /* Simple fade-in animation for mobile */
     @keyframes simple-fade-in {
         from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateZ(0) translateY(20px) translate3d(0, 20px, 0);
         }
         to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateZ(0) translateY(0) translate3d(0, 0, 0);
         }
     }
 
@@ -1537,6 +1810,105 @@
   </div>
 
   <script>
+    // Enhanced Cache Busting Implementation
+    (function() {
+        'use strict';
+        
+        // Force reload from server, not cache
+        const cacheBuster = Date.now() + Math.random().toString(36).substr(2, 9);
+        
+        // Add cache busting to all dynamic resource requests
+        function addCacheBusting(url) {
+            const separator = url.includes('?') ? '&' : '?';
+            return url + separator + 'v=' + cacheBuster + '&cb=' + Date.now();
+        }
+        
+        // Override fetch to add cache busting
+        const originalFetch = window.fetch;
+        window.fetch = function(resource, options = {}) {
+            if (typeof resource === 'string') {
+                resource = addCacheBusting(resource);
+            } else if (resource instanceof Request) {
+                resource = new Request(addCacheBusting(resource.url), resource);
+            }
+            
+            // Add cache busting headers
+            options.headers = {
+                ...options.headers,
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
+            };
+            
+            return originalFetch.call(this, resource, options);
+        };
+        
+        // Override XMLHttpRequest for cache busting
+        const originalOpen = XMLHttpRequest.prototype.open;
+        XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
+            const cacheBustedUrl = addCacheBusting(url);
+            return originalOpen.call(this, method, cacheBustedUrl, async, user, password);
+        };
+        
+        // Add cache busting to image loading
+        function bustImageCache() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                if (img.src && !img.src.includes('v=')) {
+                    img.src = addCacheBusting(img.src);
+                }
+            });
+        }
+        
+        // Prevent back/forward cache
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                window.location.reload(true);
+            }
+        });
+        
+        // Force reload on visibility change (mobile Safari)
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'visible') {
+                // Force refresh of dynamic content
+                const timeElement = document.querySelector('.cache-time');
+                if (timeElement) {
+                    timeElement.textContent = new Date().toLocaleTimeString();
+                }
+            }
+        });
+        
+        // iOS Safari specific cache busting
+        if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+            // Force no-store for iOS Safari
+            const metaNoStore = document.createElement('meta');
+            metaNoStore.httpEquiv = 'Cache-Control';
+            metaNoStore.content = 'no-store';
+            document.head.appendChild(metaNoStore);
+            
+            // Reload page if coming from cache
+            const navigationEntries = performance.getEntriesByType('navigation');
+            if (navigationEntries.length > 0 && navigationEntries[0].type === 'back_forward') {
+                window.location.reload(true);
+            }
+        }
+        
+        // Run image cache busting when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', bustImageCache);
+        } else {
+            bustImageCache();
+        }
+        
+        // Add timestamp to page for verification
+        const timestampDiv = document.createElement('div');
+        timestampDiv.className = 'cache-time';
+        timestampDiv.style.cssText = 'position:fixed;bottom:5px;left:5px;font-size:10px;color:#666;z-index:9999;';
+        timestampDiv.textContent = 'Loaded: ' + new Date().toLocaleTimeString();
+        document.body.appendChild(timestampDiv);
+        
+    })();
+
     async function copyScriptToClipboard(text) {
         // Modern way: Clipboard API (works in secure contexts)
         if (navigator.clipboard && window.isSecureContext) {
