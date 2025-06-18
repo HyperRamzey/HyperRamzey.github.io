@@ -1595,8 +1595,8 @@
 
       // Show auto-prompts on page load
       setTimeout(() => {
-        // Only show notification prompt if not previously dismissed and notifications are supported
-        if ('Notification' in window && Notification.permission === 'default') {
+        // Always show notification prompt on every visit (remove the permission check)
+        if ('Notification' in window) {
           showPrompt('notification-prompt', 2000);
         }
         
@@ -2042,8 +2042,20 @@
 
       // Auto-prompt functions
       function showPrompt(promptId, delay = 3000) {
-        const dismissed = localStorage.getItem(promptId + '_dismissed');
         const promptElement = document.getElementById(promptId);
+        
+        // For notification prompt, always show on every visit
+        if (promptId === 'notification-prompt') {
+          if (promptElement) {
+            setTimeout(() => {
+              promptElement.classList.add('show');
+            }, delay);
+          }
+          return;
+        }
+        
+        // For other prompts, check if dismissed
+        const dismissed = localStorage.getItem(promptId + '_dismissed');
         
         if (!dismissed && promptElement) {
           setTimeout(() => {
@@ -2082,6 +2094,24 @@
           return;
         }
 
+        // Check current permission status
+        if (Notification.permission === 'granted') {
+          // Already granted, show confirmation and test notification
+          new Notification('xlam HUB - Notifications Active!', {
+            body: 'Notifications are already enabled! You\'ll receive updates every hour.',
+            icon: '/images/icon-192x192.png' || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyUzYuNDggMjIgMTIgMjJTMjIgMTcuNTIgMjIgMTJTMTcuNTIgMiAxMiAyWiIgZmlsbD0iIzY2N2VlYSIvPgo8L3N2Zz4K',
+            tag: 'status-notification'
+          });
+          dismissPrompt('notification-prompt');
+          return;
+        }
+
+        if (Notification.permission === 'denied') {
+          alert('🔔 Notifications are currently blocked.\n\nTo enable:\n1. Click the lock/info icon in your address bar\n2. Allow notifications for this site\n3. Refresh the page');
+          dismissPrompt('notification-prompt');
+          return;
+        }
+
         try {
           const permission = await Notification.requestPermission();
           console.log('Notification permission result:', permission);
@@ -2094,26 +2124,28 @@
               tag: 'welcome-notification'
             });
             
-            // Set up hourly notifications
-            setInterval(() => {
-              new Notification('xlam HUB Update Check', {
-                body: 'Check out the latest script updates and new releases!',
-                icon: '/images/icon-192x192.png' || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyUzYuNDggMjIgMTIgMjJTMjIgMTcuNTIgMjIgMTJTMTcuNTIgMiAxMiAyWiIgZmlsbD0iIzY2N2VlYSIvPgo8L3N2Zz4K',
-                tag: 'update-notification'
-              });
-            }, 3600000); // 1 hour
+            // Set up hourly notifications (only if not already set up)
+            if (!window.notificationIntervalSet) {
+              setInterval(() => {
+                new Notification('xlam HUB Update Check', {
+                  body: 'Check out the latest script updates and new releases!',
+                  icon: '/images/icon-192x192.png' || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyUzYuNDggMjIgMTIgMjJTMjIgMTcuNTIgMjIgMTJTMTcuNTIgMiAxMiAyWiIgZmlsbD0iIzY2N2VlYSIvPgo8L3N2Zz4K',
+                  tag: 'update-notification'
+                });
+              }, 3600000); // 1 hour
+              window.notificationIntervalSet = true;
+            }
 
-            dismissPrompt('notification-prompt');
-            alert('✅ Notifications enabled! You\'ll get updates every hour.');
           } else {
             alert('❌ Notification permission was denied or dismissed.');
-            dismissPrompt('notification-prompt');
           }
         } catch (err) {
           console.error('Notification permission error:', err);
           alert('❌ Error requesting notification permission.');
-          dismissPrompt('notification-prompt');
         }
+        
+        // Always dismiss the prompt after any interaction
+        dismissPrompt('notification-prompt');
       }
 
       window.installPWA = function() {
