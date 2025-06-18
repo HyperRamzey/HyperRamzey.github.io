@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1a1c3c"/>
   
+  <!--
+    Comprehensive Cache-Control Meta Tags.
+    These instruct the browser to never cache this HTML file,
+    ensuring users always get the latest version. This is the
+    best-practice approach for GitHub Pages.
+  -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  
+  <title>xlam HUB</title>
+  <link rel="manifest" href="manifest.json?v=<%= Date.now() %>">
   <!-- Comprehensive Cache Busting Implementation -->
   <!-- Standard cache control for most browsers -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
@@ -184,7 +196,7 @@
     
     body {
       font-family: 'Poppins', sans-serif;
-      background: #0a0a0a;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1c3c 50%, #0a0a0a 100%);
       color: #f0f0f0;
       padding: 40px 20px;
       min-height: 100vh;
@@ -203,26 +215,39 @@
       contain: layout style;
     }
     
+    /* Hide the wave background */
+    #wave-background {
+      display: none !important;
+    }
+    
+    /* Gradient text effects with standard properties */
     .main-title {
-        font-size: 3em;
-        font-weight: 700;
-        color: white;
-        text-align: center;
-        margin-bottom: 40px;
-        text-shadow: 0 0 20px rgba(102, 126, 234, 0.6), 0 0 40px rgba(102, 126, 234, 0.4);
-        position: relative;
-        z-index: 1;
-        animation: glow-pulse-dance 3s ease-in-out infinite;
-        
-        /* Enhanced GPU acceleration for title */
-        -webkit-transform: translateZ(0) translate3d(0, 0, 0);
-        transform: translateZ(0) translate3d(0, 0, 0);
-        will-change: text-shadow, transform;
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-        /* Text rendering optimization */
-        text-rendering: optimizeSpeed;
-        -webkit-font-smoothing: antialiased;
+      font-size: 3.5em;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+      text-shadow: none;
+      
+      /* Enhanced GPU acceleration for title */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+    
+    .subtitle {
+      font-size: 1.2em;
+      color: #a0a0a0;
+      text-align: center;
+      margin-bottom: 48px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
     }
     
     @keyframes glow-pulse-dance {
@@ -250,39 +275,6 @@
             text-shadow: 0 0 20px rgba(102, 126, 234, 0.6), 0 0 40px rgba(102, 126, 234, 0.4);
             -webkit-transform: translateZ(0) scale3d(1, 1, 1) rotate(0deg) translate3d(0, 0, 0);
             transform: translateZ(0) scale3d(1, 1, 1) rotate(0deg) translate3d(0, 0, 0);
-        }
-    }
-    
-    .subtitle {
-        text-align: center;
-        margin-top: -30px;
-        margin-bottom: 40px;
-        color: #a0aec0;
-        font-size: 1em;
-        font-weight: 400;
-        opacity: 0;
-        position: relative;
-        z-index: 1;
-        animation: fade-in-up 0.8s ease forwards 0.5s;
-        
-        /* GPU acceleration for subtitle */
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        will-change: opacity, transform;
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-    }
-    
-    @keyframes fade-in-up {
-        from {
-            opacity: 0;
-            -webkit-transform: translateZ(0) translateY(20px) translate3d(0, 20px, 0);
-            transform: translateZ(0) translateY(20px) translate3d(0, 20px, 0);
-        }
-        to {
-            opacity: 1;
-            -webkit-transform: translateZ(0) translateY(0) translate3d(0, 0, 0);
-            transform: translateZ(0) translateY(0) translate3d(0, 0, 0);
         }
     }
     
@@ -538,6 +530,8 @@
         backdrop-filter: blur(10px);
         box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
         transition: all 0.3s ease;
+        min-height: 80px;
+        overflow: hidden;
         
         /* Enhanced GPU acceleration for pre elements */
         -webkit-transform: translateZ(0);
@@ -1356,43 +1350,8 @@
         transform: translateX(10px);
     }
 
-    /* Light mode */
-    body.light-mode {
-        background: #f5f5f5;
-        color: #333;
-    }
-    
-    body.light-mode #wave-background {
-        opacity: 0.3;
-    }
-    
-    body.light-mode .main-title, 
-    body.light-mode .script-card h2 {
-        color: #333;
-    }
-    
-    body.light-mode .script-card {
-        background: rgba(255, 255, 255, 0.8);
-        border-color: rgba(0,0,0,0.1);
-        color: #333;
-    }
-    
-    body.light-mode #search-bar {
-        background: rgba(255, 255, 255, 0.9);
-        color: #333;
-        border-color: rgba(0,0,0,0.1);
-    }
-    
-    body.light-mode .modal-content {
-        background: rgba(255, 255, 255, 0.95);
-        color: #333;
-    }
-    
-    body.light-mode .modal-content h2,
-    body.light-mode .modal-content p,
-    body.light-mode .modal-content li {
-        color: #333;
-    }
+    /* Dark mode only - remove all light mode styles */
+    /* Light mode styles removed - dark mode is the only theme */
 
     /* Animated SVG Icons */
     .animated-icon {
@@ -1888,247 +1847,8 @@
       animation: smoke-float-2 10s ease-in-out infinite;
     }
 
-    /* Retrowave Windows XP Theme */
-    body.xp-theme {
-      background: linear-gradient(135deg, #0052cc 0%, #0066ff 50%, #0052cc 100%);
-      font-family: 'Tahoma', 'Permanent Marker', sans-serif !important;
-    }
-    
-    body.xp-theme .script-card {
-      background: linear-gradient(to bottom, #ece9d8 0%, #e3dcc9 100%);
-      border: 2px solid #003399;
-      border-radius: 0;
-      color: #000;
-      box-shadow: inset -1px -1px 0 #848484, inset 1px 1px 0 #ffffff;
-    }
-    
-    body.xp-theme .script-card h2 {
-      color: #003399;
-      font-size: 16px;
-      text-transform: uppercase;
-    }
-    
-    body.xp-theme .btn {
-      background: linear-gradient(to bottom, #ffffff 0%, #ece9d8 50%, #d8d0c4 100%);
-      border: 2px solid #003399;
-      border-radius: 0;
-      color: #000;
-      box-shadow: inset -1px -1px 0 #848484, inset 1px 1px 0 #ffffff;
-      text-transform: none;
-      font-size: 11px;
-    }
-    
-    body.xp-theme .btn:hover {
-      background: linear-gradient(to bottom, #fefefe 0%, #f8f3e9 50%, #e8e0d4 100%);
-      border-color: #0066ff;
-    }
-    
-    body.xp-theme .btn:active {
-      background: linear-gradient(to bottom, #d8d0c4 0%, #ece9d8 50%, #ffffff 100%);
-      box-shadow: inset 1px 1px 0 #848484, inset -1px -1px 0 #ffffff;
-    }
-    
-    body.xp-theme #wave-background {
-      display: none;
-    }
-    
-    body.xp-theme #star-constellation {
-      display: none;
-    }
-    
-    body.xp-theme .main-title {
-      background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
-      animation: retrowave-glow 2s ease-in-out infinite;
-    }
-    
-    @keyframes retrowave-glow {
-      0%, 100% { filter: brightness(1) contrast(1); }
-      50% { filter: brightness(1.2) contrast(1.1); }
-    }
-    
-    body.xp-theme #search-bar {
-      background: #ffffff;
-      border: 2px solid #7f9db9;
-      border-radius: 0;
-      color: #000;
-      box-shadow: inset 1px 1px 0 #848484;
-    }
-    
-    body.xp-theme #search-bar:focus {
-      border-color: #003399;
-    }
-    
-    body.xp-theme pre {
-      background: #ffffff;
-      border: 1px solid #7f9db9;
-      color: #000;
-      font-family: 'Lucida Console', monospace !important;
-      font-size: 11px;
-      border-radius: 0;
-      box-shadow: inset 1px 1px 0 #848484;
-    }
-    
-    body.xp-theme .tag {
-      border-radius: 0;
-      font-size: 10px;
-      text-transform: uppercase;
-    }
-    
-    body.xp-theme .tag.updated {
-      background: #00ff00;
-      color: #000;
-      border: 1px solid #008000;
-    }
-    
-    body.xp-theme .tag.working {
-      background: #ffff00;
-      color: #000;
-      border: 1px solid #808000;
-    }
-    
-    body.xp-theme .tag.verified {
-      background: #00ffff;
-      color: #000;
-      border: 1px solid #008080;
-    }
-    
-    /* Ensure all text elements use the custom font */
-    body.xp-theme .tag.verified {
-      background: #00ffff;
-      color: #000;
-      border: 1px solid #008080;
-    }
-    
-    /* Dark mode for XP theme */
-    body.xp-theme.dark-mode {
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    }
-    
-    body.xp-theme.dark-mode .script-card {
-        background: linear-gradient(to bottom, #2d2d3f 0%, #1f1f2e 100%);
-        border: 2px solid #00ffff;
-        color: #fff;
-        box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #444;
-    }
-    
-    body.xp-theme.dark-mode .script-card h2 {
-        color: #00ffff;
-    }
-    
-    body.xp-theme.dark-mode .btn {
-        background: linear-gradient(to bottom, #3d3d5c 0%, #2d2d3f 50%, #1f1f2e 100%);
-        border: 2px solid #00ffff;
-        color: #fff;
-        box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #555;
-    }
-    
-    body.xp-theme.dark-mode .btn:hover {
-        background: linear-gradient(to bottom, #4d4d6c 0%, #3d3d5c 50%, #2f2f3e 100%);
-        border-color: #ff00ff;
-        box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
-    }
-    
-    body.xp-theme.dark-mode #search-bar {
-        background: #1f1f2e;
-        border: 2px solid #00ffff;
-        color: #fff;
-    }
-    
-    body.xp-theme.dark-mode pre {
-        background: #0a0a0a;
-        border: 1px solid #00ffff;
-        color: #0f0;
-        text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
-    }
-    
-    body.xp-theme.dark-mode .main-title {
-        filter: brightness(1.5);
-    }
-    
-    body.xp-theme.dark-mode .subtitle {
-        color: #00ffff;
-    }
-    
-    body.xp-theme.dark-mode #menu-btn {
-        background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 255, 255, 0.1));
-        border: 1px solid #00ffff;
-        color: #00ffff;
-    }
-    
-    body.xp-theme #menu-btn {
-        background: linear-gradient(to bottom, #ffffff 0%, #ece9d8 50%, #d8d0c4 100%);
-        border: 2px solid #003399;
-        box-shadow: inset -1px -1px 0 #848484, inset 1px 1px 0 #ffffff;
-    }
-    
-    body.xp-theme #menu-btn svg {
-        stroke: #003399;
-    }
-    
-    body.xp-theme.dark-mode #menu-btn svg {
-        stroke: #00ffff;
-    }
-    
-    body.xp-theme.dark-mode .tag.updated {
-        background: #00ff00;
-        color: #000;
-        border: 1px solid #00ff00;
-        box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
-    }
-    
-    body.xp-theme.dark-mode .tag.working {
-        background: #ff00ff;
-        color: #fff;
-        border: 1px solid #ff00ff;
-        box-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
-    }
-    
-    body.xp-theme.dark-mode .tag.verified {
-        background: #00ffff;
-        color: #000;
-        border: 1px solid #00ffff;
-        box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
-    }
-    
-    body.xp-theme.dark-mode .placard {
-        background: linear-gradient(135deg, rgba(255, 0, 255, 0.8), rgba(0, 255, 255, 0.6));
-        border: 1px solid #ff00ff;
-        box-shadow: 0 8px 20px rgba(255, 0, 255, 0.3);
-    }
-    
-    body.xp-theme.dark-mode #back-to-top {
-        background: linear-gradient(135deg, rgba(0, 255, 255, 0.8), rgba(0, 255, 255, 0.6));
-        border: 1px solid #00ffff;
-        box-shadow: 0 8px 20px rgba(0, 255, 255, 0.3);
-    }
-    
-    body.xp-theme.dark-mode footer,
-    body.xp-theme.dark-mode footer a {
-        color: #00ffff;
-    }
-    
-    body.xp-theme.dark-mode #flyout-menu {
-        background: rgba(15, 15, 30, 0.95);
-        border-right: 1px solid #00ffff;
-    }
-    
-    body.xp-theme.dark-mode .flyout-content h3 {
-        color: #ff00ff;
-    }
-    
-    body.xp-theme.dark-mode .flyout-content button,
-    body.xp-theme.dark-mode .flyout-content a {
-        background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-        color: #00ffff;
-    }
-    
-    body.xp-theme.dark-mode .flyout-content button:hover,
-    body.xp-theme.dark-mode .flyout-content a:hover {
-        background: linear-gradient(135deg, rgba(0,255,255,0.2), rgba(0,255,255,0.1));
-    }
+    /* Retrowave Windows XP Theme Styles Removed */
+    /* All CSS rules associated with .xp-theme have been deleted to enforce the dark mode theme. */
   </style>
   
   <!-- Three.js for WebGL shader effects -->
@@ -3090,13 +2810,36 @@
     (function() {
         'use strict';
         
+        // Force complete page reload on every visit
+        if ('caches' in window) {
+            caches.keys().then(function(names) {
+                for (let name of names) {
+                    caches.delete(name);
+                }
+            });
+        }
+        
+        // Clear all storage on page load
+        try {
+            localStorage.clear();
+            sessionStorage.clear();
+        } catch (e) {
+            console.log('Storage clear failed:', e);
+        }
+        
         // Force reload from server, not cache
         const cacheBuster = Date.now() + Math.random().toString(36).substr(2, 9);
+        
+        // Add unique timestamp to prevent any caching
+        if (!window.location.href.includes('cb=')) {
+            const separator = window.location.href.includes('?') ? '&' : '?';
+            window.location.replace(window.location.href + separator + 'cb=' + cacheBuster);
+        }
         
         // Add cache busting to all dynamic resource requests
         function addCacheBusting(url) {
             const separator = url.includes('?') ? '&' : '?';
-            return url + separator + 'v=' + cacheBuster + '&cb=' + Date.now();
+            return url + separator + 'v=' + cacheBuster + '&cb=' + Date.now() + '&r=' + Math.random();
         }
         
         // Override fetch to add cache busting
@@ -3111,10 +2854,12 @@
             // Add cache busting headers
             options.headers = {
                 ...options.headers,
-                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
                 'Pragma': 'no-cache',
                 'Expires': '0'
             };
+            
+            options.cache = 'no-store';
             
             return originalFetch.call(this, resource, options);
         };
@@ -3130,7 +2875,7 @@
         function bustImageCache() {
             const images = document.querySelectorAll('img');
             images.forEach(img => {
-                if (img.src && !img.src.includes('v=')) {
+                if (img.src && !img.src.includes('cb=')) {
                     img.src = addCacheBusting(img.src);
                 }
             });
@@ -3146,13 +2891,17 @@
         // Force reload on visibility change (mobile Safari)
         document.addEventListener('visibilitychange', function() {
             if (document.visibilityState === 'visible') {
-                // Force refresh of dynamic content
-                const timeElement = document.querySelector('.cache-time');
-                if (timeElement) {
-                    timeElement.textContent = new Date().toLocaleTimeString();
+                // Check if page needs reload
+                const lastLoad = sessionStorage.getItem('lastLoadTime');
+                const now = Date.now();
+                if (lastLoad && (now - parseInt(lastLoad)) > 60000) { // 1 minute
+                    window.location.reload(true);
                 }
             }
         });
+        
+        // Store current load time
+        sessionStorage.setItem('lastLoadTime', Date.now().toString());
         
         // iOS Safari specific cache busting
         if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
@@ -3169,6 +2918,25 @@
             }
         }
         
+        // Force reload on focus for aggressive cache busting
+        let hasFocus = true;
+        window.addEventListener('blur', function() {
+            hasFocus = false;
+        });
+        
+        window.addEventListener('focus', function() {
+            if (!hasFocus) {
+                hasFocus = true;
+                // Reload if page has been in background for more than 5 minutes
+                const lastActive = sessionStorage.getItem('lastActiveTime');
+                const now = Date.now();
+                if (lastActive && (now - parseInt(lastActive)) > 300000) { // 5 minutes
+                    window.location.reload(true);
+                }
+            }
+            sessionStorage.setItem('lastActiveTime', Date.now().toString());
+        });
+        
         // Run image cache busting when DOM is ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', bustImageCache);
@@ -3179,7 +2947,7 @@
         // Add timestamp to page for verification
         const timestampDiv = document.createElement('div');
         timestampDiv.className = 'cache-time';
-        timestampDiv.style.cssText = 'position:fixed;bottom:5px;left:5px;font-size:10px;color:#666;z-index:9999;';
+        timestampDiv.style.cssText = 'position:fixed;bottom:5px;left:5px;font-size:10px;color:#666;z-index:9999;opacity:0.5;';
         timestampDiv.textContent = 'Loaded: ' + new Date().toLocaleTimeString();
         document.body.appendChild(timestampDiv);
         
@@ -3320,20 +3088,12 @@
         e.stopPropagation();
       });
 
-      // Dark/Light Mode
-      themeToggle.addEventListener('click', () => {
-        if (document.body.classList.contains('xp-theme')) {
-          // Toggle dark mode for XP theme
-          document.body.classList.toggle('dark-mode');
-          localStorage.setItem('xp-dark-mode', document.body.classList.contains('dark-mode') ? 'true' : 'false');
-        } else {
-          // Original light/dark mode toggle
-          document.body.classList.toggle('light-mode');
-          localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
-        }
-      });
-      
+      // Dark/Light Mode is now removed. Dark theme is default.
+      themeToggle.style.display = 'none';
+
       // Check saved theme preferences - Dark mode is now default
+      // The following block is removed as light mode is no longer an option.
+      /*
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme === 'light') {
         document.body.classList.add('light-mode');
@@ -3343,6 +3103,7 @@
           localStorage.setItem('theme', 'dark');
         }
       }
+      */
       
       // Notifications - Fixed implementation
       notificationsToggle.addEventListener('click', async () => {
@@ -3539,24 +3300,38 @@
               isLoading = true;
               const originalPreText = preElement.innerText;
 
+              // Clear the pre element and add loader
               preElement.innerText = '';
+              preElement.style.position = 'relative';
+              
               const loaderHTML = `
                   <div class="loader-container">
                       <div class="loader-bar"></div>
                       <div class="loader-text">
-                          <span>Generating Script for you</span><span class="emoji">❤️</span>
+                          <span>Generating Script for you</span>
+                          <span class="emoji">❤️</span>
                       </div>
                   </div>
               `;
               preElement.insertAdjacentHTML('beforeend', loaderHTML);
 
+              // Force reflow to ensure animation starts
+              preElement.offsetHeight;
+
               const loaderBar = preElement.querySelector('.loader-bar');
               const emojiSpan = preElement.querySelector('.emoji');
 
-              // Random duration between 1-5 seconds
-              const duration = Math.floor(Math.random() * 4000) + 1000;
+              // Random duration between 2-5 seconds
+              const duration = Math.floor(Math.random() * 3000) + 2000;
+              
               if(loaderBar) {
+                  // Set animation duration
                   loaderBar.style.animationDuration = `${duration / 1000}s`;
+                  // Force animation to start
+                  loaderBar.style.animationName = 'none';
+                  setTimeout(() => {
+                      loaderBar.style.animationName = 'loading-progress';
+                  }, 10);
               }
 
               let emojiIndex = 0;
@@ -3600,11 +3375,13 @@
                       }
                   }
 
+                  // Remove loader and restore text
                   const loaderContainer = preElement.querySelector('.loader-container');
                   if (loaderContainer) {
                       loaderContainer.remove();
                   }
                   preElement.innerText = originalPreText;
+                  preElement.style.position = '';
                   isLoading = false;
               }, duration);
           });
@@ -4224,12 +4001,6 @@
           xpScreen.style.display = 'none';
           if (mainContent) {
             mainContent.style.display = 'block';
-            // Apply XP theme
-            document.body.classList.add('xp-theme');
-            // Apply saved dark mode preference
-            if (localStorage.getItem('xp-dark-mode') === 'true') {
-              document.body.classList.add('dark-mode');
-            }
             // Apply dancing text to main content
             applyDancingText();
           }
