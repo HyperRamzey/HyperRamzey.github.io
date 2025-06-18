@@ -20,48 +20,67 @@
       height: 100%;
       z-index: -1;
       opacity: 0.8;
-      /* Fix mobile flickering by enabling GPU acceleration */
+      /* Enable GPU acceleration */
       transform: translateZ(0);
       will-change: transform;
       backface-visibility: hidden;
-      /* Reduce animations on mobile to prevent flickering */
     }
 
-    /* Reduce animations on mobile devices */
-    @media (max-width: 768px) {
-      #wave-background {
-        opacity: 0.4;
-        /* Disable complex animations on mobile */
-        animation: none !important;
+    /* Chrome mobile specific optimizations */
+    @supports (-webkit-appearance: none) {
+      @media (max-width: 768px) and (hover: none) and (pointer: coarse) {
+        #wave-background {
+          /* Chrome mobile optimizations */
+          opacity: 0.3;
+          /* Force layer creation to prevent repaints */
+          transform: translateZ(0) scale(1);
+          /* Use simpler animations on Chrome mobile */
+        }
+        
+        #wave-background path {
+          /* Disable complex path animations on Chrome mobile */
+          animation: none !important;
+        }
+        
+        /* Replace with simpler gradient background on Chrome mobile */
+        #wave-background::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, 
+            rgba(102, 126, 234, 0.2) 0%, 
+            rgba(192, 38, 211, 0.2) 50%, 
+            rgba(255, 88, 88, 0.2) 100%);
+          z-index: 1;
+          /* Simple fade animation that won't cause repaints */
+          animation: simple-fade 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes simple-fade {
+          from { opacity: 0.2; }
+          to { opacity: 0.4; }
+        }
       }
-      
+    }
+
+    /* Firefox and other browsers - keep full animations */
+    @supports not (-webkit-appearance: none) {
       #wave-background path {
-        animation: none !important;
-      }
-      
-      /* Simplify mobile background to prevent flickering */
-      #wave-background::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, 
-          rgba(102, 126, 234, 0.3) 0%, 
-          rgba(192, 38, 211, 0.3) 50%, 
-          rgba(255, 88, 88, 0.3) 100%);
-        z-index: 1;
+        /* Keep animations for non-WebKit browsers */
+        animation: inherit;
       }
     }
 
-    /* Detect devices with reduced motion preference */
+    /* Reduce motion for accessibility */
     @media (prefers-reduced-motion: reduce) {
-      #wave-background {
+      #wave-background path {
         animation: none !important;
       }
       
-      #wave-background path {
+      #wave-background::before {
         animation: none !important;
       }
     }
@@ -1662,16 +1681,70 @@
         document.body.classList.add('light-mode');
       }
       
-      // Notifications
-      notificationsToggle.addEventListener('click', () => {
-          Notification.requestPermission().then(permission => {
-              if(permission === 'granted') {
-                  alert('Notifications enabled!');
+      // Notifications - Fixed implementation
+      notificationsToggle.addEventListener('click', async () => {
+          console.log('Notification toggle clicked');
+          
+          // Check if notifications are supported
+          if (!('Notification' in window)) {
+              alert('❌ This browser does not support notifications.');
+              return;
+          }
+          
+          // Check current permission status
+          console.log('Current notification permission:', Notification.permission);
+          
+          if (Notification.permission === 'granted') {
+              // Already granted, just show confirmation
+              alert('✅ Notifications are already enabled!');
+              // Show a test notification
+              new Notification('xlam HUB', { 
+                  body: 'Test notification - You\'ll get updates every hour!',
+                  icon: '/images/icon-192x192.png' || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyUzYuNDggMjIgMTIgMjJTMjIgMTcuNTIgMjIgMTJTMTcuNTIgMiAxMiAyWiIgZmlsbD0iIzY2N2VlYSIvPgo8L3N2Zz4K'
+              });
+              return;
+          }
+          
+          if (Notification.permission === 'denied') {
+              // Permission was denied, show instructions
+              alert('❌ Notifications are blocked. Please enable them in your browser settings:\n\n1. Click the lock/info icon in the address bar\n2. Allow notifications for this site\n3. Refresh the page and try again');
+              return;
+          }
+          
+          // Permission is 'default', request it
+          try {
+              console.log('Requesting notification permission...');
+              const permission = await Notification.requestPermission();
+              console.log('Permission result:', permission);
+              
+              if (permission === 'granted') {
+                  alert('✅ Notifications enabled! You\'ll get updates every hour.');
+                  
+                  // Show a test notification
+                  new Notification('xlam HUB - Notifications Enabled!', { 
+                      body: 'You\'ll now receive updates about new scripts and features!',
+                      icon: '/images/icon-192x192.png' || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyUzYuNDggMjIgMTIgMjJTMjIgMTcuNTIgMjIgMTJTMTcuNTIgMiAxMiAyWiIgZmlsbD0iIzY2N2VlYSIvPgo8L3N2Zz4K',
+                      tag: 'welcome-notification'
+                  });
+                  
+                  // Set up hourly notifications
                   setInterval(() => {
-                      new Notification('xlam HUB', { body: 'A new script has been updated! Check it out.' });
+                      new Notification('xlam HUB Update Check', { 
+                          body: 'Check out the latest script updates and new releases!',
+                          icon: '/images/icon-192x192.png' || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyUzYuNDggMjIgMTIgMjJTMjIgMTcuNTIgMjIgMTJTMTcuNTIgMiAxMiAyWiIgZmlsbD0iIzY2N2VlYSIvPgo8L3N2Zz4K',
+                          tag: 'update-notification'
+                      });
                   }, 3600000); // 1 hour
+                  
+              } else if (permission === 'denied') {
+                  alert('❌ Notifications were denied. You can enable them later in your browser settings.');
+              } else {
+                  alert('❌ Notification permission request was dismissed.');
               }
-          });
+          } catch (error) {
+              console.error('Error requesting notification permission:', error);
+              alert('❌ Error requesting notification permission. Please try again or check your browser settings.');
+          }
       });
 
       // FAQ link
@@ -2000,30 +2073,46 @@
         }
       }
 
-      window.enableNotifications = function() {
-        if ('Notification' in window) {
-          Notification.requestPermission().then(permission => {
-            if (permission === 'granted') {
-              // Set up hourly notifications
-              setInterval(() => {
-                new Notification('xlam HUB Update Check', {
-                  body: 'Check out the latest script updates and new releases!',
-                  icon: '/images/icon-192x192.png',
-                  tag: 'script-update'
-                });
-              }, 3600000); // 1 hour
+      window.enableNotifications = async function() {
+        console.log('Enable notifications called from auto-prompt');
+        
+        if (!('Notification' in window)) {
+          alert('❌ This browser does not support notifications.');
+          dismissPrompt('notification-prompt');
+          return;
+        }
 
-              dismissPrompt('notification-prompt');
-              alert('✅ Notifications enabled! You\'ll get updates every hour.');
-            } else {
-              alert('❌ Notifications permission denied.');
-            }
-          }).catch(err => {
-            console.error('Notification permission error:', err);
-            alert('❌ Error requesting notification permission.');
-          });
-        } else {
-          alert('❌ Notifications not supported on this device.');
+        try {
+          const permission = await Notification.requestPermission();
+          console.log('Notification permission result:', permission);
+          
+          if (permission === 'granted') {
+            // Show welcome notification
+            new Notification('xlam HUB - Notifications Enabled!', {
+              body: 'You\'ll now receive updates about new scripts and features every hour!',
+              icon: '/images/icon-192x192.png' || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyUzYuNDggMjIgMTIgMjJTMjIgMTcuNTIgMjIgMTJTMTcuNTIgMiAxMiAyWiIgZmlsbD0iIzY2N2VlYSIvPgo8L3N2Zz4K',
+              tag: 'welcome-notification'
+            });
+            
+            // Set up hourly notifications
+            setInterval(() => {
+              new Notification('xlam HUB Update Check', {
+                body: 'Check out the latest script updates and new releases!',
+                icon: '/images/icon-192x192.png' || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyUzYuNDggMjIgMTIgMjJTMjIgMTcuNTIgMjIgMTJTMTcuNTIgMiAxMiAyWiIgZmlsbD0iIzY2N2VlYSIvPgo8L3N2Zz4K',
+                tag: 'update-notification'
+              });
+            }, 3600000); // 1 hour
+
+            dismissPrompt('notification-prompt');
+            alert('✅ Notifications enabled! You\'ll get updates every hour.');
+          } else {
+            alert('❌ Notification permission was denied or dismissed.');
+            dismissPrompt('notification-prompt');
+          }
+        } catch (err) {
+          console.error('Notification permission error:', err);
+          alert('❌ Error requesting notification permission.');
+          dismissPrompt('notification-prompt');
         }
       }
 
