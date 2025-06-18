@@ -20,6 +20,50 @@
       height: 100%;
       z-index: -1;
       opacity: 0.8;
+      /* Fix mobile flickering by enabling GPU acceleration */
+      transform: translateZ(0);
+      will-change: transform;
+      backface-visibility: hidden;
+      /* Reduce animations on mobile to prevent flickering */
+    }
+
+    /* Reduce animations on mobile devices */
+    @media (max-width: 768px) {
+      #wave-background {
+        opacity: 0.4;
+        /* Disable complex animations on mobile */
+        animation: none !important;
+      }
+      
+      #wave-background path {
+        animation: none !important;
+      }
+      
+      /* Simplify mobile background to prevent flickering */
+      #wave-background::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, 
+          rgba(102, 126, 234, 0.3) 0%, 
+          rgba(192, 38, 211, 0.3) 50%, 
+          rgba(255, 88, 88, 0.3) 100%);
+        z-index: 1;
+      }
+    }
+
+    /* Detect devices with reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      #wave-background {
+        animation: none !important;
+      }
+      
+      #wave-background path {
+        animation: none !important;
+      }
     }
 
     body {
@@ -1057,6 +1101,8 @@
         .script-card {
             margin-bottom: 15px;
             padding: 20px;
+            /* Reduce GPU-intensive effects on mobile */
+            backdrop-filter: blur(5px) !important;
         }
         
         .buttons {
@@ -1078,10 +1124,33 @@
             padding: 20px;
         }
         
-        /* Reduce 3D effects on mobile */
+        /* Reduce 3D effects on mobile to prevent flickering */
         .btn:hover,
         .script-card:hover {
-            transform: translateY(-2px);
+            transform: translateY(-2px) !important;
+        }
+        
+        /* Disable complex animations on mobile */
+        .script-card {
+            animation: simple-fade-in 0.6s ease forwards !important;
+        }
+        
+        /* Reduce backdrop-filter usage on mobile for better performance */
+        .script-card,
+        #search-bar {
+            backdrop-filter: blur(5px) !important;
+        }
+    }
+    
+    /* Simple fade-in animation for mobile */
+    @keyframes simple-fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
     }
 
@@ -1533,8 +1602,13 @@
           deferredPrompt.prompt();
           const { outcome } = await deferredPrompt.userChoice;
           console.log(`User response to the install prompt: ${outcome}`);
-          deferredPrompt = null;
+          
+          // Always dismiss the install prompt after user choice
+          dismissPrompt('install-prompt');
+          
+          // Hide the install button after interaction
           installButton.style.display = 'none';
+          deferredPrompt = null;
         }
       });
       
@@ -1908,8 +1982,21 @@
       function dismissPrompt(promptId) {
         const promptElement = document.getElementById(promptId);
         if (promptElement) {
+          // Add fade-out animation before removal
           promptElement.classList.remove('show');
+          promptElement.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+          promptElement.style.transform = 'translateY(100px)';
+          promptElement.style.opacity = '0';
+          
+          // Store dismissal preference
           localStorage.setItem(promptId + '_dismissed', 'true');
+          
+          // Remove from DOM after animation
+          setTimeout(() => {
+            if (promptElement.parentNode) {
+              promptElement.parentNode.removeChild(promptElement);
+            }
+          }, 300);
         }
       }
 
@@ -1944,9 +2031,25 @@
         if (deferredPrompt) {
           deferredPrompt.prompt();
           deferredPrompt.userChoice.then(result => {
+            // Always dismiss the prompt regardless of user choice
+            dismissPrompt('install-prompt');
+            
+            if (result.outcome === 'accepted') {
+              console.log('User accepted the install prompt');
+            } else {
+              console.log('User dismissed the install prompt');
+            }
+            
+            // Clean up the deferred prompt
+            deferredPrompt = null;
+          }).catch(err => {
+            console.error('Error during install prompt:', err);
+            // Still dismiss the prompt on error
             dismissPrompt('install-prompt');
           });
         } else {
+          // If no deferred prompt, just dismiss and show manual install message
+          dismissPrompt('install-prompt');
           alert('Install option not available. You can manually add this site to your home screen.');
         }
       }
