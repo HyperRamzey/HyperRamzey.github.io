@@ -34,13 +34,16 @@
     /* Universal GPU Acceleration Base */
     * {
       /* Force hardware acceleration for all elements */
+      -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
+      -webkit-perspective: 1000px;
       perspective: 1000px;
     }
     
     /* Enhanced GPU acceleration for animations and transforms */
     *:not(script):not(style):not(meta):not(link):not(title) {
       /* Cross-platform GPU acceleration */
+      -webkit-transform: translateZ(0);
       transform: translateZ(0);
       will-change: auto;
     }
@@ -56,15 +59,13 @@
       opacity: 0.8;
       
       /* Enhanced GPU acceleration for all platforms */
+      -webkit-transform: translateZ(0) translate3d(0, 0, 0);
       transform: translateZ(0) translate3d(0, 0, 0);
       will-change: transform, opacity;
-      backface-visibility: hidden;
-      perspective: 1000px;
-      
-      /* iOS Safari specific optimizations */
-      -webkit-transform: translateZ(0) translate3d(0, 0, 0);
       -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
       -webkit-perspective: 1000px;
+      perspective: 1000px;
       
       /* Force layer creation */
       isolation: isolate;
@@ -78,18 +79,18 @@
           /* Chrome mobile optimizations */
           opacity: 0.3;
           /* Enhanced GPU acceleration for mobile Chrome */
+          -webkit-transform: translateZ(0) translate3d(0, 0, 0) scale3d(1, 1, 1);
           transform: translateZ(0) translate3d(0, 0, 0) scale3d(1, 1, 1);
           will-change: transform;
           /* Use GPU-friendly filters */
           filter: blur(0px);
-          /* Force composite layer */
-          -webkit-transform: translateZ(0) translate3d(0, 0, 0);
         }
         
         #wave-background path {
           /* Disable complex animations on mobile Chrome for performance */
           animation: none !important;
           /* GPU acceleration for SVG paths */
+          -webkit-transform: translateZ(0);
           transform: translateZ(0);
           will-change: transform;
         }
@@ -109,18 +110,22 @@
           z-index: 1;
           /* GPU-accelerated simple animation */
           animation: simple-fade 3s ease-in-out infinite alternate;
+          -webkit-transform: translateZ(0);
           transform: translateZ(0);
           will-change: opacity;
+          -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
         }
         
         @keyframes simple-fade {
           from { 
             opacity: 0.2; 
+            -webkit-transform: translateZ(0) scale3d(1, 1, 1);
             transform: translateZ(0) scale3d(1, 1, 1);
           }
           to { 
             opacity: 0.4; 
+            -webkit-transform: translateZ(0) scale3d(1.01, 1.01, 1);
             transform: translateZ(0) scale3d(1.01, 1.01, 1);
           }
         }
@@ -132,9 +137,13 @@
       #wave-background {
         /* iOS Safari hardware acceleration */
         -webkit-transform: translateZ(0) translate3d(0, 0, 0);
+        transform: translateZ(0) translate3d(0, 0, 0);
         -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
         -webkit-perspective: 1000px;
+        perspective: 1000px;
         /* iOS6+ specific fixes */
+        -webkit-transform-style: preserve-3d;
         transform-style: preserve-3d;
       }
       
@@ -151,6 +160,7 @@
         /* Keep full animations for desktop browsers */
         animation: inherit;
         /* Enhanced GPU acceleration */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: d, transform;
       }
@@ -161,12 +171,14 @@
       #wave-background path {
         animation: none !important;
         /* Maintain GPU acceleration even with reduced motion */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: auto;
       }
       
       #wave-background::before {
         animation: none !important;
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
       }
     }
@@ -184,8 +196,10 @@
       overflow: visible !important;
       
       /* Enhanced GPU acceleration for body */
+      -webkit-transform: translateZ(0);
       transform: translateZ(0);
       will-change: scroll-position;
+      -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
       /* Force composite layer for better scrolling performance */
       contain: layout style paint;
@@ -203,8 +217,10 @@
         animation: glow-pulse 2s ease-in-out infinite;
         
         /* Enhanced GPU acceleration for title */
+        -webkit-transform: translateZ(0) translate3d(0, 0, 0);
         transform: translateZ(0) translate3d(0, 0, 0);
         will-change: text-shadow, transform;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
         /* Text rendering optimization */
         text-rendering: optimizeSpeed;
@@ -214,10 +230,12 @@
     @keyframes glow-pulse {
         0%, 100% { 
             text-shadow: 0 0 20px rgba(102, 126, 234, 0.6), 0 0 40px rgba(102, 126, 234, 0.4);
+            -webkit-transform: translateZ(0) scale3d(1, 1, 1);
             transform: translateZ(0) scale3d(1, 1, 1);
         }
         50% { 
             text-shadow: 0 0 30px rgba(102, 126, 234, 0.8), 0 0 60px rgba(102, 126, 234, 0.6);
+            -webkit-transform: translateZ(0) scale3d(1.02, 1.02, 1);
             transform: translateZ(0) scale3d(1.02, 1.02, 1);
         }
     }
@@ -235,18 +253,22 @@
         animation: fade-in-up 0.8s ease forwards 0.5s;
         
         /* GPU acceleration for subtitle */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: opacity, transform;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
     
     @keyframes fade-in-up {
         from {
             opacity: 0;
+            -webkit-transform: translateZ(0) translateY(20px) translate3d(0, 20px, 0);
             transform: translateZ(0) translateY(20px) translate3d(0, 20px, 0);
         }
         to {
             opacity: 1;
+            -webkit-transform: translateZ(0) translateY(0) translate3d(0, 0, 0);
             transform: translateZ(0) translateY(0) translate3d(0, 0, 0);
         }
     }
@@ -259,8 +281,10 @@
         opacity: 0;
         
         /* GPU acceleration for search container */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: opacity, transform;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
     
@@ -278,8 +302,10 @@
         transition: all 0.3s ease;
         
         /* Enhanced GPU acceleration for input */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: transform, box-shadow, border-color;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
         /* Force composite layer */
         isolation: isolate;
@@ -288,6 +314,7 @@
     #search-bar:focus {
         border-color: rgba(167, 139, 250, 0.7);
         box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
+        -webkit-transform: translateZ(0) translateY(-2px) translate3d(0, -2px, 0);
         transform: translateZ(0) translateY(-2px) translate3d(0, -2px, 0);
     }
     
@@ -301,8 +328,10 @@
         z-index: 1;
         
         /* GPU acceleration for grid container */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: transform;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
         contain: layout style;
     }
@@ -322,10 +351,14 @@
         animation: card-3d-entry 0.8s ease forwards;
         
         /* Enhanced GPU acceleration for cards */
+        -webkit-transform: translateZ(0) translate3d(0, 0, 0);
         transform: translateZ(0) translate3d(0, 0, 0);
+        -webkit-transform-style: preserve-3d;
         transform-style: preserve-3d;
+        -webkit-perspective: 1000px;
         perspective: 1000px;
         will-change: transform, opacity, box-shadow;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
         /* Force composite layer */
         isolation: isolate;
@@ -340,10 +373,12 @@
     @keyframes card-3d-entry {
         from {
             opacity: 0;
+            -webkit-transform: translateZ(0) perspective(1000px) rotateY(-30deg) translate3d(-50px, 0, -100px);
             transform: translateZ(0) perspective(1000px) rotateY(-30deg) translate3d(-50px, 0, -100px);
         }
         to {
             opacity: 1;
+            -webkit-transform: translateZ(0) perspective(1000px) rotateY(0) translate3d(0, 0, 0);
             transform: translateZ(0) perspective(1000px) rotateY(0) translate3d(0, 0, 0);
         }
     }
@@ -364,12 +399,15 @@
         pointer-events: none;
         
         /* GPU acceleration for pseudo-element */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: opacity;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
     
     .script-card:hover {
+        -webkit-transform: translateZ(0) translateY(-5px) rotateX(5deg) translate3d(0, -5px, 0);
         transform: translateZ(0) translateY(-5px) rotateX(5deg) translate3d(0, -5px, 0);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         border-color: rgba(102, 126, 234, 0.5);
@@ -387,8 +425,10 @@
         color: #ffffff;
         
         /* GPU acceleration for headings */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: transform;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
         text-rendering: optimizeSpeed;
         -webkit-font-smoothing: antialiased;
@@ -402,8 +442,10 @@
         margin-bottom: 20px;
         
         /* GPU acceleration for meta container */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: transform;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
     
@@ -412,8 +454,10 @@
         gap: 8px;
         
         /* GPU acceleration for tag container */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: transform;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
     
@@ -428,13 +472,16 @@
         transition: all 0.3s ease;
         
         /* Enhanced GPU acceleration for tags */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: transform, box-shadow;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
         isolation: isolate;
     }
     
     .tag:hover {
+        -webkit-transform: translateZ(0) scale(1.05) translateY(-2px) translate3d(0, -2px, 0);
         transform: translateZ(0) scale(1.05) translateY(-2px) translate3d(0, -2px, 0);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
@@ -480,8 +527,10 @@
         transition: all 0.3s ease;
         
         /* Enhanced GPU acceleration for pre elements */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: transform, background-color, border-color;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
         isolation: isolate;
     }
@@ -489,6 +538,7 @@
     pre:hover {
         background: rgba(17, 17, 27, 0.7);
         border-color: rgba(255, 255, 255, 0.2);
+        -webkit-transform: translateZ(0) translateY(-1px) translate3d(0, -1px, 0);
         transform: translateZ(0) translateY(-1px) translate3d(0, -1px, 0);
     }
     
@@ -504,8 +554,10 @@
         backdrop-filter: blur(10px);
         
         /* GPU acceleration for loader */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: transform;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
         isolation: isolate;
     }
@@ -522,8 +574,10 @@
         overflow: hidden;
         
         /* Enhanced GPU acceleration for loading bar */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: width, transform;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
     
@@ -541,25 +595,35 @@
         animation: shimmer 1s ease-in-out infinite;
         
         /* GPU acceleration for shimmer effect */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: transform;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
     
     @keyframes loading-progress {
         from { 
             width: 0%; 
+            -webkit-transform: translateZ(0) scaleX(0);
             transform: translateZ(0) scaleX(0);
         }
         to { 
             width: 100%; 
+            -webkit-transform: translateZ(0) scaleX(1);
             transform: translateZ(0) scaleX(1);
         }
     }
     
     @keyframes shimmer {
-        from { transform: translateZ(0) translateX(-100%) translate3d(-100%, 0, 0); }
-        to { transform: translateZ(0) translateX(100%) translate3d(100%, 0, 0); }
+        from { 
+            -webkit-transform: translateZ(0) translateX(-100%) translate3d(-100%, 0, 0);
+            transform: translateZ(0) translateX(-100%) translate3d(-100%, 0, 0); 
+        }
+        to { 
+            -webkit-transform: translateZ(0) translateX(100%) translate3d(100%, 0, 0);
+            transform: translateZ(0) translateX(100%) translate3d(100%, 0, 0); 
+        }
     }
     
     .loader-text {
@@ -578,8 +642,10 @@
         z-index: 1;
         
         /* GPU acceleration for loader text */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: transform;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
         text-rendering: optimizeSpeed;
         -webkit-font-smoothing: antialiased;
@@ -591,8 +657,10 @@
         gap: 12px;
         
         /* GPU acceleration for button container */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: transform;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
     
@@ -620,16 +688,15 @@
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         
         /* Enhanced cross-platform GPU acceleration */
+        -webkit-transform: translateZ(0) translate3d(0, 0, 0);
         transform: translateZ(0) translate3d(0, 0, 0);
+        -webkit-transform-style: preserve-3d;
         transform-style: preserve-3d;
         will-change: transform, box-shadow, background;
-        backface-visibility: hidden;
-        perspective: 1000px;
-        
-        /* iOS Safari specific optimizations */
-        -webkit-transform: translateZ(0) translate3d(0, 0, 0);
         -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
         -webkit-perspective: 1000px;
+        perspective: 1000px;
         
         /* Force composite layer */
         isolation: isolate;
@@ -650,13 +717,16 @@
         transition: left 0.5s ease;
         
         /* GPU acceleration for button shine effect */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: transform, left;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
     
     .btn:hover {
         background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(192, 38, 211, 0.7));
+        -webkit-transform: translateZ(0) perspective(1000px) rotateX(-10deg) translateY(-4px) scale(1.05) translate3d(0, -4px, 0);
         transform: translateZ(0) perspective(1000px) rotateX(-10deg) translateY(-4px) scale(1.05) translate3d(0, -4px, 0);
         box-shadow: 
             0 15px 30px rgba(0, 0, 0, 0.4),
@@ -668,6 +738,7 @@
     }
     
     .btn:active {
+        -webkit-transform: translateZ(0) perspective(1000px) rotateX(-5deg) translateY(-2px) scale(1.02) translate3d(0, -2px, 0);
         transform: translateZ(0) perspective(1000px) rotateX(-5deg) translateY(-2px) scale(1.02) translate3d(0, -2px, 0);
         box-shadow: 
             0 8px 20px rgba(0, 0, 0, 0.3),
@@ -684,9 +755,18 @@
     }
     
     @keyframes success-pulse {
-        0% { transform: translateZ(0) scale(1) translate3d(0, 0, 0); }
-        50% { transform: translateZ(0) scale(1.1) translate3d(0, 0, 0); }
-        100% { transform: translateZ(0) scale(1) translate3d(0, 0, 0); }
+        0% { 
+            -webkit-transform: translateZ(0) scale(1) translate3d(0, 0, 0);
+            transform: translateZ(0) scale(1) translate3d(0, 0, 0); 
+        }
+        50% { 
+            -webkit-transform: translateZ(0) scale(1.1) translate3d(0, 0, 0);
+            transform: translateZ(0) scale(1.1) translate3d(0, 0, 0); 
+        }
+        100% { 
+            -webkit-transform: translateZ(0) scale(1) translate3d(0, 0, 0);
+            transform: translateZ(0) scale(1) translate3d(0, 0, 0); 
+        }
     }
     
     .secondary-btn, .tiktok-btn {
@@ -715,21 +795,32 @@
         transition: all 0.3s ease;
         
         /* Enhanced GPU acceleration for placard */
+        -webkit-transform: translateZ(0) translate3d(0, 0, 0);
         transform: translateZ(0) translate3d(0, 0, 0);
+        -webkit-transform-style: preserve-3d;
         transform-style: preserve-3d;
         will-change: transform, box-shadow;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
+        -webkit-perspective: 1000px;
         perspective: 1000px;
         isolation: isolate;
     }
     
     @keyframes placard-bounce {
-        0%, 100% { transform: translateZ(0) translateY(0) rotateX(0) translate3d(0, 0, 0); }
-        50% { transform: translateZ(0) translateY(-10px) rotateX(5deg) translate3d(0, -10px, 0); }
+        0%, 100% { 
+            -webkit-transform: translateZ(0) translateY(0) rotateX(0) translate3d(0, 0, 0);
+            transform: translateZ(0) translateY(0) rotateX(0) translate3d(0, 0, 0); 
+        }
+        50% { 
+            -webkit-transform: translateZ(0) translateY(-10px) rotateX(5deg) translate3d(0, -10px, 0);
+            transform: translateZ(0) translateY(-10px) rotateX(5deg) translate3d(0, -10px, 0); 
+        }
     }
     
     .placard:hover {
         background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(192, 38, 211, 0.7));
+        -webkit-transform: translateZ(0) perspective(1000px) rotateY(-15deg) scale(1.05) translate3d(0, 0, 0);
         transform: translateZ(0) perspective(1000px) rotateY(-15deg) scale(1.05) translate3d(0, 0, 0);
         box-shadow: 0 15px 30px rgba(138, 43, 226, 0.4);
     }
@@ -756,8 +847,10 @@
         transition: all 0.3s ease;
         
         /* Enhanced GPU acceleration for back-to-top */
+        -webkit-transform: translateZ(0) translateY(100px) translate3d(0, 100px, 0);
         transform: translateZ(0) translateY(100px) translate3d(0, 100px, 0);
         will-change: transform, opacity;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
         isolation: isolate;
     }
@@ -765,11 +858,13 @@
     #back-to-top.visible {
         opacity: 1;
         pointer-events: auto;
+        -webkit-transform: translateZ(0) translateY(0) translate3d(0, 0, 0);
         transform: translateZ(0) translateY(0) translate3d(0, 0, 0);
     }
     
     #back-to-top:hover {
         background: linear-gradient(135deg, rgba(45, 212, 191, 0.9), rgba(45, 212, 191, 0.7));
+        -webkit-transform: translateZ(0) scale(1.1) rotateZ(180deg) translate3d(0, 0, 0);
         transform: translateZ(0) scale(1.1) rotateZ(180deg) translate3d(0, 0, 0);
     }
     
@@ -790,8 +885,10 @@
         transition: opacity 0.3s ease;
         
         /* Enhanced GPU acceleration for modal overlay */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: opacity, transform;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
         isolation: isolate;
     }
@@ -816,15 +913,19 @@
         transition: transform 0.3s ease;
         
         /* Enhanced GPU acceleration for modal content */
+        -webkit-transform: translateZ(0) scale(0.9) rotateX(20deg) translate3d(0, 0, 0);
         transform: translateZ(0) scale(0.9) rotateX(20deg) translate3d(0, 0, 0);
         will-change: transform, opacity;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
+        -webkit-perspective: 1000px;
         perspective: 1000px;
         isolation: isolate;
         contain: layout style paint;
     }
     
     .modal-overlay.visible .modal-content {
+        -webkit-transform: translateZ(0) scale(1) rotateX(0) translate3d(0, 0, 0);
         transform: translateZ(0) scale(1) rotateX(0) translate3d(0, 0, 0);
     }
     
@@ -842,14 +943,22 @@
         animation: gradient-rotate 3s linear infinite;
         
         /* GPU acceleration for gradient border */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: transform;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
     
     @keyframes gradient-rotate {
-        from { transform: translateZ(0) rotate(0deg); }
-        to { transform: translateZ(0) rotate(360deg); }
+        from { 
+            -webkit-transform: translateZ(0) rotate(0deg);
+            transform: translateZ(0) rotate(0deg); 
+        }
+        to { 
+            -webkit-transform: translateZ(0) rotate(360deg);
+            transform: translateZ(0) rotate(360deg); 
+        }
     }
     
     .close-modal {
@@ -863,13 +972,16 @@
         transition: all 0.2s ease;
         
         /* GPU acceleration for close button */
+        -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: transform, color;
+        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
     
     .close-modal:hover {
         color: white;
+        -webkit-transform: translateZ(0) rotate(90deg) translate3d(0, 0, 0);
         transform: translateZ(0) rotate(90deg) translate3d(0, 0, 0);
     }
     
@@ -1380,6 +1492,7 @@
             /* Optimized GPU acceleration for mobile performance */
             backdrop-filter: blur(5px) !important;
             /* Reduce transform complexity on mobile */
+            -webkit-transform: translateZ(0) translate3d(0, 0, 0) !important;
             transform: translateZ(0) translate3d(0, 0, 0) !important;
         }
         
@@ -1392,6 +1505,7 @@
             width: 100%;
             justify-content: center;
             /* Simplified GPU acceleration on mobile */
+            -webkit-transform: translateZ(0) translate3d(0, 0, 0) !important;
             transform: translateZ(0) translate3d(0, 0, 0) !important;
         }
         
@@ -1403,16 +1517,19 @@
             width: 95%;
             padding: 20px;
             /* Simplified transforms for mobile */
+            -webkit-transform: translateZ(0) scale(0.95) translate3d(0, 0, 0) !important;
             transform: translateZ(0) scale(0.95) translate3d(0, 0, 0) !important;
         }
         
         .modal-overlay.visible .modal-content {
+            -webkit-transform: translateZ(0) scale(1) translate3d(0, 0, 0) !important;
             transform: translateZ(0) scale(1) translate3d(0, 0, 0) !important;
         }
         
         /* Reduce 3D effects on mobile to prevent flickering */
         .btn:hover,
         .script-card:hover {
+            -webkit-transform: translateZ(0) translateY(-2px) translate3d(0, -2px, 0) !important;
             transform: translateZ(0) translateY(-2px) translate3d(0, -2px, 0) !important;
         }
         
@@ -1430,6 +1547,7 @@
         /* Force GPU acceleration for mobile scroll performance */
         body {
             -webkit-overflow-scrolling: touch;
+            -webkit-transform: translateZ(0);
             transform: translateZ(0);
         }
     }
@@ -1438,10 +1556,12 @@
     @keyframes simple-fade-in {
         from {
             opacity: 0;
+            -webkit-transform: translateZ(0) translateY(20px) translate3d(0, 20px, 0);
             transform: translateZ(0) translateY(20px) translate3d(0, 20px, 0);
         }
         to {
             opacity: 1;
+            -webkit-transform: translateZ(0) translateY(0) translate3d(0, 0, 0);
             transform: translateZ(0) translateY(0) translate3d(0, 0, 0);
         }
     }
