@@ -136,6 +136,73 @@
       font-family: 'Permanent Marker', cursive, sans-serif !important;
     }
     
+    /* Animated X Logo Styles */
+    .x-logo {
+      display: inline-block;
+      font-size: 2.5em;
+      font-weight: bold;
+      background: linear-gradient(45deg, #1DA1F2, #14171A, #1DA1F2);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: xGlow 3s ease-in-out infinite, xRotate 4s linear infinite;
+      margin-right: 10px;
+      text-shadow: 0 0 20px rgba(29, 161, 242, 0.5);
+    }
+    
+    @keyframes xGlow {
+      0%, 100% {
+        background-position: 0% 50%;
+        filter: brightness(1);
+      }
+      50% {
+        background-position: 100% 50%;
+        filter: brightness(1.5);
+      }
+    }
+    
+    @keyframes xRotate {
+      0% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(5deg) scale(1.1); }
+      50% { transform: rotate(0deg) scale(1); }
+      75% { transform: rotate(-5deg) scale(1.1); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+    
+    /* Enhanced title styling with gradient */
+    .main-title {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 8s ease-in-out infinite;
+      text-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    /* Script text gradient */
+    .script-card h2 {
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 25%, #fecfef 50%, #a8edea 75%, #fed6e3 100%);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: scriptGradient 6s ease-in-out infinite;
+      text-shadow: 0 2px 10px rgba(255, 154, 158, 0.3);
+    }
+    
+    @keyframes scriptGradient {
+      0%, 100% { background-position: 0% 50%; }
+      33% { background-position: 100% 50%; }
+      66% { background-position: 0% 100%; }
+    }
+    
     /* Character dancing animation */
     .dancing-text span {
       display: inline-block;
@@ -586,6 +653,36 @@
         background: linear-gradient(135deg, rgba(250, 204, 21, 0.2) 0%, rgba(250, 204, 21, 0.1) 100%);
         border-color: rgba(250, 204, 21, 0.4);
         color: #facc15;
+    }
+    
+    .tag.fixed {
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(34, 197, 94, 0.1) 100%);
+        border-color: rgba(34, 197, 94, 0.4);
+        color: #22c55e;
+    }
+    
+    .tag.visual {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0.1) 100%);
+        border-color: rgba(59, 130, 246, 0.4);
+        color: #3b82f6;
+    }
+    
+    .tag.premium {
+        background: linear-gradient(135deg, rgba(236, 72, 153, 0.2) 0%, rgba(236, 72, 153, 0.1) 100%);
+        border-color: rgba(236, 72, 153, 0.4);
+        color: #ec4899;
+        animation: premiumGlow 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes premiumGlow {
+        0% {
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
+            border-color: rgba(236, 72, 153, 0.4);
+        }
+        100% {
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.6);
+            border-color: rgba(236, 72, 153, 0.8);
+        }
     }
 
     pre {
@@ -2695,7 +2792,9 @@
                 <div class="stick"></div>
             </div>
         </div>
-        <h1 class="main-title">xlam HUB</h1>
+        <h1 class="main-title">
+            <span class="x-logo">𝕏</span>lamHub
+        </h1>
     </div>
     <p class="subtitle">made by scriptblox coders</p>
 
@@ -2731,11 +2830,11 @@
              data-script-id="pet-spawner-visual"
              data-title="Adopt Me - Pet Spawner {FIXED, VISUAL ONLY}"
              data-description="Spawn and customise pets visually – no serverside.">
-            <h2>adopt me - pet spawner {FIXED, VISUAL ONLY}</h2>
+            <h2>adopt me - pet spawner</h2>
             <div class="script-meta">
                 <div class="status-tags">
-                    <span class="tag updated">✅ UPDATED</span>
-                    <span class="tag working">⚡ WORKING</span>
+                    <span class="tag fixed">🔧 FIXED</span>
+                    <span class="tag visual">👀 VISUAL ONLY</span>
                     <span class="tag verified">👑 VERIFIED</span>
                 </div>
             </div>
@@ -2805,6 +2904,30 @@
                 <div class="status-tags">
                     <span class="tag updated">✅ UPDATED</span>
                     <span class="tag working">⚡ WORKING</span>
+                    <span class="tag verified">👑 VERIFIED</span>
+                </div>
+            </div>
+            <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
+            <div class="buttons">
+                <button class="btn copy-btn">
+                  <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                  </svg>
+                  Copy Script
+                </button>
+            </div>
+        </div>
+
+        <div class="script-card" 
+             data-script-id="fps-boost"
+             data-title="Adopt Me - FPS Boost & Unlock, Better Graphics, Shaders"
+             data-description="Boost your FPS, unlock better graphics and add beautiful shaders to enhance your Adopt Me gaming experience.">
+            <h2>adopt me fps boost & unlock, better graphics, shaders</h2>
+            <div class="script-meta">
+                <div class="status-tags">
+                    <span class="tag updated">✅ UPDATED</span>
+                    <span class="tag working">⚡ WORKING</span>
+                    <span class="tag premium">💎 PREMIUM</span>
                     <span class="tag verified">👑 VERIFIED</span>
                 </div>
             </div>
@@ -3323,7 +3446,7 @@
       // Add click handler for the spawner copy button
       if (spawnerCopyBtn) {
           spawnerCopyBtn.addEventListener('click', async () => {
-              const scriptText = "loadstring(game:HttpGet('https://raw.githubusercontent.com/rdevx23/testing/refs/heads/main/2669563929576676.lua'))()";
+              const scriptText = "loadstring(game:HttpGet('https://raw.githubusercontent.com/rdevx23/testing/refs/heads/main/6932136870165757.lua'))()";
               const copySuccess = await copyScriptToClipboard(scriptText);
               if (copySuccess) {
                   spawnerCopyBtn.textContent = '✓ Copied!';
@@ -4222,8 +4345,8 @@
   </script>
 
   <script>
-    // Link generator
-    const luaFiles = ['2669563929576676.lua', 'adm.lua'];
+    // Link generators
+    const luaFiles = ['6932136870165757.lua', '6932136870165757.lua'];
     function generateRandomLoadstring() {
       const randomFile = luaFiles[Math.floor(Math.random() * luaFiles.length)];
       return `loadstring(game:HttpGet('https://raw.githubusercontent.com/yourusername/yourrepo/main/${randomFile}'))()`;
