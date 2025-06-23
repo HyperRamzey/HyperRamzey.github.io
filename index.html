@@ -46,56 +46,206 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   
   <style>
-    /* Increased font size and weight globally */
+    /* =================================
+       COMPREHENSIVE GPU ACCELERATION ENHANCEMENTS
+       Based on extensive cross-browser research
+       ================================= */
+    
+    /* Global Performance Optimization Foundation */
     * {
-      font-size: 1em; /* base size, overridden later by #scale-tweak */
+      font-size: 1em;
       font-family: 'Permanent Marker', cursive, sans-serif !important;
       font-weight: bold;
+      
+      /* Cross-browser GPU acceleration foundation */
+      -webkit-transform: translateZ(0);
+      -moz-transform: translateZ(0);
+      -ms-transform: translateZ(0);
+      -o-transform: translateZ(0);
+      transform: translateZ(0);
+      
+      /* Enhanced backface visibility for all browsers */
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Optimized text rendering */
+      text-rendering: optimizeSpeed;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      
+      /* Force hardware acceleration hint */
+      -webkit-transform-style: preserve-3d;
+      -moz-transform-style: preserve-3d;
+      transform-style: preserve-3d;
     }
     
-    /* 3D Floating Animation */
+    /* Root HTML optimization for maximum performance */
+    html {
+      /* CSS Containment for optimal performance isolation */
+      contain: layout style paint;
+      
+      /* Content visibility optimization */
+      content-visibility: auto;
+      contain-intrinsic-size: 100vh;
+      
+      /* Cross-browser hardware acceleration */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: scroll-position;
+      
+      /* Enhanced scrolling performance */
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+    
+    /* Enhanced Body GPU Acceleration with Modern Properties */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1c3c 50%, #0a0a0a 100%);
+      color: #f0f0f0;
+      padding: 40px 20px;
+      min-height: 100vh;
+      box-sizing: border-box;
+      overflow-x: hidden;
+      position: relative;
+      overflow: visible !important;
+      
+      /* Cross-platform GPU acceleration */
+      -webkit-transform: translateZ(0);
+      -moz-transform: translateZ(0);
+      -ms-transform: translateZ(0);
+      transform: translateZ(0);
+      
+      /* Strategic will-change for scroll performance */
+      will-change: scroll-position, transform;
+      
+      /* Enhanced cross-browser backface visibility */
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Modern CSS containment for performance isolation */
+      contain: layout style;
+      
+      /* Layer promotion for composite layer creation */
+      isolation: isolate;
+      
+      /* Content visibility for viewport-based rendering */
+      content-visibility: auto;
+    }
+    
+    /* 3D Floating Animation with Enhanced GPU Acceleration */
     @keyframes float {
-      0% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(5deg); }
-      100% { transform: translateY(0px) rotate(0deg); }
+      0% { 
+        -webkit-transform: translate3d(0, 0, 0) rotate(0deg);
+        -moz-transform: translate3d(0, 0, 0) rotate(0deg);
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
+      50% { 
+        -webkit-transform: translate3d(0, -20px, 0) rotate(5deg);
+        -moz-transform: translate3d(0, -20px, 0) rotate(5deg);
+        transform: translate3d(0, -20px, 0) rotate(5deg);
+      }
+      100% { 
+        -webkit-transform: translate3d(0, 0, 0) rotate(0deg);
+        -moz-transform: translate3d(0, 0, 0) rotate(0deg);
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
     }
     
     .floating {
       animation: float 4s ease-in-out infinite;
+      
+      /* Enhanced GPU acceleration for floating elements */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Performance containment */
+      contain: layout style paint;
+      isolation: isolate;
     }
     
-    /* Logo styles */
+    /* Logo Container with Modern GPU Acceleration */
     .logo-container {
       position: relative;
       width: 200px;
       height: 200px;
       margin: 0 auto 30px;
+      
+      /* Enhanced GPU acceleration */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Performance optimization */
+      contain: layout style paint;
+      isolation: isolate;
+      content-visibility: auto;
     }
     
+    /* Bottle Logo with Cross-Browser 3D Acceleration */
     .bottle-logo {
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
       width: 100px;
       height: 150px;
       background: linear-gradient(135deg, #667eea, #764ba2);
       border-radius: 10px 10px 50% 50%;
       box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      
+      /* Cross-browser 3D transforms */
+      -webkit-transform: translate3d(-50%, -50%, 0);
+      -moz-transform: translate3d(-50%, -50%, 0);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate3d(-50%, -50%, 0);
+      
+      /* Enhanced GPU acceleration */
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      
+      /* Performance containment */
+      contain: layout style paint;
+      isolation: isolate;
     }
     
+    /* Stick with Enhanced GPU Optimization */
     .stick {
       position: absolute;
       top: 30%;
       left: 50%;
-      transform: translate(-50%, -50%) rotate(45deg);
       width: 120px;
       height: 8px;
       background: #f0f0f0;
       border-radius: 4px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      
+      /* Cross-browser 3D transforms with rotation */
+      -webkit-transform: translate3d(-50%, -50%, 0) rotate(45deg);
+      -moz-transform: translate3d(-50%, -50%, 0) rotate(45deg);
+      -ms-transform: translate(-50%, -50%) rotate(45deg);
+      transform: translate3d(-50%, -50%, 0) rotate(45deg);
+      
+      /* GPU acceleration */
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Performance isolation */
+      contain: layout style paint;
+      isolation: isolate;
     }
     
+    /* Script Container with Modern GPU Techniques */
     .script-container {
       background: rgba(26, 28, 60, 0.8);
       border-radius: 15px;
@@ -103,25 +253,60 @@
       margin: 20px auto;
       max-width: 800px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      
+      /* Enhanced 3D context */
+      -webkit-transform-style: preserve-3d;
+      -moz-transform-style: preserve-3d;
       transform-style: preserve-3d;
+      -webkit-perspective: 1000px;
+      -moz-perspective: 1000px;
       perspective: 1000px;
+      
+      /* GPU optimization */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Performance containment */
+      contain: layout style paint;
+      isolation: isolate;
     }
     
+    /* Script Item with Cross-Browser 3D Effects */
     .script-item {
       background: linear-gradient(135deg, #1a1c3c, #2a2c4c);
       padding: 15px;
       margin: 10px 0;
       border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      
+      /* Cross-browser 3D transforms */
+      -webkit-transform-style: preserve-3d;
+      -moz-transform-style: preserve-3d;
       transform-style: preserve-3d;
+      
+      /* GPU acceleration */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform, box-shadow;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Performance optimization */
+      contain: layout style paint;
+      isolation: isolate;
     }
     
     .script-item:hover {
+      -webkit-transform: translateZ(20px) rotateX(5deg);
+      -moz-transform: translateZ(20px) rotateX(5deg);
       transform: translateZ(20px) rotateX(5deg);
       box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
-    
+
     /* Import custom font */
     @font-face {
       font-family: 'Permanent Marker';
@@ -136,7 +321,7 @@
       font-family: 'Permanent Marker', cursive, sans-serif !important;
     }
     
-    /* Animated X Logo Styles */
+    /* Enhanced X Logo with Cross-Browser GPU Acceleration */
     .x-logo {
       display: inline-block;
       font-size: 3.5em;
@@ -146,9 +331,21 @@
       animation: xRotate 4s linear infinite;
       margin-right: 15px;
       filter: drop-shadow(0 0 10px rgba(29, 161, 242, 0.6));
+      
+      /* Cross-browser GPU acceleration */
+      -webkit-transform: translateZ(0);
+      -moz-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform, text-shadow;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Performance isolation */
+      contain: layout style paint;
+      isolation: isolate;
     }
     
-    /* SVG X Logo Styles */
+    /* Enhanced SVG X Logo with GPU Optimization */
     .x-logo-svg {
       display: inline-block;
       width: 80px;
@@ -157,24 +354,84 @@
       vertical-align: middle;
       animation: xSvgRotate 6s ease-in-out infinite;
       filter: drop-shadow(0 0 20px rgba(29, 161, 242, 0.8));
+      
+      /* GPU acceleration for SVG */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform, filter;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Performance optimization */
+      contain: layout style paint;
+      isolation: isolate;
     }
     
     .x-path {
       animation: xPathGlow 3s ease-in-out infinite alternate;
+      
+      /* GPU acceleration for SVG paths */
+      will-change: stroke, stroke-width, filter;
+    }
+    
+    /* Cross-Browser Keyframe Animations with GPU Optimization */
+    @-webkit-keyframes xSvgRotate {
+      0%, 100% { 
+        -webkit-transform: rotate(0deg) scale3d(1, 1, 1);
+        transform: rotate(0deg) scale3d(1, 1, 1);
+      }
+      25% { 
+        -webkit-transform: rotate(5deg) scale3d(1.1, 1.1, 1);
+        transform: rotate(5deg) scale3d(1.1, 1.1, 1);
+      }
+      50% { 
+        -webkit-transform: rotate(0deg) scale3d(1.2, 1.2, 1);
+        transform: rotate(0deg) scale3d(1.2, 1.2, 1);
+      }
+      75% { 
+        -webkit-transform: rotate(-5deg) scale3d(1.1, 1.1, 1);
+        transform: rotate(-5deg) scale3d(1.1, 1.1, 1);
+      }
     }
     
     @keyframes xSvgRotate {
       0%, 100% { 
-        transform: rotate(0deg) scale(1); 
+        -webkit-transform: rotate(0deg) scale3d(1, 1, 1);
+        -moz-transform: rotate(0deg) scale3d(1, 1, 1);
+        transform: rotate(0deg) scale3d(1, 1, 1);
       }
       25% { 
-        transform: rotate(5deg) scale(1.1); 
+        -webkit-transform: rotate(5deg) scale3d(1.1, 1.1, 1);
+        -moz-transform: rotate(5deg) scale3d(1.1, 1.1, 1);
+        transform: rotate(5deg) scale3d(1.1, 1.1, 1);
       }
       50% { 
-        transform: rotate(0deg) scale(1.2); 
+        -webkit-transform: rotate(0deg) scale3d(1.2, 1.2, 1);
+        -moz-transform: rotate(0deg) scale3d(1.2, 1.2, 1);
+        transform: rotate(0deg) scale3d(1.2, 1.2, 1);
       }
       75% { 
-        transform: rotate(-5deg) scale(1.1); 
+        -webkit-transform: rotate(-5deg) scale3d(1.1, 1.1, 1);
+        -moz-transform: rotate(-5deg) scale3d(1.1, 1.1, 1);
+        transform: rotate(-5deg) scale3d(1.1, 1.1, 1);
+      }
+    }
+    
+    @-webkit-keyframes xPathGlow {
+      0% { 
+        stroke: #1DA1F2;
+        stroke-width: 35;
+        filter: drop-shadow(0 0 10px rgba(29, 161, 242, 0.6));
+      }
+      50% { 
+        stroke: #3DB4F5;
+        stroke-width: 40;
+        filter: drop-shadow(0 0 25px rgba(29, 161, 242, 1));
+      }
+      100% { 
+        stroke: #1DA1F2;
+        stroke-width: 35;
+        filter: drop-shadow(0 0 10px rgba(29, 161, 242, 0.6));
       }
     }
     
@@ -196,7 +453,7 @@
       }
     }
     
-    /* lamHub text styling */
+    /* Enhanced lamHub Text with GPU Acceleration */
     .lamhub-text {
       display: inline-block;
       font-size: 2.2em;
@@ -209,10 +466,22 @@
       vertical-align: middle;
       font-weight: 800;
       letter-spacing: -0.02em;
+      
+      /* GPU acceleration for text gradients */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: background-position, transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Performance optimization */
+      contain: layout style paint;
+      isolation: isolate;
     }
     
-    @keyframes xGlow {
-      0%, 100% {
+    /* Cross-Browser Gradient Animation */
+    @-webkit-keyframes gradientShift {
+      0%, 100% { 
         background-position: 0% 50%;
         filter: brightness(1);
       }
@@ -222,15 +491,75 @@
       }
     }
     
-    @keyframes xRotate {
-      0% { transform: rotate(0deg) scale(1); text-shadow: 0 0 20px rgba(29, 161, 242, 0.8); }
-      25% { transform: rotate(3deg) scale(1.05); text-shadow: 0 0 25px rgba(29, 161, 242, 0.9); }
-      50% { transform: rotate(0deg) scale(1); text-shadow: 0 0 30px rgba(29, 161, 242, 1); }
-      75% { transform: rotate(-3deg) scale(1.05); text-shadow: 0 0 25px rgba(29, 161, 242, 0.9); }
-      100% { transform: rotate(0deg) scale(1); text-shadow: 0 0 20px rgba(29, 161, 242, 0.8); }
+    @keyframes gradientShift {
+      0%, 100% { 
+        background-position: 0% 50%;
+        filter: brightness(1);
+      }
+      50% {
+        background-position: 100% 50%;
+        filter: brightness(1.5);
+      }
     }
     
-    /* Enhanced title styling with gradient */
+    /* Enhanced X Rotation Animation */
+    @-webkit-keyframes xRotate {
+      0% { 
+        -webkit-transform: rotate(0deg) scale3d(1, 1, 1);
+        text-shadow: 0 0 20px rgba(29, 161, 242, 0.8);
+      }
+      25% { 
+        -webkit-transform: rotate(3deg) scale3d(1.05, 1.05, 1);
+        text-shadow: 0 0 25px rgba(29, 161, 242, 0.9);
+      }
+      50% { 
+        -webkit-transform: rotate(0deg) scale3d(1, 1, 1);
+        text-shadow: 0 0 30px rgba(29, 161, 242, 1);
+      }
+      75% { 
+        -webkit-transform: rotate(-3deg) scale3d(1.05, 1.05, 1);
+        text-shadow: 0 0 25px rgba(29, 161, 242, 0.9);
+      }
+      100% { 
+        -webkit-transform: rotate(0deg) scale3d(1, 1, 1);
+        text-shadow: 0 0 20px rgba(29, 161, 242, 0.8);
+      }
+    }
+    
+    @keyframes xRotate {
+      0% { 
+        -webkit-transform: rotate(0deg) scale3d(1, 1, 1);
+        -moz-transform: rotate(0deg) scale3d(1, 1, 1);
+        transform: rotate(0deg) scale3d(1, 1, 1);
+        text-shadow: 0 0 20px rgba(29, 161, 242, 0.8);
+      }
+      25% { 
+        -webkit-transform: rotate(3deg) scale3d(1.05, 1.05, 1);
+        -moz-transform: rotate(3deg) scale3d(1.05, 1.05, 1);
+        transform: rotate(3deg) scale3d(1.05, 1.05, 1);
+        text-shadow: 0 0 25px rgba(29, 161, 242, 0.9);
+      }
+      50% { 
+        -webkit-transform: rotate(0deg) scale3d(1, 1, 1);
+        -moz-transform: rotate(0deg) scale3d(1, 1, 1);
+        transform: rotate(0deg) scale3d(1, 1, 1);
+        text-shadow: 0 0 30px rgba(29, 161, 242, 1);
+      }
+      75% { 
+        -webkit-transform: rotate(-3deg) scale3d(1.05, 1.05, 1);
+        -moz-transform: rotate(-3deg) scale3d(1.05, 1.05, 1);
+        transform: rotate(-3deg) scale3d(1.05, 1.05, 1);
+        text-shadow: 0 0 25px rgba(29, 161, 242, 0.9);
+      }
+      100% { 
+        -webkit-transform: rotate(0deg) scale3d(1, 1, 1);
+        -moz-transform: rotate(0deg) scale3d(1, 1, 1);
+        transform: rotate(0deg) scale3d(1, 1, 1);
+        text-shadow: 0 0 20px rgba(29, 161, 242, 0.8);
+      }
+    }
+    
+    /* Enhanced Main Title with Modern GPU Acceleration */
     .main-title {
       font-size: 3.5em;
       display: flex;
@@ -239,14 +568,23 @@
       margin-bottom: 16px;
       font-weight: 800;
       letter-spacing: -0.02em;
+      
+      /* GPU acceleration for title */
+      -webkit-transform: translateZ(0);
+      -moz-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Performance optimization */
+      contain: layout style paint;
+      isolation: isolate;
+      content-visibility: auto;
     }
     
-    @keyframes gradientShift {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-    
-    /* Script text white and bigger */
+    /* Enhanced Script Card Headings */
     .script-card h2 {
       color: #ffffff;
       font-size: 1.8em;
@@ -254,6 +592,25 @@
       text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2), 0 0 20px rgba(255, 255, 255, 0.1);
       margin-bottom: 15px;
       letter-spacing: 0.5px;
+      
+      /* GPU acceleration for headings */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      text-rendering: optimizeSpeed;
+      -webkit-font-smoothing: antialiased;
+      
+      /* Performance isolation */
+      contain: layout style;
+    }
+    
+    /* Cross-Browser Script Gradient Animation */
+    @-webkit-keyframes scriptGradient {
+      0%, 100% { background-position: 0% 50%; }
+      33% { background-position: 100% 50%; }
+      66% { background-position: 0% 100%; }
     }
     
     @keyframes scriptGradient {
@@ -262,28 +619,62 @@
       66% { background-position: 0% 100%; }
     }
     
-    /* Character dancing animation */
+    /* Enhanced Character Dancing Animation */
     .dancing-text span {
       display: inline-block;
       animation: char-dance 2s ease-in-out infinite;
+      
+      /* GPU acceleration for individual characters */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Performance optimization */
+      contain: layout style;
+      isolation: isolate;
+    }
+    
+    @-webkit-keyframes char-dance {
+      0%, 100% {
+        -webkit-transform: translate3d(0, 0, 0);
+      }
+      25% {
+        -webkit-transform: translate3d(var(--dance-x-1), var(--dance-y-1), 0);
+      }
+      50% {
+        -webkit-transform: translate3d(var(--dance-x-2), var(--dance-y-2), 0);
+      }
+      75% {
+        -webkit-transform: translate3d(var(--dance-x-3), var(--dance-y-3), 0);
+      }
     }
     
     @keyframes char-dance {
       0%, 100% {
-        transform: translate(0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
+        -moz-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
       }
       25% {
-        transform: translate(var(--dance-x-1), var(--dance-y-1));
+        -webkit-transform: translate3d(var(--dance-x-1), var(--dance-y-1), 0);
+        -moz-transform: translate3d(var(--dance-x-1), var(--dance-y-1), 0);
+        transform: translate3d(var(--dance-x-1), var(--dance-y-1), 0);
       }
       50% {
-        transform: translate(var(--dance-x-2), var(--dance-y-2));
+        -webkit-transform: translate3d(var(--dance-x-2), var(--dance-y-2), 0);
+        -moz-transform: translate3d(var(--dance-x-2), var(--dance-y-2), 0);
+        transform: translate3d(var(--dance-x-2), var(--dance-y-2), 0);
       }
       75% {
-        transform: translate(var(--dance-x-3), var(--dance-y-3));
+        -webkit-transform: translate3d(var(--dance-x-3), var(--dance-y-3), 0);
+        -moz-transform: translate3d(var(--dance-x-3), var(--dance-y-3), 0);
+        transform: translate3d(var(--dance-x-3), var(--dance-y-3), 0);
       }
     }
     
-    /* BIOS Loading Screen */
+    /* BIOS Loading Screen with GPU Optimization */
     #bios-screen {
       position: fixed;
       top: 0;
@@ -299,12 +690,34 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      
+      /* GPU acceleration for BIOS screen */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: opacity, transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Performance optimization */
+      contain: layout style paint;
+      isolation: isolate;
     }
     
     .bios-text {
       margin: 2px 0;
       opacity: 0;
       animation: bios-appear 0.1s forwards;
+      
+      /* GPU acceleration for BIOS text */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: opacity;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+    
+    @-webkit-keyframes bios-appear {
+      to { opacity: 1; }
     }
     
     @keyframes bios-appear {
@@ -317,13 +730,24 @@
       height: 14px;
       background: #fff;
       animation: bios-blink 1s step-start infinite;
+      
+      /* GPU acceleration for cursor */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: opacity;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+    
+    @-webkit-keyframes bios-blink {
+      50% { opacity: 0; }
     }
     
     @keyframes bios-blink {
       50% { opacity: 0; }
     }
     
-    /* Windows XP Entry Screen */
+    /* Enhanced Windows XP Entry Screen */
     #xp-login-screen {
       position: fixed;
       top: 0;
@@ -336,6 +760,17 @@
       align-items: center;
       justify-content: center;
       font-family: 'Tahoma', sans-serif !important;
+      
+      /* GPU acceleration for XP screen */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: opacity, transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Performance optimization */
+      contain: layout style paint;
+      isolation: isolate;
     }
     
     .xp-login-box {
@@ -346,6 +781,17 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
       text-align: center;
       max-width: 320px;
+      
+      /* GPU acceleration for login box */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform, box-shadow;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Performance optimization */
+      contain: layout style paint;
+      isolation: isolate;
     }
     
     .xp-logo {
@@ -357,6 +803,13 @@
       font-size: 48px;
       font-weight: bold;
       margin-bottom: 20px;
+      
+      /* GPU acceleration for logo */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
     }
     
     .xp-user-icon {
@@ -370,12 +823,30 @@
       justify-content: center;
       font-size: 40px;
       color: white;
+      
+      /* GPU acceleration for user icon */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Performance optimization */
+      contain: layout style paint;
+      isolation: isolate;
     }
     
     .xp-username {
       font-size: 16px;
       color: #003399;
       margin-bottom: 20px;
+      
+      /* GPU acceleration for text */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
     }
     
     .xp-login-btn {
@@ -387,44 +858,37 @@
       font-size: 14px;
       cursor: pointer;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-      transition: all 0.2s;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      
+      /* GPU acceleration for button */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform, background, box-shadow;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Performance optimization */
+      contain: layout style paint;
+      isolation: isolate;
     }
     
     .xp-login-btn:hover {
       background: linear-gradient(to bottom, #e4e4e4, #d0d0d0);
+      -webkit-transform: translateZ(0) scale(1.02);
+      transform: translateZ(0) scale(1.02);
     }
     
     .xp-login-btn:active {
-      transform: translateY(1px);
+      -webkit-transform: translateZ(0) translateY(1px) scale(0.98);
+      transform: translateZ(0) translateY(1px) scale(0.98);
     }
-    
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1c3c 50%, #0a0a0a 100%);
-      color: #f0f0f0;
-      padding: 40px 20px;
-      min-height: 100vh;
-      box-sizing: border-box;
-      overflow-x: hidden;
-      position: relative;
-      overflow: visible !important;
-      
-      /* Enhanced GPU acceleration for body */
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
-      will-change: scroll-position;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      /* Force composite layer for better scrolling performance */
-      contain: layout style;
-    }
-    
+
     /* Hide the wave background */
     #wave-background {
       display: none !important;
     }
     
-    /* Gradient text effects with standard properties */
+    /* Enhanced Main Title with Cross-Browser GPU Acceleration */
     .main-title {
       font-size: 3.5em;
       font-weight: 800;
@@ -437,12 +901,20 @@
       letter-spacing: -0.02em;
       text-shadow: none;
       
-      /* Enhanced GPU acceleration for title */
+      /* Enhanced cross-browser GPU acceleration */
       -webkit-transform: translateZ(0);
+      -moz-transform: translateZ(0);
+      -ms-transform: translateZ(0);
       transform: translateZ(0);
       will-change: transform;
       -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
       backface-visibility: hidden;
+      
+      /* Performance optimization */
+      contain: layout style paint;
+      isolation: isolate;
+      content-visibility: auto;
     }
     
     .subtitle {
@@ -452,36 +924,76 @@
       margin-bottom: 48px;
       font-weight: 400;
       letter-spacing: 0.01em;
+      
+      /* GPU acceleration for subtitle */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      
+      /* Performance optimization */
+      contain: layout style;
+    }
+    
+    /* Enhanced Glow Pulse Dance Animation */
+    @-webkit-keyframes glow-pulse-dance {
+        0% { 
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.6), 0 0 40px rgba(102, 126, 234, 0.4);
+            -webkit-transform: translateZ(0) scale3d(1, 1, 1) rotate(0deg) translate3d(0, 0, 0);
+        }
+        25% { 
+            text-shadow: 0 0 25px rgba(102, 126, 234, 0.7), 0 0 50px rgba(102, 126, 234, 0.5);
+            -webkit-transform: translateZ(0) scale3d(1.01, 1.01, 1) rotate(1deg) translate3d(0, -5px, 0);
+        }
+        50% { 
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.8), 0 0 60px rgba(102, 126, 234, 0.6);
+            -webkit-transform: translateZ(0) scale3d(1.02, 1.02, 1) rotate(0deg) translate3d(0, -10px, 0);
+        }
+        75% { 
+            text-shadow: 0 0 25px rgba(102, 126, 234, 0.7), 0 0 50px rgba(102, 126, 234, 0.5);
+            -webkit-transform: translateZ(0) scale3d(1.01, 1.01, 1) rotate(-1deg) translate3d(0, -5px, 0);
+        }
+        100% { 
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.6), 0 0 40px rgba(102, 126, 234, 0.4);
+            -webkit-transform: translateZ(0) scale3d(1, 1, 1) rotate(0deg) translate3d(0, 0, 0);
+        }
     }
     
     @keyframes glow-pulse-dance {
         0% { 
             text-shadow: 0 0 20px rgba(102, 126, 234, 0.6), 0 0 40px rgba(102, 126, 234, 0.4);
             -webkit-transform: translateZ(0) scale3d(1, 1, 1) rotate(0deg) translate3d(0, 0, 0);
+            -moz-transform: translateZ(0) scale3d(1, 1, 1) rotate(0deg) translate3d(0, 0, 0);
             transform: translateZ(0) scale3d(1, 1, 1) rotate(0deg) translate3d(0, 0, 0);
         }
         25% { 
             text-shadow: 0 0 25px rgba(102, 126, 234, 0.7), 0 0 50px rgba(102, 126, 234, 0.5);
             -webkit-transform: translateZ(0) scale3d(1.01, 1.01, 1) rotate(1deg) translate3d(0, -5px, 0);
+            -moz-transform: translateZ(0) scale3d(1.01, 1.01, 1) rotate(1deg) translate3d(0, -5px, 0);
             transform: translateZ(0) scale3d(1.01, 1.01, 1) rotate(1deg) translate3d(0, -5px, 0);
         }
         50% { 
             text-shadow: 0 0 30px rgba(102, 126, 234, 0.8), 0 0 60px rgba(102, 126, 234, 0.6);
             -webkit-transform: translateZ(0) scale3d(1.02, 1.02, 1) rotate(0deg) translate3d(0, -10px, 0);
+            -moz-transform: translateZ(0) scale3d(1.02, 1.02, 1) rotate(0deg) translate3d(0, -10px, 0);
             transform: translateZ(0) scale3d(1.02, 1.02, 1) rotate(0deg) translate3d(0, -10px, 0);
         }
         75% { 
             text-shadow: 0 0 25px rgba(102, 126, 234, 0.7), 0 0 50px rgba(102, 126, 234, 0.5);
             -webkit-transform: translateZ(0) scale3d(1.01, 1.01, 1) rotate(-1deg) translate3d(0, -5px, 0);
+            -moz-transform: translateZ(0) scale3d(1.01, 1.01, 1) rotate(-1deg) translate3d(0, -5px, 0);
             transform: translateZ(0) scale3d(1.01, 1.01, 1) rotate(-1deg) translate3d(0, -5px, 0);
         }
         100% { 
             text-shadow: 0 0 20px rgba(102, 126, 234, 0.6), 0 0 40px rgba(102, 126, 234, 0.4);
             -webkit-transform: translateZ(0) scale3d(1, 1, 1) rotate(0deg) translate3d(0, 0, 0);
+            -moz-transform: translateZ(0) scale3d(1, 1, 1) rotate(0deg) translate3d(0, 0, 0);
             transform: translateZ(0) scale3d(1, 1, 1) rotate(0deg) translate3d(0, 0, 0);
         }
     }
     
+    /* Enhanced Search Container with Modern GPU Techniques */
     .search-container {
         margin-bottom: 30px;
         position: relative;
@@ -491,10 +1003,17 @@
         
         /* GPU acceleration for search container */
         -webkit-transform: translateZ(0);
+        -moz-transform: translateZ(0);
         transform: translateZ(0);
         will-change: opacity, transform;
         -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
         backface-visibility: hidden;
+        
+        /* Performance optimization */
+        contain: layout style paint;
+        isolation: isolate;
+        content-visibility: auto;
     }
     
     #search-bar {
@@ -940,18 +1459,26 @@
         
         /* Enhanced cross-platform GPU acceleration */
         -webkit-transform: translateZ(0) translate3d(0, 0, 0);
+        -moz-transform: translateZ(0) translate3d(0, 0, 0);
+        -ms-transform: translateZ(0) translate3d(0, 0, 0);
         transform: translateZ(0) translate3d(0, 0, 0);
+        
+        /* Cross-browser 3D context */
         -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
         transform-style: preserve-3d;
         will-change: transform, box-shadow, background;
         -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
         backface-visibility: hidden;
         -webkit-perspective: 1000px;
+        -moz-perspective: 1000px;
         perspective: 1000px;
         
-        /* Force composite layer */
+        /* Force composite layer and performance optimization */
         isolation: isolate;
         contain: layout style paint;
+        content-visibility: auto;
     }
     
     .btn::before {
@@ -965,23 +1492,31 @@
             transparent, 
             rgba(255, 255, 255, 0.2), 
             transparent);
-        transition: left 0.5s ease;
+        transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         
         /* GPU acceleration for button shine effect */
         -webkit-transform: translateZ(0);
+        -moz-transform: translateZ(0);
         transform: translateZ(0);
         will-change: transform, left;
         -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
         backface-visibility: hidden;
+        
+        /* Performance optimization */
+        contain: layout style paint;
     }
     
     .btn:hover {
         background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(192, 38, 211, 0.7));
-        -webkit-transform: translateZ(0) perspective(1000px) rotateX(-10deg) translateY(-4px) scale(1.05) translate3d(0, -4px, 0);
-        transform: translateZ(0) perspective(1000px) rotateX(-10deg) translateY(-4px) scale(1.05) translate3d(0, -4px, 0);
         box-shadow: 
             0 15px 30px rgba(0, 0, 0, 0.4),
             inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        
+        /* Cross-browser 3D hover effects */
+        -webkit-transform: translateZ(0) perspective(1000px) rotateX(-10deg) translateY(-4px) scale3d(1.05, 1.05, 1) translate3d(0, -4px, 0);
+        -moz-transform: translateZ(0) perspective(1000px) rotateX(-10deg) translateY(-4px) scale3d(1.05, 1.05, 1) translate3d(0, -4px, 0);
+        transform: translateZ(0) perspective(1000px) rotateX(-10deg) translateY(-4px) scale3d(1.05, 1.05, 1) translate3d(0, -4px, 0);
     }
     
     .btn:hover::before {
@@ -989,15 +1524,32 @@
     }
     
     .btn:active {
-        -webkit-transform: translateZ(0) perspective(1000px) rotateX(-5deg) translateY(-2px) scale(1.02) translate3d(0, -2px, 0);
-        transform: translateZ(0) perspective(1000px) rotateX(-5deg) translateY(-2px) scale(1.02) translate3d(0, -2px, 0);
         box-shadow: 
             0 8px 20px rgba(0, 0, 0, 0.3),
             inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        
+        /* Cross-browser active state */
+        -webkit-transform: translateZ(0) perspective(1000px) rotateX(-5deg) translateY(-2px) scale3d(1.02, 1.02, 1) translate3d(0, -2px, 0);
+        -moz-transform: translateZ(0) perspective(1000px) rotateX(-5deg) translateY(-2px) scale3d(1.02, 1.02, 1) translate3d(0, -2px, 0);
+        transform: translateZ(0) perspective(1000px) rotateX(-5deg) translateY(-2px) scale3d(1.02, 1.02, 1) translate3d(0, -2px, 0);
     }
     
+    /* Enhanced Copy Button with GPU Acceleration */
     .copy-btn {
         background: linear-gradient(135deg, rgba(79, 70, 229, 0.8), rgba(192, 38, 211, 0.6));
+        
+        /* Cross-browser GPU acceleration */
+        -webkit-transform: translateZ(0);
+        -moz-transform: translateZ(0);
+        transform: translateZ(0);
+        will-change: transform, background, box-shadow;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        backface-visibility: hidden;
+        
+        /* Performance optimization */
+        contain: layout style paint;
+        isolation: isolate;
     }
     
     .copy-btn.copied {
@@ -4445,6 +4997,411 @@
     function generateRandomLoadstring() {
       return "loadstring(game:HttpGet('https://raw.githubusercontent.com/rdevx23/Serga-script/refs/heads/main/6932136870165757.lua'))()";
     }
+  </script>
+
+  <script>
+    // =================================
+    // COMPREHENSIVE GPU ACCELERATION PERFORMANCE MONITOR
+    // Based on extensive research findings
+    // =================================
+    
+    class GPUPerformanceMonitor {
+      constructor() {
+        this.isDebugMode = window.location.search.includes('debug=true');
+        this.metrics = {
+          compositeLayerCount: 0,
+          animationPerformance: {},
+          memoryUsage: {},
+          renderingStats: {},
+          gpuAcceleration: {
+            supported: false,
+            active: false,
+            features: {}
+          }
+        };
+        
+        this.init();
+      }
+      
+      init() {
+        this.detectGPUSupport();
+        this.optimizeAnimations();
+        this.setupPerformanceObserver();
+        this.monitorCompositeLayers();
+        
+        if (this.isDebugMode) {
+          this.createDebugPanel();
+          this.startRealTimeMonitoring();
+        }
+        
+        // Strategic will-change management
+        this.manageWillChange();
+        
+        // Cross-browser optimization
+        this.applyCrossBrowserOptimizations();
+      }
+      
+      detectGPUSupport() {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        
+        this.metrics.gpuAcceleration = {
+          supported: !!gl,
+          active: !!gl,
+          features: {
+            webgl: !!gl,
+            transform3d: this.supportsTransform3D(),
+            backfaceVisibility: this.supportsBackfaceVisibility(),
+            willChange: this.supportsWillChange(),
+            contain: this.supportsContainment(),
+            backdropFilter: this.supportsBackdropFilter()
+          }
+        };
+        
+        // Fallback optimizations for non-GPU systems
+        if (!this.metrics.gpuAcceleration.supported) {
+          this.applyFallbackOptimizations();
+        }
+      }
+      
+      supportsTransform3D() {
+        const el = document.createElement('div');
+        el.style.transform = 'translateZ(0)';
+        return el.style.transform !== '';
+      }
+      
+      supportsBackfaceVisibility() {
+        const prefixes = ['', '-webkit-', '-moz-', '-ms-'];
+        const el = document.createElement('div');
+        
+        return prefixes.some(prefix => {
+          el.style.cssText = `${prefix}backface-visibility: hidden;`;
+          return el.style.length > 0;
+        });
+      }
+      
+      supportsWillChange() {
+        return 'willChange' in document.documentElement.style;
+      }
+      
+      supportsContainment() {
+        return 'contain' in document.documentElement.style;
+      }
+      
+      supportsBackdropFilter() {
+        const prefixes = ['backdropFilter', 'webkitBackdropFilter'];
+        return prefixes.some(prop => prop in document.documentElement.style);
+      }
+      
+      optimizeAnimations() {
+        // Optimize all animated elements
+        const animatedElements = document.querySelectorAll(`
+          .floating, .x-logo, .x-logo-svg, .dancing-text span,
+          .script-card, .btn, .tag, .loader-bar, .bios-cursor
+        `);
+        
+        animatedElements.forEach(el => {
+          this.optimizeElement(el);
+        });
+      }
+      
+      optimizeElement(element) {
+        // Force GPU acceleration with cross-browser support
+        const transforms = [
+          'translateZ(0)',
+          'translate3d(0, 0, 0)'
+        ];
+        
+        const prefixes = ['-webkit-', '-moz-', '-ms-', ''];
+        
+        prefixes.forEach(prefix => {
+          element.style.setProperty(`${prefix}transform`, 'translateZ(0)', 'important');
+          element.style.setProperty(`${prefix}backface-visibility`, 'hidden', 'important');
+        });
+        
+        // Modern CSS optimizations
+        if (this.metrics.gpuAcceleration.features.contain) {
+          element.style.contain = 'layout style paint';
+        }
+        
+        if (this.metrics.gpuAcceleration.features.willChange) {
+          element.style.willChange = 'transform';
+        }
+        
+        // Isolation for layer promotion
+        element.style.isolation = 'isolate';
+      }
+      
+      manageWillChange() {
+        // Strategic will-change management to prevent memory leaks
+        const elements = document.querySelectorAll('[style*="will-change"]');
+        
+        elements.forEach(el => {
+          // Remove will-change after animations complete
+          el.addEventListener('animationend', () => {
+            el.style.willChange = 'auto';
+          });
+          
+          // Re-add will-change before animations start
+          el.addEventListener('animationstart', () => {
+            el.style.willChange = 'transform';
+          });
+        });
+      }
+      
+      applyCrossBrowserOptimizations() {
+        // Browser-specific optimizations
+        const isWebkit = /webkit/i.test(navigator.userAgent);
+        const isFirefox = /firefox/i.test(navigator.userAgent);
+        const isEdge = /edge/i.test(navigator.userAgent);
+        
+        if (isWebkit) {
+          this.applyWebkitOptimizations();
+        } else if (isFirefox) {
+          this.applyFirefoxOptimizations();
+        } else if (isEdge) {
+          this.applyEdgeOptimizations();
+        }
+      }
+      
+      applyWebkitOptimizations() {
+        // Webkit-specific GPU acceleration hints
+        document.documentElement.style.webkitTransform = 'translateZ(0)';
+        document.documentElement.style.webkitBackfaceVisibility = 'hidden';
+      }
+      
+      applyFirefoxOptimizations() {
+        // Firefox-specific optimizations
+        document.documentElement.style.mozTransform = 'translateZ(0)';
+        document.documentElement.style.mozBackfaceVisibility = 'hidden';
+      }
+      
+      applyEdgeOptimizations() {
+        // Edge-specific optimizations
+        document.documentElement.style.msTransform = 'translateZ(0)';
+      }
+      
+      setupPerformanceObserver() {
+        if ('PerformanceObserver' in window) {
+          const observer = new PerformanceObserver((list) => {
+            const entries = list.getEntries();
+            entries.forEach(entry => {
+              if (entry.entryType === 'paint') {
+                this.metrics.renderingStats[entry.name] = entry.startTime;
+              }
+            });
+          });
+          
+          observer.observe({ entryTypes: ['paint', 'navigation'] });
+        }
+      }
+      
+      monitorCompositeLayers() {
+        // Monitor composite layer count (approximation)
+        const layerElements = document.querySelectorAll(`
+          [style*="translateZ"], [style*="translate3d"], 
+          [style*="will-change"], [style*="isolation"]
+        `);
+        
+        this.metrics.compositeLayerCount = layerElements.length;
+      }
+      
+      createDebugPanel() {
+        const debugPanel = document.createElement('div');
+        debugPanel.className = 'perf-debug';
+        debugPanel.innerHTML = `
+          <div><strong>GPU Acceleration Debug</strong></div>
+          <div>GPU Support: ${this.metrics.gpuAcceleration.supported ? '✓' : '✗'}</div>
+          <div>Composite Layers: <span id="layer-count">${this.metrics.compositeLayerCount}</span></div>
+          <div>Transform3D: ${this.metrics.gpuAcceleration.features.transform3d ? '✓' : '✗'}</div>
+          <div>Will-Change: ${this.metrics.gpuAcceleration.features.willChange ? '✓' : '✗'}</div>
+          <div>Containment: ${this.metrics.gpuAcceleration.features.contain ? '✓' : '✗'}</div>
+          <div>Backdrop Filter: ${this.metrics.gpuAcceleration.features.backdropFilter ? '✓' : '✗'}</div>
+          <div>FCP: <span id="fcp-time">-</span>ms</div>
+          <div>LCP: <span id="lcp-time">-</span>ms</div>
+        `;
+        
+        document.body.appendChild(debugPanel);
+      }
+      
+      startRealTimeMonitoring() {
+        setInterval(() => {
+          this.updateDebugPanel();
+          this.monitorCompositeLayers();
+        }, 1000);
+      }
+      
+      updateDebugPanel() {
+        const layerCountEl = document.getElementById('layer-count');
+        const fcpTimeEl = document.getElementById('fcp-time');
+        const lcpTimeEl = document.getElementById('lcp-time');
+        
+        if (layerCountEl) {
+          layerCountEl.textContent = this.metrics.compositeLayerCount;
+        }
+        
+        if (fcpTimeEl && this.metrics.renderingStats['first-contentful-paint']) {
+          fcpTimeEl.textContent = Math.round(this.metrics.renderingStats['first-contentful-paint']);
+        }
+        
+        if (lcpTimeEl && this.metrics.renderingStats['largest-contentful-paint']) {
+          lcpTimeEl.textContent = Math.round(this.metrics.renderingStats['largest-contentful-paint']);
+        }
+      }
+      
+      applyFallbackOptimizations() {
+        // Fallback optimizations for systems without GPU acceleration
+        const elements = document.querySelectorAll('.script-card, .btn, .tag');
+        
+        elements.forEach(el => {
+          // Disable complex animations
+          el.style.animation = 'none';
+          el.style.transition = 'opacity 0.3s ease';
+          
+          // Use simple opacity changes instead of transforms
+          el.addEventListener('mouseenter', () => {
+            el.style.opacity = '0.8';
+          });
+          
+          el.addEventListener('mouseleave', () => {
+            el.style.opacity = '1';
+          });
+        });
+      }
+      
+      // Performance optimization utilities
+      debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+          const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+          };
+          clearTimeout(timeout);
+          timeout = setTimeout(later, wait);
+        };
+      }
+      
+      throttle(func, limit) {
+        let inThrottle;
+        return function() {
+          const args = arguments;
+          const context = this;
+          if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+          }
+        };
+      }
+    }
+    
+    // =================================
+    // INTERSECTION OBSERVER FOR PERFORMANCE
+    // ================================= 
+    
+    class IntersectionOptimizer {
+      constructor() {
+        this.init();
+      }
+      
+      init() {
+        if ('IntersectionObserver' in window) {
+          this.setupIntersectionObserver();
+        }
+      }
+      
+      setupIntersectionObserver() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              // Add will-change when element comes into view
+              entry.target.style.willChange = 'transform, opacity';
+              
+              // Start animations
+              if (entry.target.classList.contains('script-card')) {
+                entry.target.style.animationPlayState = 'running';
+              }
+            } else {
+              // Remove will-change when element leaves view
+              entry.target.style.willChange = 'auto';
+              
+              // Pause animations to save resources
+              if (entry.target.classList.contains('script-card')) {
+                entry.target.style.animationPlayState = 'paused';
+              }
+            }
+          });
+        }, {
+          rootMargin: '50px 0px',
+          threshold: 0.1
+        });
+        
+        // Observe all animated elements
+        const elements = document.querySelectorAll('.script-card, .btn, .tag, .floating');
+        elements.forEach(el => observer.observe(el));
+      }
+    }
+    
+    // =================================
+    // INITIALIZATION
+    // =================================
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize performance monitoring
+      window.gpuMonitor = new GPUPerformanceMonitor();
+      window.intersectionOptimizer = new IntersectionOptimizer();
+      
+      // Apply responsive optimizations
+      const mediaQuery = window.matchMedia('(max-width: 768px)');
+      const handleMobileOptimization = (e) => {
+        if (e.matches) {
+          // Apply mobile-specific optimizations
+          document.body.classList.add('mobile-optimized');
+          
+          // Reduce animation complexity on mobile
+          const complexAnimations = document.querySelectorAll('.floating, .x-logo, .dancing-text span');
+          complexAnimations.forEach(el => {
+            el.style.animationDuration = '4s';
+            el.style.animationTimingFunction = 'ease-in-out';
+          });
+        } else {
+          document.body.classList.remove('mobile-optimized');
+        }
+      };
+      
+      mediaQuery.addListener(handleMobileOptimization);
+      handleMobileOptimization(mediaQuery);
+      
+      // Memory cleanup on page unload
+      window.addEventListener('beforeunload', () => {
+        // Clear all will-change properties
+        const elementsWithWillChange = document.querySelectorAll('[style*="will-change"]');
+        elementsWithWillChange.forEach(el => {
+          el.style.willChange = 'auto';
+        });
+        
+        // Cancel any ongoing animations
+        const animatedElements = document.querySelectorAll('[style*="animation"]');
+        animatedElements.forEach(el => {
+          el.style.animationPlayState = 'paused';
+        });
+      });
+      
+      // Console output for developers
+      console.log('🚀 GPU Acceleration System Initialized');
+      console.log('📊 Performance Monitor Active');
+      console.log('🎯 Cross-Browser Optimizations Applied');
+      console.log('📱 Mobile Optimizations Ready');
+      console.log('🔧 Add ?debug=true to URL for performance panel');
+    });
+    
+    // Export for debugging
+    window.GPU_ACCELERATION_INFO = {
+      version: '2.0.0',
+      features: 'Cross-browser GPU acceleration with comprehensive performance monitoring',
+      usage: 'Add ?debug=true to URL to see performance metrics'
+    };
   </script>
 </body>
 </html> 
