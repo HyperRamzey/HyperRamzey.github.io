@@ -4443,8 +4443,7 @@
     // Link generators
     const luaFiles = ['6932136870165757.lua', '6932136870165757.lua'];
     function generateRandomLoadstring() {
-      const randomFile = luaFiles[Math.floor(Math.random() * luaFiles.length)];
-      return `loadstring(game:HttpGet(https://raw.githubusercontent.com/rdevx23/Serga-script/refs/heads/main/${randomFile}'))()`;
+      return "loadstring(game:HttpGet('https://raw.githubusercontent.com/rdevx23/Serga-script/refs/heads/main/6932136870165757.lua'))()";
     }
   </script>
 </body>
