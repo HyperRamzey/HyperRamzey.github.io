@@ -1,4 +1,4 @@
-# robots.txt for xlam HUB — https://hyperramzey.github.io/xhub/
+# robots.txt for xlam HUB — https://hyperramzey.github.io/
 User-agent: *
 Allow: /
 
@@ -18,4 +18,4 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-Sitemap: https://hyperramzey.github.io/xhub/sitemap.xml
+Sitemap: https://hyperramzey.github.io/sitemap.xml
