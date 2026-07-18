@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0d1e">
+  <meta name="description" content="xlam HUB — community script hub for Adopt Me. Copy scripts, check executors, get updates.">
+  <meta name="robots" content="index, follow">
+  <title>xlam HUB</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Permanent+Marker&family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
+  <script type="module" src="/src/main.ts"></script>
+</head>
+<body data-stage="bios">
+
+  <!-- ============ STAGE 1: BIOS BOOT ============ -->
+  <section id="bios-screen" class="stage-layer" aria-label="Boot screen">
+    <pre id="bios-log" aria-live="polite"></pre>
+    <span class="bios-cursor" aria-hidden="true"></span>
+  </section>
+
+  <!-- ============ STAGE 2: XP LOGIN ============ -->
+  <section id="xp-login-screen" class="stage-layer" hidden aria-label="Login screen">
+    <div class="xp-login-box">
+      <div class="xp-logo dancing-text">xlam HUB</div>
+      <div class="xp-user-icon" aria-hidden="true">👤</div>
+      <div class="xp-username dancing-text">Guest User</div>
+      <button id="xp-login-btn" class="xp-login-btn" type="button">➜ Click here to begin</button>
+    </div>
+  </section>
+
+  <!-- ============ STAGE 3: LOADING BAR ============ -->
+  <div id="loading-bar" class="stage-layer" hidden aria-label="Loading">
+    <div class="loading-track"><div class="loading-fill"></div></div>
+  </div>
+
+  <!-- ============ AMBIENT LAYERS ============ -->
+  <canvas id="star-constellation" aria-hidden="true"></canvas>
+  <canvas id="smoke-canvas" aria-hidden="true"></canvas>
+  <div id="crt-overlay" aria-hidden="true"></div>
+  <div id="custom-cursor" aria-hidden="true"></div>
+
+  <!-- ============ FLYOUT MENU ============ -->
+  <button id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="flyout-menu" hidden>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <nav id="flyout-menu" aria-label="Settings menu">
+    <div class="flyout-content">
+      <h3>Settings</h3>
+      <button id="install-pwa" type="button" hidden>
+        <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        Install App
+      </button>
+      <button id="notifications-toggle" type="button">
+        <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+        Enable Notifications
+      </button>
+      <h3>Information</h3>
+      <a href="#executors" id="faq-link">
+        <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+        FAQ / Executors
+      </a>
+      <h3>Language</h3>
+      <label class="visually-hidden" for="language-selector">Language</label>
+      <select id="language-selector">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+      </select>
+    </div>
+  </nav>
+
+  <!-- ============ MAIN ============ -->
+  <main id="main-content" hidden>
+    <button id="free-pet-placard" class="placard" type="button">🎁 GET A FREE PET</button>
+    <button id="back-to-top" type="button" aria-label="Back to top">▲</button>
+
+    <header class="title-container">
+      <div id="logo-bottle" aria-hidden="true">
+        <div class="bottle"><div class="bottle-smoke"></div><div class="stick"></div></div>
+      </div>
+      <h1 class="main-title">
+        <svg class="x-logo-svg" width="80" height="80" viewBox="0 0 300 300" aria-hidden="true">
+          <path class="x-path" d="M 50 30 L 120 150 L 50 270 M 250 30 L 180 150 L 250 270" stroke="#2de2e6" stroke-width="35" stroke-linecap="round" fill="none"/>
+        </svg>
+        <span class="lamhub-text">lamHub</span>
+      </h1>
+    </header>
+    <p class="subtitle">made by scriptblox coders</p>
+
+    <div class="search-container">
+      <label class="visually-hidden" for="search-bar">Search for scripts</label>
+      <input type="search" id="search-bar" placeholder="Search for scripts…" autocomplete="off">
+    </div>
+
+    <div class="scripts-container" id="scripts-container">
+      <!-- cards rendered by src/cards.ts from src/data.ts -->
+    </div>
+    <p id="no-results" hidden>No scripts match your search.</p>
+
+    <footer>
+      <p>
+        <a href="https://hyperramzey.github.io/">XlamHub Github pages site</a> © 2026 by
+        <a href="https://github.com/HyperRamzey">HyperRamzey</a> is licensed under
+        <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="CC"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="BY"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="NC"><img src="https://mirrors.creativecommons.org/presskit/icons/nd.svg" alt="ND">
+      </p>
+    </footer>
+  </main>
+
+  <!-- ============ MODALS ============ -->
+  <div id="script-detail-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal-content">
+      <button class="close-modal" type="button" aria-label="Close">&times;</button>
+      <h2 id="modal-title">Script details</h2>
+      <div class="image-gallery">
+        <button class="gallery-img-container" type="button"><img src="https://hyperramzey.github.io/image2.jpg" alt="Script preview 1" class="gallery-img" loading="lazy"></button>
+        <button class="gallery-img-container" type="button"><img src="https://hyperramzey.github.io/image1.jpg" alt="Script preview 2" class="gallery-img" loading="lazy"></button>
+      </div>
+      <p id="modal-description"></p>
+      <button id="modal-copy-btn" class="btn copy-btn wide" type="button">💪 Copy Script</button>
+    </div>
+  </div>
+
+  <div id="pet-modal" class="modal-overlay" role="dialog" aria-modal="true" hidden>
+    <div class="modal-content">
+      <button class="close-modal" type="button" aria-label="Close">&times;</button>
+      <h2>Get Your Free Pet!</h2>
+      <p>To claim your free pet, follow these simple steps:</p>
+      <ol>
+        <li>Go to my <a href="https://www.tiktok.com/@yohd57" target="_blank" rel="noopener noreferrer">TikTok Profile</a>.</li>
+        <li>Like and comment on all of my videos.</li>
+        <li>Send me a Direct Message on TikTok when you're done.</li>
+      </ol>
+      <p>I'll get back to you with your reward!</p>
+    </div>
+  </div>
+
+  <div id="script-preview-modal" class="modal-overlay" role="dialog" aria-modal="true" hidden>
+    <div class="modal-content">
+      <button class="close-modal" type="button" aria-label="Close">&times;</button>
+      <h2>Script Link</h2>
+      <p>Your script is ready! It has been automatically copied to your clipboard.</p>
+      <pre id="script-link-display"></pre>
+      <div class="modal-actions">
+        <button id="manual-copy-btn" class="btn copy-btn" type="button">📋 Copy Again</button>
+      </div>
+      <p class="modal-hint">If you are stuck at loading, try to use newest android or ios delta executor or relaunch roblox if you are using it already</p>
+    </div>
+  </div>
+
+  <div id="executor-modal" class="modal-overlay" role="dialog" aria-modal="true" hidden>
+    <div class="modal-content">
+      <button class="close-modal" type="button" aria-label="Close">&times;</button>
+      <h2>Supported Executors</h2>
+      <p>SOME of the supported executors that those scripts should work on. Try them all:</p>
+      <ul class="executor-list">
+        <li><a href="https://deltaexploits.gg/" target="_blank" rel="noopener noreferrer">Delta:</a> Android, IOS, Free</li>
+        <li><a href="https://spdmteam.com/index" target="_blank" rel="noopener noreferrer">Arceus:</a> Android, IOS, Free</li>
+        <li><a href="https://codex.lol/" target="_blank" rel="noopener noreferrer">Codex:</a> Android: Free</li>
+        <li><a href="https://discord.gg/fluxus" target="_blank" rel="noopener noreferrer">Flux:</a> PC, Free</li>
+        <li><a href="https://getwave.gg/" target="_blank" rel="noopener noreferrer">Wave:</a> PC, 20 dollars/month</li>
+        <li><a href="https://www.vegax.gg/" target="_blank" rel="noopener noreferrer">Vega:</a> ??</li>
+        <li><a href="https://discord.gg/getswift" target="_blank" rel="noopener noreferrer">Swift:</a> PC, Free</li>
+        <li>Cryptic: Android, Free</li>
+        <li>Trigon: ??</li>
+        <li><a href="https://discord.gg/theargon" target="_blank" rel="noopener noreferrer">Argon:</a> PC, Free</li>
+        <li><a href="https://macsploit.co/" target="_blank" rel="noopener noreferrer">Macsploit:</a> Mac, 10 dollars/life</li>
+        <li><a href="https://evon.cc/" target="_blank" rel="noopener noreferrer">Evon:</a> Android, Free</li>
+        <li><a href="https://discord.gg/zovware" target="_blank" rel="noopener noreferrer">Seliware:</a> PC, 10 dollars/month</li>
+        <li><a href="https://discord.gg/awpgg" target="_blank" rel="noopener noreferrer">AWP:</a> PC, 20 dollars/month</li>
+        <li><a href="https://nihon.lol/" target="_blank" rel="noopener noreferrer">Nihon:</a> PC, 20 dollars/month</li>
+        <li><a href="https://www.getselene.net/" target="_blank" rel="noopener noreferrer">Selene:</a> PC, Free</li>
+        <li><a href="https://synapsez.net/" target="_blank" rel="noopener noreferrer">Synapse Z:</a> PC, 6.5 dollars/week</li>
+        <li><a href="https://sirhurt.net/" target="_blank" rel="noopener noreferrer">Sirhurt:</a> PC, 12 dollars/month</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="changelog-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="changelog-title" hidden>
+    <div class="modal-content">
+      <button class="close-modal" type="button" aria-label="Close">&times;</button>
+      <h2 id="changelog-title">Script Version History</h2>
+      <div class="version-history" id="version-history-content"></div>
+    </div>
+  </div>
+
+  <div id="image-overlay" class="image-overlay" role="dialog" aria-modal="true" hidden>
+    <button class="close-overlay" type="button" aria-label="Close image">&times;</button>
+    <img id="enlarged-image" class="enlarged-image" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Enlarged preview">
+  </div>
+
+  <!-- ============ AUTO PROMPTS ============ -->
+  <div id="notification-prompt" class="auto-prompt" role="alert" hidden>
+    <p><strong>📬 Stay Updated!</strong><br>Get notified about new scripts and updates every hour?</p>
+    <button class="accept-btn" type="button" data-action="enable-notifications">Enable</button>
+    <button class="dismiss-btn" type="button" data-action="dismiss">Maybe Later</button>
+  </div>
+  <div id="install-prompt" class="auto-prompt" role="alert" hidden>
+    <p><strong>📱 Install xlam HUB!</strong><br>Add to your home screen for quick access?</p>
+    <button class="accept-btn" type="button" data-action="install-pwa">Install</button>
+    <button class="dismiss-btn" type="button" data-action="dismiss">Not Now</button>
+  </div>
+
+</body>
+</html>
